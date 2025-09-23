@@ -4,13 +4,80 @@
   <meta charset="UTF-8">
   <title>World Time Zone Clock</title>
   <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; background:#f1efef; color:#fff; }
-    h1 { text-align:center; }
-    select { margin: 1rem auto; display:block; padding:0.5rem; border-radius:6px; }
-    .clock-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem; }
-    .clock { background: #444; padding: 1rem 1.5rem; border-radius: 10px; min-width: 220px; text-align: center; box-shadow: 0 0 10px #0004;}
-    .zone { font-size: 1rem; color: #aaa; margin-bottom: 0.5rem; display:flex; justify-content:center; align-items:center; gap:0.5rem; }
-    .time { font-size: 1.6rem; letter-spacing: 1px; }
+    body { 
+      font-family: 'Segoe UI', Arial, sans-serif; 
+      background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+      color: #333; 
+      margin: 0;
+      padding: 0;
+    }
+    h1 { 
+      text-align:center; 
+      margin-top: 1.5rem;
+      font-size: 2.2rem;
+      color: #222;
+    }
+    select { 
+      margin: 1.5rem auto; 
+      display:block; 
+      padding:0.7rem 1rem; 
+      border-radius: 12px; 
+      border: 1px solid #ddd; 
+      font-size: 1rem;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    select:hover {
+      border-color: #2196f3;
+      box-shadow: 0 6px 14px rgba(33, 150, 243, 0.25);
+    }
+    .clock-container { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 1.5rem; 
+      justify-content: center; 
+      margin: 2rem auto;
+      max-width: 1200px;
+    }
+    .clock { 
+      background: rgba(255,255,255,0.3); 
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 2rem; 
+      border-radius: 20px; 
+      min-width: 250px; 
+      text-align: center; 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .clock:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+    }
+    .zone { 
+      font-size: 1rem; 
+      color: #444; 
+      margin-bottom: 0.6rem; 
+      display:flex; 
+      justify-content:center; 
+      align-items:center; 
+      gap:0.4rem; 
+      font-weight: 600;
+    }
+    .zone small {
+      display:block;
+      font-size: 0.8rem;
+      color:#777;
+      margin-top:2px;
+    }
+    .time { 
+      font-size: 2rem; 
+      font-weight: bold; 
+      letter-spacing: 2px; 
+      color: #222;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
@@ -65,7 +132,7 @@
         });
         const div = document.createElement('div');
         div.className = 'clock';
-        div.innerHTML = `<div class="zone">${country.flag} ${country.name}<br><small>${tz}</small></div>
+        div.innerHTML = `<div class="zone">${country.flag} ${country.name}<small>${tz}</small></div>
                          <div class="time">${timeStr}</div>`;
         container.appendChild(div);
       });
