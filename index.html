@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi Time Zone Digital Clock</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background:#222; color:#fff; }
+    .clock-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem; }
+    .clock { background: #444; padding: 1.5rem 2rem; border-radius: 10px; min-width: 250px; text-align: center; box-shadow: 0 0 10px #0004;}
+    .zone { font-size: 1.1rem; color: #aaa; margin-bottom: 0.7rem; }
+    .time { font-size: 2rem; letter-spacing: 2px; }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">Multi Time Zone Digital Clock</h1>
+  <div class="clock-container" id="clock-container"></div>
+  <script>
+    // List of time zones to display
+    const timeZones = [
+      { label: "UTC", timeZone: "UTC" },
+      { label: "New York (US/Eastern)", timeZone: "America/New_York" },
+      { label: "London (UK)", timeZone: "Europe/London" },
+      { label: "Tokyo (Japan)", timeZone: "Asia/Tokyo" },
+      { label: "Your Local Time", timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+    ];
+
+    function updateClocks() {
+      const container = document.getElementById('clock-container');
+      container.innerHTML = '';
+      const now = new Date();
+      timeZones.forEach(zone => {
+        const timeStr = now.toLocaleTimeString('en-US', {
+          hour: '2-digit', minute: '2-digit', second: '2-digit',
+          hour12: false, timeZone: zone.timeZone
+        });
+        const div = document.createElement('div');
+        div.className = 'clock';
+        div.innerHTML = `<div class="zone">${zone.label}</div>
+                         <div class="time">${timeStr}</div>`;
+        container.appendChild(div);
+      });
+    }
+
+    updateClocks();
+    setInterval(updateClocks, 1000);
+  </script>
+</body>
+</html>
