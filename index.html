@@ -2,47 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Multi Time Zone Digital Clock</title>
+  <title>World Time Zone Clock</title>
   <style>
     body { font-family: 'Segoe UI', Arial, sans-serif; background:#222; color:#fff; }
-    .clock-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem; }
-    .clock { background: #444; padding: 1.5rem 2rem; border-radius: 10px; min-width: 250px; text-align: center; box-shadow: 0 0 10px #0004;}
-    .zone { font-size: 1.1rem; color: #aaa; margin-bottom: 0.7rem; }
-    .time { font-size: 2rem; letter-spacing: 2px; }
+    h1 { text-align:center; }
+    select { margin: 1rem auto; display:block; padding:0.5rem; border-radius:6px; }
+    .clock-container { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem; }
+    .clock { background: #444; padding: 1rem 1.5rem; border-radius: 10px; min-width: 220px; text-align: center; box-shadow: 0 0 10px #0004;}
+    .zone { font-size: 1rem; color: #aaa; margin-bottom: 0.5rem; display:flex; justify-content:center; align-items:center; gap:0.5rem; }
+    .time { font-size: 1.6rem; letter-spacing: 1px; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Multi Time Zone Digital Clock</h1>
+  <h1>🌍 World Time Zone Digital Clock</h1>
+
+  <select id="countrySelect">
+    <option value="">-- Select a Country --</option>
+  </select>
+
   <div class="clock-container" id="clock-container"></div>
+
   <script>
-    // List of time zones to display
-    const timeZones = [
-      { label: "UTC", timeZone: "UTC" },
-      { label: "New York (US/Eastern)", timeZone: "America/New_York" },
-      { label: "London (UK)", timeZone: "Europe/London" },
-      { label: "Tokyo (Japan)", timeZone: "Asia/Tokyo" },
-      { label: "Your Local Time", timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+    // 🌍 World countries with flags + time zones (sample subset, can be extended)
+    const countries = [
+      { name: "United States", flag: "🇺🇸", timeZones: ["America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles"] },
+      { name: "United Kingdom", flag: "🇬🇧", timeZones: ["Europe/London"] },
+      { name: "Canada", flag: "🇨🇦", timeZones: ["America/Toronto", "America/Vancouver", "America/Halifax"] },
+      { name: "Brazil", flag: "🇧🇷", timeZones: ["America/Sao_Paulo", "America/Manaus"] },
+      { name: "India", flag: "🇮🇳", timeZones: ["Asia/Kolkata"] },
+      { name: "China", flag: "🇨🇳", timeZones: ["Asia/Shanghai"] },
+      { name: "Japan", flag: "🇯🇵", timeZones: ["Asia/Tokyo"] },
+      { name: "Australia", flag: "🇦🇺", timeZones: ["Australia/Sydney", "Australia/Perth"] },
+      { name: "Russia", flag: "🇷🇺", timeZones: ["Europe/Moscow", "Asia/Yekaterinburg", "Asia/Vladivostok"] },
+      { name: "South Africa", flag: "🇿🇦", timeZones: ["Africa/Johannesburg"] },
+      { name: "Mexico", flag: "🇲🇽", timeZones: ["America/Mexico_City"] },
+      { name: "Germany", flag: "🇩🇪", timeZones: ["Europe/Berlin"] },
+      { name: "France", flag: "🇫🇷", timeZones: ["Europe/Paris"] },
+      { name: "Thailand", flag: "🇹🇭", timeZones: ["Asia/Bangkok"] },
+      { name: "Lao PDR", flag: "🇱🇦", timeZones: ["Asia/Vientiane"] },
+      // 👉 You can keep adding until you cover all ~200 countries
     ];
 
-    function updateClocks() {
+    // Populate dropdown
+    const select = document.getElementById("countrySelect");
+    countries.forEach((c, idx) => {
+      const opt = document.createElement("option");
+      opt.value = idx;
+      opt.textContent = `${c.flag} ${c.name}`;
+      select.appendChild(opt);
+    });
+
+    function updateClocks(country) {
       const container = document.getElementById('clock-container');
       container.innerHTML = '';
+      if (!country) return;
+
       const now = new Date();
-      timeZones.forEach(zone => {
+      country.timeZones.forEach(tz => {
         const timeStr = now.toLocaleTimeString('en-US', {
           hour: '2-digit', minute: '2-digit', second: '2-digit',
-          hour12: false, timeZone: zone.timeZone
+          hour12: false, timeZone: tz
         });
         const div = document.createElement('div');
         div.className = 'clock';
-        div.innerHTML = `<div class="zone">${zone.label}</div>
+        div.innerHTML = `<div class="zone">${country.flag} ${country.name}<br><small>${tz}</small></div>
                          <div class="time">${timeStr}</div>`;
         container.appendChild(div);
       });
     }
 
-    updateClocks();
-    setInterval(updateClocks, 1000);
+    // Auto update every second
+    setInterval(() => {
+      const selectedIdx = select.value;
+      if (selectedIdx !== "") {
+        updateClocks(countries[selectedIdx]);
+      }
+    }, 1000);
+
+    // Change event
+    select.addEventListener("change", e => {
+      if (e.target.value !== "") {
+        updateClocks(countries[e.target.value]);
+      } else {
+        document.getElementById('clock-container').innerHTML = '';
+      }
+    });
   </script>
 </body>
 </html>
