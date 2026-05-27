@@ -224,7 +224,90 @@
         fill: currentColor;
       }
 
+      /* Statistics Summary Row */
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 24px;
+      }
 
+      @media (max-width: 768px) {
+        .stats-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stat-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-normal);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .stat-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .stat-icon-wrapper.total {
+        background-color: var(--primary-teal-light);
+        color: var(--primary-teal);
+      }
+
+      .stat-icon-wrapper.success {
+        background-color: var(--accent-green-light);
+        color: var(--accent-green);
+      }
+
+      .stat-icon-wrapper.failed {
+        background-color: var(--accent-red-light);
+        color: var(--accent-red);
+      }
+
+      .stat-icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+
+      .stat-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .stat-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .stat-val {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      .stat-count {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
 
       /* Main Card Container */
       .card-container {
@@ -1466,7 +1549,66 @@
       <section class="card-container">
         <!-- LIST AND FILTERS VIEW -->
         <div id="listSection">
+          <!-- Dashboard Stats Widgets (Shifted inside card to look aligned) -->
+          <div class="stats-container">
+            <!-- Total Transferred -->
+            <div class="stat-card">
+              <div class="stat-icon-wrapper total">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">ຍອດເງິນໂອນທັງໝົດ</span>
+                <span class="stat-val number-font" id="statTotalVal"
+                  >0 ກີບ</span
+                >
+                <span class="stat-count" id="statTotalCount">0 ລາຍການ</span>
+              </div>
+            </div>
 
+            <!-- Success Transfers -->
+            <div class="stat-card">
+              <div class="stat-icon-wrapper success">
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">ທຸລະກຳສຳເລັດ</span>
+                <span
+                  class="stat-val number-font"
+                  id="statSuccessVal"
+                  style="color: var(--accent-green)"
+                  >0 ກີບ</span
+                >
+                <span class="stat-count" id="statSuccessCount">0 ລາຍການ</span>
+              </div>
+            </div>
+
+            <!-- Failed Transfers -->
+            <div class="stat-card">
+              <div class="stat-icon-wrapper failed">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-label">ທຸລະກຳລົ້ມເຫຼວ</span>
+                <span
+                  class="stat-val number-font"
+                  id="statFailedVal"
+                  style="color: var(--accent-red)"
+                  >0 ກີບ</span
+                >
+                <span class="stat-count" id="statFailedCount">0 ລາຍການ</span>
+              </div>
+            </div>
+          </div>
 
           <!-- Tabs Menu -->
           <div class="tabs-wrapper">
@@ -2451,6 +2593,30 @@
           }
         });
 
+        // Set counts
+        if (currentActiveTab === 1) {
+          document.getElementById("statTotalCount").textContent =
+            `${transactions.length} ບັນຊີລາຍການ`;
+          document.getElementById("statSuccessCount").textContent =
+            `${successCount} ບັນຊີສຳເລັດ`;
+          document.getElementById("statFailedCount").textContent =
+            `${failedCount} ບັນຊີລົ້ມເຫຼວ`;
+        } else {
+          document.getElementById("statTotalCount").textContent =
+            `${totalCount} ລາຍການ`;
+          document.getElementById("statSuccessCount").textContent =
+            `${successCount} ລາຍການ`;
+          document.getElementById("statFailedCount").textContent =
+            `${failedCount} ລາຍການ`;
+        }
+
+        // Set values
+        document.getElementById("statTotalVal").textContent =
+          `${formatMoney(totalAmt)} ກີບ`;
+        document.getElementById("statSuccessVal").textContent =
+          `${formatMoney(successAmt)} ກີບ`;
+        document.getElementById("statFailedVal").textContent =
+          `${formatMoney(failedAmt)} ກີບ`;
       }
 
       // Apply drop down selects, date range inputs, and search text query filters
