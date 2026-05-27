@@ -806,7 +806,7 @@
     <main class="main-content">
       <!-- Section Title -->
       <div class="section-header">
-        <h1 class="section-title">Transfer</h1>
+        <h1 class="section-title">ໂອນເງິນ</h1>
       </div>
 
       <!-- Transfer Method Selection Tabs -->
@@ -900,10 +900,10 @@
                 
                 <!-- Select Account -->
                 <div class="form-group">
-                  <label class="form-label">Select Account</label>
+                  <label class="form-label">ເລືອກບັນຊີຕົ້ນທາງ</label>
                   <div class="custom-select-wrapper">
                     <select class="form-select" id="senderAccount" onchange="onSenderAccountSelect()">
-                      <option value="">Select Account</option>
+                      <option value="">ເລືອກບັນຊີ</option>
                       <option value="bcel">ບັນຊີ ກີບ LAK (101-0020-00108241)</option>
                       <option value="ldb">ບັນຊີ ບາດ THB (202-0030-00208455)</option>
                       <option value="apb">ບັນຊີ ໂດລາ USD (303-0040-00308881)</option>
@@ -916,20 +916,20 @@
 
                 <!-- Account Name -->
                 <div class="form-group">
-                  <label class="form-label">Account Name</label>
+                  <label class="form-label">ຊື່ບັນຊີຕົ້ນທາງ</label>
                   <div class="input-icon-wrapper">
                     <svg class="input-left-icon" viewBox="0 0 24 24">
                       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                     </svg>
-                    <input type="text" class="form-input" id="senderAccountName" value="Account Name" readonly />
+                    <input type="text" class="form-input" id="senderAccountName" value="ຊື່ບັນຊີ" readonly />
                   </div>
                 </div>
 
                 <!-- Input Amount -->
                 <div class="form-group">
-                  <label class="form-label">Input Amount</label>
+                  <label class="form-label">ປ້ອນຈຳນວນເງິນ</label>
                   <div class="input-inline-group">
-                    <input type="number" class="form-input number-font" id="inputAmount" placeholder="Input Amount" required />
+                    <input type="number" class="form-input number-font" id="inputAmount" placeholder="ປ້ອນຈຳນວນເງິນ" required />
                     <div class="inline-badge-suffix">
                       <div class="inline-badge-circle">ກີບ</div>
                       <span>LAK</span>
@@ -939,14 +939,14 @@
 
                 <!-- Phone Number -->
                 <div class="form-group">
-                  <label class="form-label">Phone Number</label>
+                  <label class="form-label">ເບີໂທລະສັບ</label>
                   <input type="text" class="form-input number-font" id="phoneNumber" placeholder="20XXXXXXXX" value="20" />
                 </div>
 
                 <!-- Remark -->
                 <div class="form-group">
-                  <label class="form-label">Remark</label>
-                  <textarea class="form-textarea" id="remark" placeholder="Please Remark"></textarea>
+                  <label class="form-label">ຄຳອະທિບາຍ</label>
+                  <textarea class="form-textarea" id="remark" placeholder="ປ້ອນຄຳອະທિບາຍ (ຖ້າມີ)"></textarea>
                 </div>
               </div>
 
@@ -961,10 +961,10 @@
 
                 <!-- Destination Bank -->
                 <div class="form-group">
-                  <label class="form-label">Destination Bank</label>
+                  <label class="form-label">ທະນາຄານປາຍທາງ</label>
                   <div class="custom-select-wrapper">
                     <select class="form-select" id="destBank">
-                      <option value="">Select the bank</option>
+                      <option value="">ເລືອກທະນາຄານປາຍທາງ</option>
                       <option value="ldb">LDB (ທະນາຄານພັດທະນາລາວ)</option>
                       <option value="apb">APB (ທະນາຄານສົ່ງເສີມກະສິກຳ)</option>
                       <option value="jdb">JDB (ທະນາຄານຮ່ວມພັດທະນາ)</option>
@@ -978,32 +978,32 @@
 
                 <!-- To Account (With Inline Search) -->
                 <div class="form-group">
-                  <label class="form-label">To Account</label>
+                  <label class="form-label">ເລກບັນຊີປາຍທາງ</label>
                   <div class="input-inline-group">
-                    <input type="text" class="form-input number-font" id="destAccount" placeholder="Input To Account" />
+                    <input type="text" class="form-input number-font" id="destAccount" placeholder="精度 ປ້ອນເລກບັນຊີ" />
                     <button type="button" class="inline-search-btn" onclick="simulateReceiverSearch()">
                       <svg viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                       </svg>
-                      <span>Search</span>
+                      <span>ຄົ້ນຫາ</span>
                     </button>
                   </div>
                 </div>
 
                 <!-- To Account Name -->
                 <div class="form-group">
-                  <label class="form-label">To Account name</label>
+                  <label class="form-label">ຊື່ບັນຊີປາຍທາງ</label>
                   <div class="input-icon-wrapper">
                     <svg class="input-left-icon" viewBox="0 0 24 24">
                       <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                     </svg>
-                    <input type="text" class="form-input" id="destAccountName" value="To Account name" readonly />
+                    <input type="text" class="form-input" id="destAccountName" value="ຊື່ບັນຊີຜູ້ຮັບ" readonly />
                   </div>
                 </div>
 
                 <!-- Currency -->
                 <div class="form-group">
-                  <label class="form-label">Currency</label>
+                  <label class="form-label">ສະກຸນເງິນ</label>
                   <div class="custom-select-wrapper">
                     <select class="form-select" id="receiverCurrency" disabled>
                       <option value="lak">LAK</option>
@@ -1036,7 +1036,7 @@
             <svg viewBox="0 0 24 24">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
             </svg>
-            <span>Transfer</span>
+            <span>ໂອນເງິນ</span>
           </button>
         </div>
       </form>
@@ -1125,7 +1125,7 @@
             alert("ຄຳເຕືອນ: ບັນຊີ APB ຂອງທ່ານເປັນສະກຸນເງິນ USD, RTGS ຮອງຮັບສະເພາະສະກຸນເງິນ LAK (ກີບ) ເທົ່ານັ້ນ!");
           }
         } else {
-          nameInput.value = "Account Name";
+          nameInput.value = "ຊື່ບັນຊີ";
         }
       }
 
@@ -1184,7 +1184,7 @@
           alert("ກະລຸນາປ້ອນເລກບັນຊີປາຍທາງ!");
           return;
         }
-        if (destName === "To Account name" || destName === "ບໍ່ພົບຂໍ້ມູນບັນຊີ!" || destName === "ກຳລັງກວດສອບເລກບັນຊີ...") {
+        if (destName === "ຊື່ບັນຊີຜູ້ຮັບ" || destName === "ບໍ່ພົບຂໍ້ມູນບັນຊີ!" || destName === "ກຳລັງກວດສອບເລກບັນຊີ...") {
           alert("ກະລຸນາກວດສອບ ແລະ ຄົ້ນຫາເລກບັນຊີປາຍທາງໃຫ້ຖືກຕ້ອງກ່ອນ!");
           return;
         }
@@ -1223,8 +1223,8 @@
         document.getElementById("receiptModalOverlay").classList.remove("show");
         // Reset form fields
         document.getElementById("transferForm").reset();
-        document.getElementById("senderAccountName").value = "Account Name";
-        document.getElementById("destAccountName").value = "To Account name";
+        document.getElementById("senderAccountName").value = "ຊື່ບັນຊີ";
+        document.getElementById("destAccountName").value = "ຊື່ບັນຊີຜູ້ຮັບ";
       }
     </script>
   </body>
