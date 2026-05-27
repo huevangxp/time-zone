@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8fafc;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      /* Popup Styling */
+      .popup {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-100px);
+        padding: 12px 24px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+        opacity: 0;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .popup.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+      .popup.offline {
+        background-color: #ef4444; /* Red */
+      }
+      .popup.online {
+        background-color: #22c55e; /* Green */
+      }
+      
+      /* Button Styling */
+      .chat-btn {
+        padding: 12px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        transition: all 0.2s;
+      }
+      .chat-btn:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+      }
+      .chat-btn:active {
+        transform: scale(0.96);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div
+      style="
+        width: 100%;
+        max-width: 400px;
+        height: 650px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+      "
+    >
+      <iframe
+        src="https://apb.callincloud.com/Webchat/Start.aspx"
+        style="width: 100%; height: 100%; border: none"
+        allow="microphone; camera"
+      >
+      </iframe>
+    </div> -->
+    <div id="popup" class="popup"></div>
+    <button class="chat-btn" onclick="openChatPopup()">Open Chat</button>
+    
+    <script>
+      function openChatPopup() {
+        var url = "https://apb.callincloud.com/Webchat/Start.aspx";
+        var features = "width=450,height=600,resizable=yes,scrollbars=yes";
+        window.open(url, "WebChat", features);
+      }
+
+      // --- Internet Connection Status UI ---
+      const popup = document.getElementById("popup");
+      let statusTimeout;
+
+      function closePopup() {
+        popup.classList.remove("show");
+      }
+
+      function showStatus(text, status) {
+        const icon = status === 'online' ? '🌐' : '⚠️';
+        
+        // Add a close button (✖) if offline so the user can dismiss it
+        const closeBtn = status === 'offline' 
+          ? `<span onclick="closePopup()" style="cursor: pointer; font-size: 16px; opacity: 0.8; margin-left: 8px; padding: 4px;" title="Close">✖</span>`
+          : '';
+
+        // Render the content with innerHTML to support the button
+        popup.innerHTML = `<span>${icon} ${text}</span> ${closeBtn}`;
+        popup.className = `popup show ${status}`;
+
+        // Clear previous timeout to prevent glitches if connection flickers
+        if (statusTimeout) clearTimeout(statusTimeout);
+
+        // Hide automatically ONLY if online. If offline, it stays permanently until manually closed.
+        if (status === 'online') {
+          statusTimeout = setTimeout(() => {
+            closePopup();
+          }, 3000);
+        }
+      }
+
+      // Listeners for network events
+      window.onoffline = () => showStatus("You are Offline", "offline");
+      window.ononline = () => showStatus("You are Online", "online");
+
+      // Initial check on page load
+      if (!navigator.onLine) {
+        showStatus("You are Offline", "offline");
+      }
+    </script>
+  </body>
+</html>
