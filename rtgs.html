@@ -1,9 +1,1198 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="lo">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>ໂອນເງິນຂ້າມທະນາຄານ RTGS - Digital Banking</title>
+
+    <!-- Google Fonts for Lao (Noto Sans Lao) & English/Numbers (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Design Tokens & Theme Variables */
+      :root {
+        --primary-teal: #0b847c;
+        --primary-teal-hover: #086b64;
+        --primary-teal-light: #eaf4f3;
+        --accent-yellow: #f19e38;
+        --accent-yellow-hover: #d98826;
+        --accent-red: #ef4444;
+        --accent-red-light: #fff5f5;
+        --accent-red-border: #fca5a5;
+        --accent-green: #10b981;
+        --accent-green-light: #ecfdf5;
+        --bg-page: #f2f1f7;
+        --bg-card: #ffffff;
+        --bg-input: #f1f3f7;
+        --bg-input-hover: #e2e8f0;
+        --text-dark: #1a202c;
+        --text-muted: #718096;
+        --text-light: #ffffff;
+        --border-color: #e2e8f0;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Reset and Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Noto Sans Lao", "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        background-color: var(--bg-page);
+        color: var(--text-dark);
+        min-height: 100vh;
+        padding-bottom: 60px;
+      }
+
+      .number-font {
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Top Navigation Bar */
+      .top-nav {
+        background-color: var(--primary-teal);
+        box-shadow: var(--shadow-sm);
+        width: 100%;
+        overflow-x: auto;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        min-width: 900px;
+      }
+
+      .nav-item {
+        flex: 1;
+        text-align: center;
+        padding: 16px 10px;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        border-bottom: 3.5px solid transparent;
+        transition: var(--transition-fast);
+        cursor: pointer;
+      }
+
+      .nav-item svg {
+        width: 22px;
+        height: 22px;
+        fill: currentColor;
+        transition: transform var(--transition-fast);
+      }
+
+      .nav-item:hover {
+        color: var(--text-light);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      .nav-item:hover svg {
+        transform: translateY(-2px);
+      }
+
+      .nav-item.active {
+        color: var(--text-light);
+        border-bottom-color: var(--text-light);
+        font-weight: 600;
+      }
+
+      /* Navigation Divider */
+      .nav-divider {
+        width: 1px;
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.2);
+        margin: 0 4px;
+      }
+
+      /* Main Layout */
+      .main-content {
+        max-width: 1100px;
+        margin: 24px auto;
+        padding: 0 20px;
+      }
+
+      /* Section Header Title */
+      .section-header {
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        color: var(--primary-teal);
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      /* Horizontal Capsule Transfer Types Navigation */
+      .transfer-methods-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .methods-scroll-container {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        width: 100%;
+      }
+
+      .method-capsule {
+        flex-shrink: 0;
+        background-color: #ffffff;
+        border: 1px solid rgba(11, 132, 124, 0.3);
+        border-radius: 50px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary-teal);
+        cursor: pointer;
+        transition: var(--transition-normal);
+      }
+
+      .method-capsule:hover {
+        background-color: var(--primary-teal-light);
+      }
+
+      .method-capsule.active {
+        background-color: var(--primary-teal);
+        color: var(--text-light);
+        border-color: var(--primary-teal);
+        box-shadow: 0 2px 8px rgba(11, 132, 124, 0.25);
+      }
+
+      .method-icon-circle {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: var(--primary-teal-light);
+        color: var(--primary-teal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .method-capsule.active .method-icon-circle {
+        background-color: #ffffff;
+        color: var(--primary-teal);
+      }
+
+      /* Gold bird emblem icon specifically for active RTGS */
+      .method-icon-circle.gold-badge {
+        background-color: #fcd34d;
+        color: #78350f;
+        font-weight: 700;
+      }
+
+      /* LAPNet text icon */
+      .method-icon-circle.lapnet-logo {
+        background-color: #1e3a8a;
+        color: #ffffff;
+        font-size: 9px;
+        font-weight: 700;
+      }
+
+      /* Secondary Selection Pills (Favorite, Template, New, All) */
+      .sub-options-row {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      .sub-option-btn {
+        background-color: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: var(--transition-fast);
+      }
+
+      .sub-option-btn:hover {
+        background-color: #f7fafc;
+        color: var(--text-dark);
+      }
+
+      .sub-option-btn.active {
+        background-color: var(--primary-teal);
+        color: var(--text-light);
+        border-color: var(--primary-teal);
+      }
+
+      /* Main Form Columns Grid */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+
+      @media (max-width: 820px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Panel Cards (Sender/Receiver) */
+      .form-panel {
+        background-color: var(--bg-card);
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+      }
+
+      .panel-header {
+        background-color: var(--primary-teal);
+        color: var(--text-light);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 15px;
+      }
+
+      .panel-header svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      .panel-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      /* Form Fields */
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      /* Select and Input styling */
+      .custom-select-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .form-select,
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        background-color: var(--bg-input);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 13px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-dark);
+        outline: none;
+        transition: var(--transition-fast);
+      }
+
+      .form-select {
+        appearance: none;
+        cursor: pointer;
+      }
+
+      .form-select:hover,
+      .form-input:hover,
+      .form-textarea:hover {
+        background-color: var(--bg-input-hover);
+      }
+
+      .form-select:focus,
+      .form-input:focus,
+      .form-textarea:focus {
+        background-color: #ffffff;
+        border-color: var(--primary-teal);
+        box-shadow: 0 0 0 2px rgba(11, 132, 124, 0.2);
+      }
+
+      .select-arrow {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        width: 14px;
+        height: 14px;
+        fill: var(--text-muted);
+      }
+
+      /* Icon Inside Inputs */
+      .input-icon-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .input-icon-wrapper .form-input {
+        padding-left: 44px;
+      }
+
+      .input-left-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        fill: var(--text-muted);
+        pointer-events: none;
+      }
+
+      /* Input inline group (with buttons or suffixes) */
+      .input-inline-group {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .inline-badge-suffix {
+        background-color: var(--bg-input);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 0 16px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+
+      .inline-badge-circle {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background-color: var(--primary-teal);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+      }
+
+      /* Inline Search Action Button */
+      .inline-search-btn {
+        background-color: var(--primary-teal);
+        color: var(--text-light);
+        border: none;
+        border-radius: 12px;
+        height: 46px;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: var(--transition-normal);
+        flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(11, 132, 124, 0.15);
+      }
+
+      .inline-search-btn:hover {
+        background-color: var(--primary-teal-hover);
+        box-shadow: 0 4px 8px rgba(11, 132, 124, 0.3);
+      }
+
+      .inline-search-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+
+      /* Textarea remark styling */
+      .form-textarea {
+        height: 98px;
+        resize: none;
+      }
+
+      /* Warning caution alert box styling */
+      .caution-box {
+        background-color: var(--accent-red-light);
+        border: 1px solid var(--accent-red-border);
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: var(--accent-red);
+      }
+
+      .caution-header {
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .caution-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding-left: 4px;
+        list-style-type: none;
+      }
+
+      .caution-item {
+        font-size: 11px;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+
+      /* Centered bottom submit button container */
+      .submit-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .transfer-submit-btn {
+        background-color: var(--primary-teal);
+        color: var(--text-light);
+        font-weight: 700;
+        font-size: 15px;
+        border: none;
+        border-radius: 50px;
+        padding: 14px 44px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        box-shadow: 0 4px 12px rgba(11, 132, 124, 0.25);
+      }
+
+      .transfer-submit-btn:hover {
+        background-color: var(--primary-teal-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(11, 132, 124, 0.45);
+      }
+
+      .transfer-submit-btn:active {
+        transform: translateY(1px);
+      }
+
+      .transfer-submit-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* Loading and Popup overlay structures */
+      .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-fast);
+      }
+
+      .loading-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .spinner {
+        width: 44px;
+        height: 44px;
+        border: 4px solid var(--border-color);
+        border-top: 4px solid var(--primary-teal);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* DETAILED FLOATING RECEIPT MODAL */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-normal);
+      }
+
+      .modal-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .receipt-modal {
+        background: radial-gradient(circle at top, #ffffff 0%, #f7fafc 100%);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        width: 90%;
+        max-width: 440px;
+        padding: 24px;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        transform: translateY(30px) scale(0.95);
+        transition: transform var(--transition-normal);
+      }
+
+      .modal-overlay.show .receipt-modal {
+        transform: translateY(0) scale(1);
+      }
+
+      .receipt-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .receipt-icon-badge {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background-color: var(--accent-green-light);
+        color: var(--accent-green);
+        border: 1.5px solid rgba(16, 185, 129, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+
+      .receipt-icon-badge svg {
+        width: 26px;
+        height: 26px;
+        fill: currentColor;
+      }
+
+      .receipt-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 4px;
+      }
+
+      .receipt-status-text {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--accent-green);
+      }
+
+      .receipt-amount-display {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 14px 0;
+        color: var(--text-dark);
+        text-align: center;
+      }
+
+      .receipt-divider {
+        border: none;
+        border-top: 1px dashed var(--border-color);
+        margin: 16px 0;
+        height: 1px;
+      }
+
+      .receipt-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 8px 0;
+        font-size: 13px;
+        gap: 12px;
+      }
+
+      .receipt-row-label {
+        color: var(--text-muted);
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      .receipt-row-val {
+        color: var(--text-dark);
+        font-weight: 600;
+        text-align: right;
+        word-break: break-all;
+      }
+
+      .modal-close-btn {
+        width: 100%;
+        background-color: var(--primary-teal);
+        color: var(--text-light);
+        font-weight: 700;
+        font-size: 14px;
+        border: none;
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        margin-top: 24px;
+        transition: var(--transition-normal);
+        box-shadow: 0 2px 5px rgba(11, 132, 124, 0.2);
+      }
+
+      .modal-close-btn:hover {
+        background-color: var(--primary-teal-hover);
+        box-shadow: 0 4px 10px rgba(11, 132, 124, 0.35);
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+      <div class="nav-container">
+        <a class="nav-item active">
+          <!-- Transfer Money Icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M19 14l4-4-4-4v3H3v2h16v3M5 10l-4 4 4 4v-3h16v-2H5v-3z" />
+          </svg>
+          <span>ໂອນເງິນ</span>
+        </a>
+        <div class="nav-divider"></div>
+
+        <a class="nav-item">
+          <!-- QR Code Icon -->
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm13-2h3v2h-3zm-2 2h2v3h-2zm3 3h3v2h-3zm-3-1h1v1h-1zm3-3h1v1h-1zm-2 1h1v1h-1zm-1-1h1v1h-1zm4 4h1v1h-1zm-1 0h1v1h-1zm-2-5h2v2h-2zm4 2h2v2h-2z"
+            />
+          </svg>
+          <span>ຄິວອາໂຄດ</span>
+        </a>
+        <div class="nav-divider"></div>
+
+        <a class="nav-item">
+          <!-- History Icon -->
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3a9 9 0 0 0-9 9H1L4.89 16 9 12H6a7 7 0 1 1 7 7 7 7 0 0 1-7-7H4a9 9 0 1 0 9-9zm-1 4v5.4l4.5 2.7.8-1.3-3.8-2.3V7h-1.5z"
+            />
+          </svg>
+          <span>ປະຫວັດ</span>
+        </a>
+        <div class="nav-divider"></div>
+
+        <a class="nav-item">
+          <!-- Spending Calendar Icon -->
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19 19H5V8h14m-3-7v2H8V1v2H6V1H4v2H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1m-1 7h-2v2h2V8m-4 0h-2v2h2V8m-4 0H7v2h2V8m8 4h-2v2h2v-2m-4 0h-2v2h2v-2m-4 0H7v2h2v-2m8 4h-2v2h2v-2m-4 0h-2v2h2v-2m-4 0H7v2h2v-2z"
+            />
+          </svg>
+          <span>ປະຕິທິນໃຊ້ຈ່າຍ</span>
+        </a>
+        <div class="nav-divider"></div>
+
+        <a class="nav-item pay-bill-active">
+          <!-- Pay Bill Icon (Golden highlight) -->
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-1 15H6v-2h12v2m0-3H6v-2h12v2m0-3H6V7h12v2M8.5 11h1v1.5h-1V11m2-1.5h1v1.5h-1V9.5z"
+            />
+          </svg>
+          <span>ຊໍາລະບິນ</span>
+        </a>
+        <div class="nav-divider"></div>
+
+        <a class="nav-item">
+          <!-- Exchange Market Icon (LFX) -->
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3zm6 7.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"
+            />
+          </svg>
+          <span>ຕະຫຼາດແລກປ່ຽນ</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-content">
+      <!-- Section Title -->
+      <div class="section-header">
+        <h1 class="section-title">Transfer</h1>
+      </div>
+
+      <!-- Transfer Method Selection Tabs -->
+      <div class="transfer-methods-wrapper">
+        <div class="methods-scroll-container">
+          <div class="method-capsule">
+            <div class="method-icon-circle">
+              <!-- User icon -->
+              <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <span>Owner Fund Transfer</span>
+          </div>
+
+          <div class="method-capsule">
+            <div class="method-icon-circle">
+              <!-- Plant icon -->
+              <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;">
+                <path d="M12 3C6.5 3 2 6.5 2 12c0 3.58 2.5 6.58 6 7.5v-2.13C5.5 16.5 4 14.48 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.48-1.5 4.5-4 5.37v2.13c3.5-.92 6-3.92 6-7.5 0-5.5-4.5-9-10-9zm-1 6h2v6h-2zm0 8h2v2h-2z"/>
+              </svg>
+            </div>
+            <span>Within Bank Transfer</span>
+          </div>
+
+          <div class="method-capsule">
+            <div class="method-icon-circle lapnet-logo">
+              LAP
+            </div>
+            <span>Lapnet Fund Transfer</span>
+          </div>
+
+          <div class="method-capsule">
+            <div class="method-icon-circle">
+              <!-- Calendar Clock icon -->
+              <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;">
+                <path d="M19 19H5V8h14m-3-7v2H8V1v2H6V1H4v2H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1m-1 7h-2v2h2V8m-4 0h-2v2h2V8m-4 0H7v2h2V8"/>
+              </svg>
+            </div>
+            <span>Schedule Transfer</span>
+          </div>
+
+          <div class="method-capsule active">
+            <div class="method-icon-circle gold-badge">
+              🦅
+            </div>
+            <span>RTGS</span>
+          </div>
+
+          <div class="method-capsule">
+            <div class="method-icon-circle">
+              <!-- Document cash icon -->
+              <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-1 15H6v-2h12v2"/>
+              </svg>
+            </div>
+            <span>Payroll</span>
+          </div>
+        </div>
+
+        <!-- Secondary options sub-row -->
+        <div class="sub-options-row">
+          <button type="button" class="sub-option-btn">Favorite</button>
+          <button type="button" class="sub-option-btn">Template</button>
+          <button type="button" class="sub-option-btn active">New</button>
+          <button type="button" class="sub-option-btn">All</button>
+        </div>
+      </div>
+
+      <!-- Sender & Receiver Side-by-Side Panels Grid -->
+      <form id="transferForm" onsubmit="return false;">
+        <div class="form-grid">
+          
+          <!-- SENDER PANEL -->
+          <div class="form-panel">
+            <div class="panel-header">
+              <!-- Sender icon -->
+              <svg viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <span>Sender</span>
+            </div>
+            <div class="panel-body">
+              <!-- Select Account -->
+              <div class="form-group">
+                <label class="form-label">Select Account</label>
+                <div class="custom-select-wrapper">
+                  <select class="form-select" id="senderAccount" onchange="onSenderAccountSelect()">
+                    <option value="">Select Account</option>
+                    <option value="bcel">ບັນຊີ ກີບ LAK (101-0020-00108241)</option>
+                    <option value="ldb">ບັນຊີ ບາດ THB (202-0030-00208455)</option>
+                    <option value="apb">ບັນຊີ ໂດລາ USD (303-0040-00308881)</option>
+                  </select>
+                  <svg class="select-arrow" viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Account Name -->
+              <div class="form-group">
+                <label class="form-label">Account Name</label>
+                <div class="input-icon-wrapper">
+                  <svg class="input-left-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  <input type="text" class="form-input" id="senderAccountName" value="Account Name" readonly />
+                </div>
+              </div>
+
+              <!-- Input Amount -->
+              <div class="form-group">
+                <label class="form-label">Input Amount</label>
+                <div class="input-inline-group">
+                  <input type="number" class="form-input number-font" id="inputAmount" placeholder="InputInput Amount" required />
+                  <div class="inline-badge-suffix">
+                    <div class="inline-badge-circle">ກີບ</div>
+                    <span>LAK</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-input number-font" id="phoneNumber" placeholder="20XXXXXXXX" value="20" />
+              </div>
+
+              <!-- Remark -->
+              <div class="form-group">
+                <label class="form-label">Remark</label>
+                <textarea class="form-textarea" id="remark" placeholder="Please Remark"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECEIVER PANEL -->
+          <div class="form-panel">
+            <div class="panel-header">
+              <!-- Receiver icon -->
+              <svg viewBox="0 0 24 24">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              </svg>
+              <span>Receiver</span>
+            </div>
+            <div class="panel-body">
+              <!-- Destination Bank -->
+              <div class="form-group">
+                <label class="form-label">Destination Bank</label>
+                <div class="custom-select-wrapper">
+                  <select class="form-select" id="destBank">
+                    <option value="">Select the bank</option>
+                    <option value="ldb">LDB (ທະນາຄານພັດທະນາລາວ)</option>
+                    <option value="apb">APB (ທະນາຄານສົ່ງເສີມກະສິກຳ)</option>
+                    <option value="jdb">JDB (ທະນາຄານຮ່ວມພັດທະນາ)</option>
+                    <option value="bic">BIC (ທະນາຄານ ບີໄອຊີ)</option>
+                  </select>
+                  <svg class="select-arrow" viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- To Account (With Inline Search) -->
+              <div class="form-group">
+                <label class="form-label">To Account</label>
+                <div class="input-inline-group">
+                  <input type="text" class="form-input number-font" id="destAccount" placeholder="InputTo Account" />
+                  <button type="button" class="inline-search-btn" onclick="simulateReceiverSearch()">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
+                    <span>Search</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- To Account Name -->
+              <div class="form-group">
+                <label class="form-label">To Account name</label>
+                <div class="input-icon-wrapper">
+                  <svg class="input-left-icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  <input type="text" class="form-input" id="destAccountName" value="To Account name" readonly />
+                </div>
+              </div>
+
+              <!-- Currency -->
+              <div class="form-group">
+                <label class="form-label">Currency</label>
+                <div class="custom-select-wrapper">
+                  <select class="form-select" id="receiverCurrency" disabled>
+                    <option value="lak">LAK</option>
+                  </select>
+                  <svg class="select-arrow" viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5z" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Caution Warning Alert Box -->
+              <div class="caution-box">
+                <div class="caution-header">
+                  <span>⚠️ ຂໍ້ຄວນລະວັງ:</span>
+                </div>
+                <ul class="caution-list">
+                  <li class="caution-item">1. ບໍລິການໂອນເງິນຜ່ານ RTGS ບໍ່ສາມາດໂອນຂ້າມສະກຸນເງິນໄດ້.</li>
+                  <li class="caution-item">2. ຜູ້ໂອນຕ້ອງຮັບປະກັນການຕື່ມຂໍ້ມູນ ເລກບັນຊີ ແລະ ຊື່ບັນຊີຜູ້ຮັບເງິນໃຫ້ຖືກຕ້ອງຄົບຖ້ວນ ກໍລະນີ ການຕື່ມຂໍ້ມູນບໍ່ຖືກຕ້ອງ ຫຼື ບໍ່ຄົບຖ້ວນ ຜູ້ຮັບເງິນຈະບໍ່ສາມາດຮັບເງິນໄດ້.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Bottom Submit button -->
+        <div class="submit-container">
+          <button type="button" class="transfer-submit-btn" onclick="executeTransfer()">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+            <span>Transfer</span>
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <!-- LOADING OVERLAY -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <span style="font-weight: 700; color: var(--primary-teal); font-size: 15px;">ກຳລັງປະມວນຜົນການໂອນເງິນ RTGS...</span>
+    </div>
+
+    <!-- SUCCESS RECEIPT MODAL -->
+    <div class="modal-overlay" id="receiptModalOverlay">
+      <div class="receipt-modal">
+        <div class="receipt-header">
+          <div class="receipt-icon-badge">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+          </div>
+          <h3 class="receipt-title">ໃບບິນການໂອນເງິນ RTGS</h3>
+          <span class="receipt-status-text">ເຮັດທຸລະກຳສຳເລັດ</span>
+        </div>
+
+        <div class="receipt-amount-display" id="modalAmountDisplay">0.00 LAK</div>
+
+        <div class="receipt-divider"></div>
+
+        <div class="receipt-row">
+          <span class="receipt-row-label">ລະຫັດທຸລະກຳ</span>
+          <span class="receipt-row-val number-font" id="modalTxId">TXN-000000000</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ວັນທີ-ເວລາ</span>
+          <span class="receipt-row-val number-font" id="modalDateTime">27/05/2026 16:30</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ບັນຊີຕົ້ນທາງ</span>
+          <span class="receipt-row-val number-font" id="modalSenderAcc">000-***-000</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ບັນຊີປາຍທາງ</span>
+          <span class="receipt-row-val number-font" id="modalReceiverAcc">000-***-000</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ຜູ້ຮັບເງິນ</span>
+          <span class="receipt-row-val" id="modalReceiverName">ນາງ ຈັນທະນາ ພົມມະລັດ</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ທະນາຄານ</span>
+          <span class="receipt-row-val" id="modalDestBankVal">LDB</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ຄ່າທຳນຽມ</span>
+          <span class="receipt-row-val number-font">10,000 LAK</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ຄຳອະທິບາຍ</span>
+          <span class="receipt-row-val" id="modalRemarkVal">ໂອນເງິນ RTGS</span>
+        </div>
+
+        <button class="modal-close-btn" onclick="closeReceiptModal()">ປິດ</button>
+      </div>
+    </div>
+
+    <!-- JS Code for Simulations and Dynamic Interactivity -->
+    <script>
+      // Mock Names mapping for accounts
+      const accountsNameMap = {
+        bcel: "ທ້າວ ສົມດີ ໄຊຍະເສນ",
+        ldb: "ທ້າວ ສົມດີ ໄຊຍະເສນ",
+        apb: "ທ້າວ ສົມດີ ໄຊຍະເສນ"
+      };
+
+      function onSenderAccountSelect() {
+        const select = document.getElementById("senderAccount");
+        const nameInput = document.getElementById("senderAccountName");
+        
+        if (select.value) {
+          nameInput.value = accountsNameMap[select.value];
+          
+          // Verify RTGS restriction (only LAK allowed)
+          if (select.value === "ldb") {
+            alert("ຄຳເຕືອນ: ບັນຊີ LDB ຂອງທ່ານເປັນສະກຸນເງິນ THB, RTGS ຮອງຮັບສະເພາະສະກຸນເງິນ LAK (ກີບ) ເທົ່ານັ້ນ!");
+          } else if (select.value === "apb") {
+            alert("ຄຳເຕືອນ: ບັນຊີ APB ຂອງທ່ານເປັນສະກຸນເງິນ USD, RTGS ຮອງຮັບສະເພາະສະກຸນເງິນ LAK (ກີບ) ເທົ່ານັ້ນ!");
+          }
+        } else {
+          nameInput.value = "Account Name";
+        }
+      }
+
+      // Simulate receiver details verification
+      function simulateReceiverSearch() {
+        const destAcc = document.getElementById("destAccount").value.trim();
+        const destBank = document.getElementById("destBank").value;
+        const destNameInput = document.getElementById("destAccountName");
+
+        if (!destBank) {
+          alert("ກະລຸນາເລືອກທະນາຄານປາຍທາງກ່ອນຄົ້ນຫາ!");
+          return;
+        }
+
+        if (!destAcc) {
+          alert("ກະລຸນາປ້ອນເລກບັນຊີປາຍທາງກ່ອນຄົ້ນຫາ!");
+          return;
+        }
+
+        // Show spinner inside To Account name
+        destNameInput.value = "ກຳລັງກວດສອບເລກບັນຊີ...";
+        
+        setTimeout(() => {
+          // Fill mock recipient details based on account number length
+          if (destAcc.length < 5) {
+            destNameInput.value = "ບໍ່ພົບຂໍ້ມູນບັນຊີ!";
+          } else {
+            destNameInput.value = "ນາງ ຈັນທະນາ ພົມມະລັດ";
+          }
+        }, 800);
+      }
+
+      // Execute RTGS Transfer
+      function executeTransfer() {
+        const senderAcc = document.getElementById("senderAccount").value;
+        const inputAmt = parseFloat(document.getElementById("inputAmount").value) || 0;
+        const destBank = document.getElementById("destBank").value;
+        const destAcc = document.getElementById("destAccount").value.trim();
+        const destName = document.getElementById("destAccountName").value;
+        const phone = document.getElementById("phoneNumber").value;
+        const remark = document.getElementById("remark").value;
+
+        if (!senderAcc) {
+          alert("ກະລຸນາເລືອກບັນຊີຕົ້ນທາງ!");
+          return;
+        }
+        if (inputAmt <= 0) {
+          alert("ກະລຸນາປ້ອນຈຳນວນເງິນທີ່ຖືກຕ້ອງ!");
+          return;
+        }
+        if (!destBank) {
+          alert("ກະລຸນາເລືອກທະນາຄານປາຍທາງ!");
+          return;
+        }
+        if (!destAcc) {
+          alert("ກະລຸນາປ້ອນເລກບັນຊີປາຍທາງ!");
+          return;
+        }
+        if (destName === "To Account name" || destName === "ບໍ່ພົບຂໍ້ມູນບັນຊີ!" || destName === "ກຳລັງກວດສອບເລກບັນຊີ...") {
+          alert("ກະລຸນາກວດສອບ ແລະ ຄົ້ນຫາເລກບັນຊີປາຍທາງໃຫ້ຖືກຕ້ອງກ່ອນ!");
+          return;
+        }
+
+        // Trigger loader spinner overlay
+        const loader = document.getElementById("loadingOverlay");
+        loader.classList.add("show");
+
+        setTimeout(() => {
+          loader.classList.remove("show");
+
+          // Populate success receipt details
+          const now = new Date();
+          const dStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+          const tStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+          document.getElementById("modalAmountDisplay").textContent = `${inputAmt.toLocaleString()}.00 LAK`;
+          document.getElementById("modalTxId").textContent = `TXN-RTGS-${Math.floor(100000000 + Math.random() * 900000000)}`;
+          document.getElementById("modalDateTime").textContent = `${dStr} ${tStr}`;
+          
+          const srcSelect = document.getElementById("senderAccount");
+          document.getElementById("modalSenderAcc").textContent = srcSelect.options[srcSelect.selectedIndex].text.split("(")[1].replace(")", "");
+          document.getElementById("modalReceiverAcc").textContent = destAcc;
+          document.getElementById("modalReceiverName").textContent = destName;
+          
+          const bankSelect = document.getElementById("destBank");
+          document.getElementById("modalDestBankVal").textContent = bankSelect.options[bankSelect.selectedIndex].text;
+          document.getElementById("modalRemarkVal").textContent = remark || "ໂອນເງິນ RTGS";
+
+          // Show Receipt Modal overlay
+          document.getElementById("receiptModalOverlay").classList.add("show");
+        }, 1500);
+      }
+
+      function closeReceiptModal() {
+        document.getElementById("receiptModalOverlay").classList.remove("show");
+        // Reset form fields
+        document.getElementById("transferForm").reset();
+        document.getElementById("senderAccountName").value = "Account Name";
+        document.getElementById("destAccountName").value = "To Account name";
+      }
+    </script>
+  </body>
 </html>
