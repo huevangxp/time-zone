@@ -2542,7 +2542,14 @@
         const statSuccessVal = document.getElementById("statSuccessVal");
         const statFailedVal = document.getElementById("statFailedVal");
 
-        if (statTotalCount && statSuccessCount && statFailedCount && statTotalVal && statSuccessVal && statFailedVal) {
+        if (
+          statTotalCount &&
+          statSuccessCount &&
+          statFailedCount &&
+          statTotalVal &&
+          statSuccessVal &&
+          statFailedVal
+        ) {
           if (currentActiveTab === 1) {
             statTotalCount.textContent = `${transactions.length} ບັນຊີລາຍການ`;
             statSuccessCount.textContent = `${successCount} ບັນຊີສຳເລັດ`;
@@ -2698,7 +2705,7 @@
                                     <span class="number-font">${item.date} • ${item.time}</span>
                                 </div>
                                 <span class="status-badge ${item.status}">
-                                    ${item.status === "complete" ? "ສຳເລັດ" : "ລົ້ມເຫຼວ"}
+                                    ${item.status === "completed" ? "ສຳເລັດ" : "ລົ້ມເຫຼວ"}
                                 </span>
                             </div>
                         </div>
