@@ -602,10 +602,6 @@
             animation: fadeIn var(--transition-normal) forwards;
         }
 
-        .fade-in {
-            animation: fadeIn var(--transition-normal) forwards;
-        }
-
         /* Batch rendering item styles */
         .batch-circle-icon {
             width: 42px;
@@ -1149,8 +1145,9 @@
                 if (typeValue !== 'all' && item.typeCategory !== typeValue) {
                     return false;
                 }
-                // Date range check (only if dates are valid DD/MM/YYYY)
-                if (startDate || endDate) {
+                // Date range check (ignore if dates are at their mockup defaults "11/11/2025")
+                const isDefaultDate = (startStr === '11/11/2025' && endStr === '11/11/2025');
+                if (!isDefaultDate && (startDate || endDate)) {
                     const itemDate = parseDate(item.date);
                     if (itemDate) {
                         if (startDate && itemDate < startDate) return false;
