@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ປະຫວັດການໂອນ - Transfer History</title>
+    <title>ປະຫວັດການໂອນເງິນ - Digital Banking</title>
 
     <!-- Google Fonts for Lao (Noto Sans Lao) & English/Numbers (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,24 +16,32 @@
     <style>
       /* Design Tokens & Theme Variables */
       :root {
-        --primary-teal: #0b847c;
-        --primary-teal-hover: #086b64;
-        --primary-teal-light: #eaf4f3;
-        --accent-yellow: #f19e38;
-        --accent-yellow-hover: #d98826;
-        --accent-red: #e53e3e;
-        --bg-page: #f2f1f7;
-        --bg-card: #ffffff;
-        --bg-input: #eaeaea;
-        --text-dark: #1a202c;
-        --text-muted: #718096;
-        --text-light: #ffffff;
-        --border-color: #e2e8f0;
-        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-        --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.05);
-        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --bg-dark: #040908;
+        --bg-page: #071210;
+        --bg-card: rgba(13, 27, 24, 0.7);
+        --bg-card-hover: rgba(19, 39, 35, 0.8);
+        --bg-input: rgba(22, 44, 40, 0.6);
+        --bg-input-focus: rgba(30, 60, 55, 0.8);
+        --primary-teal: #14b8a6;
+        --primary-teal-hover: #0d9488;
+        --primary-glow: rgba(20, 184, 166, 0.15);
+        --accent-yellow: #f59e0b;
+        --accent-yellow-hover: #d97706;
+        --accent-red: #ef4444;
+        --accent-red-hover: #dc2626;
+        --accent-green: #10b981;
+        --text-light: #f3f4f6;
+        --text-muted: #9ca3af;
+        --text-dark: #111827;
+        --border-color: rgba(20, 184, 166, 0.18);
+        --border-color-focus: rgba(20, 184, 166, 0.5);
+        --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        --shadow-md: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+        --shadow-neon: 0 0 15px rgba(20, 184, 166, 0.25);
         --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       /* Reset and Base Styles */
@@ -48,24 +56,48 @@
 
       body {
         background-color: var(--bg-page);
-        color: var(--text-dark);
+        background-image: 
+          radial-gradient(at 10% 20%, rgba(20, 184, 166, 0.08) 0px, transparent 50%),
+          radial-gradient(at 90% 80%, rgba(245, 158, 11, 0.04) 0px, transparent 50%),
+          radial-gradient(at 50% 50%, rgba(7, 18, 16, 1) 0px, transparent 100%);
+        color: var(--text-light);
         min-height: 100vh;
-        padding-bottom: 40px;
+        padding-bottom: 60px;
+        overflow-x: hidden;
       }
 
       .number-font {
         font-family: "Inter", sans-serif;
       }
 
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(20, 184, 166, 0.3);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(20, 184, 166, 0.5);
+      }
+
       /* Top Navigation Bar */
       .top-nav {
-        background-color: var(--primary-teal);
-        box-shadow: var(--shadow-sm);
+        background-color: rgba(4, 9, 8, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid var(--border-color);
         width: 100%;
         overflow-x: auto;
         position: sticky;
         top: 0;
-        z-index: 100;
+        z-index: 99;
       }
 
       .nav-container {
@@ -75,36 +107,36 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
-        min-width: 800px; /* Ensures navigation items don't squash on small widths */
+        min-width: 900px;
       }
 
       .nav-item {
         flex: 1;
         text-align: center;
-        padding: 18px 10px;
-        color: rgba(255, 255, 255, 0.8);
+        padding: 16px 10px;
+        color: rgba(243, 244, 246, 0.6);
         text-decoration: none;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         font-size: 13px;
         font-weight: 500;
-        border-bottom: 4px solid transparent;
+        border-bottom: 3px solid transparent;
         transition: var(--transition-fast);
         cursor: pointer;
       }
 
       .nav-item svg {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
         fill: currentColor;
         transition: transform var(--transition-fast);
       }
 
       .nav-item:hover {
         color: var(--text-light);
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: rgba(20, 184, 166, 0.05);
       }
 
       .nav-item:hover svg {
@@ -112,9 +144,10 @@
       }
 
       .nav-item.active {
-        color: var(--text-light);
-        border-bottom-color: var(--text-light);
+        color: var(--primary-teal);
+        border-bottom-color: var(--primary-teal);
         font-weight: 600;
+        text-shadow: 0 0 10px rgba(20, 184, 166, 0.4);
       }
 
       /* Pay Bill active state (Yellow accent from mockup) */
@@ -128,14 +161,15 @@
 
       .nav-item.pay-bill-active:hover {
         color: var(--accent-yellow-hover);
+        text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
       }
 
       /* Divider in Navigation */
       .nav-divider {
         width: 1px;
-        height: 36px;
-        background-color: rgba(255, 255, 255, 0.2);
-        margin: 0 5px;
+        height: 30px;
+        background-color: rgba(20, 184, 166, 0.15);
+        margin: 0 4px;
       }
 
       /* Main Content Layout */
@@ -145,36 +179,175 @@
         padding: 0 20px;
       }
 
+      /* Header Bar with Action Button */
+      .header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
       /* Title Header */
       .page-title {
         color: var(--primary-teal);
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 700;
-        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-shadow: 0 0 15px rgba(20, 184, 166, 0.2);
+      }
+
+      .page-title svg {
+        width: 28px;
+        height: 28px;
+        fill: currentColor;
+        filter: drop-shadow(0 0 5px rgba(20, 184, 166, 0.3));
+      }
+
+      /* Action Trigger Button for Simulator */
+      .action-btn {
+        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-hover) 100%);
+        color: var(--text-dark);
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-size: 14px;
+        cursor: pointer;
         display: flex;
         align-items: center;
         gap: 8px;
+        transition: var(--transition-normal);
+        box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+      }
+
+      .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(20, 184, 166, 0.5), var(--shadow-neon);
+      }
+
+      .action-btn:active {
+        transform: translateY(1px);
+      }
+
+      .action-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* Statistics Summary Row */
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .stats-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stat-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition-normal);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--border-color-focus);
+        box-shadow: var(--shadow-lg), 0 0 10px rgba(20, 184, 166, 0.1);
+      }
+
+      .stat-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .stat-icon-wrapper.total {
+        background-color: rgba(20, 184, 166, 0.15);
+        color: var(--primary-teal);
+        border: 1px solid rgba(20, 184, 166, 0.3);
+      }
+
+      .stat-icon-wrapper.success {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: var(--accent-green);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .stat-icon-wrapper.failed {
+        background-color: rgba(239, 68, 68, 0.15);
+        color: var(--accent-red);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+
+      .stat-icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+
+      .stat-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .stat-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .stat-val {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-light);
+      }
+
+      .stat-count {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
       }
 
       /* Main Card Container */
       .card-container {
-        background-color: var(--bg-card);
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-color);
         border-radius: 28px;
-        box-shadow: var(--shadow-md);
-        padding: 24px;
-        transition:
-          transform var(--transition-normal),
-          box-shadow var(--transition-normal);
-      }
-
-      .card-container:hover {
         box-shadow: var(--shadow-lg);
+        padding: 24px;
+        transition: var(--transition-normal);
+        margin-bottom: 30px;
       }
 
       /* Tabs Container inside Card */
       .tabs-wrapper {
-        background-color: #f1f3f7;
-        border-radius: 16px;
+        background-color: rgba(4, 9, 8, 0.5);
+        border: 1px solid rgba(20, 184, 166, 0.1);
+        border-radius: 18px;
         padding: 6px;
         display: flex;
         gap: 4px;
@@ -188,10 +361,10 @@
         justify-content: center;
         gap: 8px;
         padding: 14px 10px;
-        border-radius: 12px;
+        border-radius: 14px;
         font-size: 14px;
         font-weight: 600;
-        color: #64748b;
+        color: var(--text-muted);
         border: none;
         background: none;
         cursor: pointer;
@@ -205,14 +378,15 @@
       }
 
       .tab-item:hover {
-        color: var(--text-dark);
-        background-color: rgba(0, 0, 0, 0.03);
+        color: var(--text-light);
+        background-color: rgba(20, 184, 166, 0.05);
       }
 
       .tab-item.active {
-        background-color: var(--primary-teal);
-        color: var(--text-light);
-        box-shadow: var(--shadow-sm);
+        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-hover) 100%);
+        color: var(--text-dark);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+        font-weight: 700;
       }
 
       /* Filters Section */
@@ -251,10 +425,10 @@
       .filter-label {
         font-size: 13px;
         font-weight: 600;
-        color: #4a5568;
+        color: var(--text-muted);
       }
 
-      /* Custom Selector Style matching mockup */
+      /* Custom Selector Style */
       .custom-select-wrapper {
         position: relative;
         width: 100%;
@@ -263,21 +437,32 @@
       .custom-select {
         width: 100%;
         background-color: var(--bg-input);
-        border: none;
+        border: 1px solid var(--border-color);
         border-radius: 12px;
-        padding: 14px 16px;
+        padding: 12px 16px;
         font-size: 14px;
         font-weight: 500;
-        color: var(--text-dark);
+        color: var(--text-light);
         appearance: none;
         cursor: pointer;
         outline: none;
-        transition: background-color var(--transition-fast);
+        transition: var(--transition-fast);
       }
 
-      .custom-select:hover,
+      .custom-select:hover {
+        background-color: var(--bg-input-focus);
+        border-color: rgba(20, 184, 166, 0.4);
+      }
+
       .custom-select:focus {
-        background-color: #e2e2e2;
+        background-color: var(--bg-input-focus);
+        border-color: var(--primary-teal);
+        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25);
+      }
+
+      .custom-select option {
+        background-color: #0d1b18;
+        color: var(--text-light);
       }
 
       .custom-select-arrow {
@@ -288,7 +473,7 @@
         pointer-events: none;
         width: 14px;
         height: 14px;
-        fill: #718096;
+        fill: var(--text-muted);
         transition: transform var(--transition-fast);
       }
 
@@ -300,20 +485,26 @@
       .date-input {
         width: 100%;
         background-color: var(--bg-input);
-        border: none;
+        border: 1px solid var(--border-color);
         border-radius: 12px;
-        padding: 14px 16px;
+        padding: 12px 16px;
         font-size: 14px;
         font-weight: 500;
-        color: var(--text-dark);
+        color: var(--text-light);
         outline: none;
         cursor: pointer;
-        transition: background-color var(--transition-fast);
+        transition: var(--transition-fast);
       }
 
-      .date-input:hover,
+      .date-input:hover {
+        background-color: var(--bg-input-focus);
+        border-color: rgba(20, 184, 166, 0.4);
+      }
+
       .date-input:focus {
-        background-color: #e2e2e2;
+        background-color: var(--bg-input-focus);
+        border-color: var(--primary-teal);
+        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25);
       }
 
       .date-icon {
@@ -324,27 +515,27 @@
         pointer-events: none;
         width: 16px;
         height: 16px;
-        fill: #718096;
+        fill: var(--text-muted);
       }
 
       /* PDF Download Button */
       .download-btn {
-        background-color: var(--primary-teal);
-        color: var(--text-light);
-        border: none;
-        border-radius: 8px;
-        padding: 14px 20px;
+        background-color: transparent;
+        color: var(--primary-teal);
+        border: 1.5px solid var(--border-color);
+        border-radius: 12px;
+        padding: 12px 20px;
         font-size: 14px;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 8px;
         cursor: pointer;
         transition: var(--transition-normal);
-        box-shadow: var(--shadow-sm);
-        height: 48px;
+        height: 46px;
         white-space: nowrap;
+        width: 100%;
       }
 
       .download-btn svg {
@@ -354,9 +545,9 @@
       }
 
       .download-btn:hover {
-        background-color: var(--primary-teal-hover);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(11, 132, 124, 0.3);
+        background-color: rgba(20, 184, 166, 0.1);
+        border-color: var(--primary-teal);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15);
       }
 
       .download-btn:active {
@@ -365,7 +556,7 @@
 
       /* Transactions Section */
       .transactions-section {
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid rgba(20, 184, 166, 0.15);
         padding-top: 24px;
       }
 
@@ -374,33 +565,40 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+        gap: 16px;
+        flex-wrap: wrap;
       }
 
       .transactions-title {
         color: var(--primary-teal);
         font-size: 16px;
         font-weight: 700;
+        text-shadow: 0 0 10px rgba(20, 184, 166, 0.15);
       }
 
       /* Search input */
       .search-box {
         position: relative;
-        max-width: 250px;
+        max-width: 280px;
         width: 100%;
       }
 
       .search-input {
         width: 100%;
-        padding: 10px 14px 10px 36px;
-        border-radius: 10px;
+        padding: 10px 14px 10px 38px;
+        border-radius: 12px;
+        background-color: var(--bg-input);
         border: 1px solid var(--border-color);
+        color: var(--text-light);
         font-size: 13px;
         outline: none;
-        transition: border-color var(--transition-fast);
+        transition: var(--transition-fast);
       }
 
       .search-input:focus {
+        background-color: var(--bg-input-focus);
         border-color: var(--primary-teal);
+        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25);
       }
 
       .search-icon {
@@ -410,13 +608,14 @@
         transform: translateY(-50%);
         width: 16px;
         height: 16px;
-        fill: #a0aec0;
+        fill: var(--text-muted);
       }
 
       /* Transaction List */
       .transaction-list {
         display: flex;
         flex-direction: column;
+        gap: 10px;
       }
 
       /* Individual Transaction Item */
@@ -424,23 +623,19 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 18px 0;
-        border-bottom: 1px solid #edf2f7;
-        transition:
-          transform var(--transition-fast),
-          background-color var(--transition-fast);
-        border-radius: 8px;
+        padding: 16px;
+        border: 1px solid rgba(20, 184, 166, 0.08);
+        background-color: rgba(10, 22, 20, 0.4);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: var(--transition-normal);
       }
 
       .transaction-item:hover {
-        background-color: #f7fafc;
+        background-color: var(--bg-card-hover);
+        border-color: var(--border-color-focus);
         transform: translateX(4px);
-        padding-left: 8px;
-        padding-right: 8px;
-      }
-
-      .transaction-item:last-child {
-        border-bottom: none;
+        box-shadow: var(--shadow-sm), 0 0 10px rgba(20, 184, 166, 0.05);
       }
 
       .transaction-left {
@@ -451,33 +646,34 @@
 
       /* Icon styling */
       .transaction-icon-container {
-        width: 46px;
-        height: 46px;
-        background-color: var(--primary-teal);
+        width: 44px;
+        height: 44px;
+        background-color: rgba(20, 184, 166, 0.12);
+        color: var(--primary-teal);
+        border: 1px solid rgba(20, 184, 166, 0.25);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--text-light);
         position: relative;
         flex-shrink: 0;
       }
 
       .transaction-icon-container svg.main-icon {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         fill: currentColor;
       }
 
       /* Tiny diagonal arrow up-right on icon */
       .transaction-arrow-badge {
         position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 14px;
-        height: 14px;
-        background-color: #0b847c;
-        border: 1.5px solid #ffffff;
+        top: -2px;
+        right: -2px;
+        width: 16px;
+        height: 16px;
+        background-color: var(--bg-dark);
+        border: 1.5px solid var(--primary-teal);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -487,31 +683,31 @@
       .transaction-arrow-badge svg {
         width: 8px;
         height: 8px;
-        fill: #ffffff;
+        fill: var(--primary-teal);
       }
 
       /* Details text alignment */
       .transaction-details {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 3px;
       }
 
       .transaction-type {
         font-size: 15px;
         font-weight: 700;
-        color: var(--text-dark);
+        color: var(--text-light);
       }
 
       .transaction-description {
         font-size: 13px;
-        color: #4a5568;
+        color: var(--text-muted);
         font-weight: 500;
       }
 
       .transaction-meta {
         font-size: 11px;
-        color: var(--text-muted);
+        color: rgba(156, 163, 175, 0.7);
         display: flex;
         gap: 8px;
         align-items: center;
@@ -520,7 +716,7 @@
       .transaction-meta-dot {
         width: 3px;
         height: 3px;
-        background-color: #a0aec0;
+        background-color: rgba(156, 163, 175, 0.5);
         border-radius: 50%;
       }
 
@@ -529,13 +725,21 @@
         text-align: right;
         display: flex;
         flex-direction: column;
-        gap: 2px;
+        align-items: flex-end;
+        gap: 4px;
       }
 
       .transaction-amount {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 700;
+      }
+
+      .transaction-amount.minus {
         color: var(--accent-red);
+      }
+
+      .transaction-amount.plus {
+        color: var(--accent-green);
       }
 
       .transaction-currency {
@@ -556,16 +760,16 @@
       }
 
       .empty-state svg {
-        width: 64px;
-        height: 64px;
-        fill: #cbd5e0;
+        width: 56px;
+        height: 56px;
+        fill: rgba(20, 184, 166, 0.2);
         margin-bottom: 16px;
       }
 
       .empty-state-title {
         font-size: 16px;
         font-weight: 700;
-        color: var(--text-dark);
+        color: var(--text-light);
         margin-bottom: 6px;
       }
 
@@ -575,13 +779,15 @@
         bottom: 30px;
         left: 50%;
         transform: translateX(-50%) translateY(100px);
-        background-color: #2d3748;
+        background-color: rgba(10, 22, 20, 0.95);
+        border: 1px solid var(--primary-teal);
+        backdrop-filter: blur(10px);
         color: var(--text-light);
-        padding: 12px 24px;
-        border-radius: 12px;
+        padding: 14px 24px;
+        border-radius: 16px;
         font-weight: 600;
         font-size: 14px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), var(--shadow-neon);
         z-index: 1000;
         opacity: 0;
         transition:
@@ -600,7 +806,7 @@
       .toast svg {
         width: 18px;
         height: 18px;
-        fill: #48bb78;
+        fill: var(--accent-green);
       }
 
       /* Subtle Fade In keyframes */
@@ -621,14 +827,15 @@
 
       /* Batch rendering item styles */
       .batch-circle-icon {
-        width: 42px;
-        height: 42px;
-        background-color: var(--primary-teal);
+        width: 44px;
+        height: 44px;
+        background-color: rgba(245, 158, 11, 0.12);
+        color: var(--accent-yellow);
+        border: 1px solid rgba(245, 158, 11, 0.3);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
         font-weight: 700;
         font-size: 11px;
         flex-shrink: 0;
@@ -645,7 +852,7 @@
       .batch-total-text {
         font-size: 12px;
         font-weight: 700;
-        color: var(--text-dark);
+        color: var(--text-light);
         margin-right: 4px;
       }
 
@@ -661,11 +868,15 @@
       }
 
       .batch-badge-pill.success {
-        background-color: var(--primary-teal);
+        background-color: rgba(16, 185, 129, 0.2);
+        color: var(--accent-green);
+        border: 1px solid rgba(16, 185, 129, 0.3);
       }
 
       .batch-badge-pill.failed {
-        background-color: var(--accent-red);
+        background-color: rgba(239, 68, 68, 0.2);
+        color: var(--accent-red);
+        border: 1px solid rgba(239, 68, 68, 0.3);
       }
 
       .batch-right-col {
@@ -683,8 +894,9 @@
       }
 
       .batch-status-badge {
-        background-color: var(--primary-teal);
-        color: white;
+        background-color: rgba(20, 184, 166, 0.15);
+        color: var(--primary-teal);
+        border: 1px solid rgba(20, 184, 166, 0.3);
         border-radius: 50px;
         padding: 4px 12px;
         font-size: 10px;
@@ -707,13 +919,532 @@
       }
 
       .status-badge.complete {
-        background-color: #d1fae5;
-        color: #065f46;
+        background-color: rgba(16, 185, 129, 0.15);
+        color: var(--accent-green);
+        border: 1px solid rgba(16, 185, 129, 0.25);
       }
 
       .status-badge.failed {
-        background-color: #fee2e2;
-        color: #991b1b;
+        background-color: rgba(239, 68, 68, 0.15);
+        color: var(--accent-red);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+      }
+
+      /* ------------------------------------------------------------- */
+      /* DETAILED RECEIPT MODAL                                        */
+      /* ------------------------------------------------------------- */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-normal);
+      }
+
+      .modal-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .receipt-modal {
+        background: radial-gradient(circle at top, #0f2421 0%, #060e0d 100%);
+        border: 1.5px solid var(--border-color);
+        border-radius: 24px;
+        width: 90%;
+        max-width: 440px;
+        padding: 24px;
+        box-shadow: var(--shadow-lg), 0 0 30px rgba(20, 184, 166, 0.15);
+        position: relative;
+        transform: translateY(30px) scale(0.95);
+        transition: transform var(--transition-normal);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-overlay.show .receipt-modal {
+        transform: translateY(0) scale(1);
+      }
+
+      .receipt-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .receipt-icon-badge {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+
+      .receipt-icon-badge.success {
+        background-color: rgba(16, 185, 129, 0.2);
+        color: var(--accent-green);
+        border: 1.5px solid rgba(16, 185, 129, 0.4);
+      }
+
+      .receipt-icon-badge.failed {
+        background-color: rgba(239, 68, 68, 0.2);
+        color: var(--accent-red);
+        border: 1.5px solid rgba(239, 68, 68, 0.4);
+      }
+
+      .receipt-icon-badge svg {
+        width: 28px;
+        height: 28px;
+        fill: currentColor;
+      }
+
+      .receipt-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 4px;
+      }
+
+      .receipt-status-text {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .receipt-status-text.success {
+        color: var(--accent-green);
+      }
+
+      .receipt-status-text.failed {
+        color: var(--accent-red);
+      }
+
+      .receipt-amount-display {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 16px 0;
+        color: var(--text-light);
+      }
+
+      .receipt-divider {
+        border: none;
+        border-top: 1px dashed rgba(20, 184, 166, 0.2);
+        margin: 16px 0;
+        height: 1px;
+      }
+
+      .receipt-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 8px 0;
+        font-size: 13px;
+        gap: 12px;
+      }
+
+      .receipt-row-label {
+        color: var(--text-muted);
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      .receipt-row-val {
+        color: var(--text-light);
+        font-weight: 600;
+        text-align: right;
+        word-break: break-all;
+      }
+
+      /* Batch List Breakdown inside Receipt Modal */
+      .receipt-breakdown-box {
+        margin-top: 16px;
+        background-color: rgba(4, 9, 8, 0.4);
+        border: 1px solid rgba(20, 184, 166, 0.1);
+        border-radius: 12px;
+        padding: 12px;
+        max-height: 180px;
+        overflow-y: auto;
+      }
+
+      .breakdown-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--primary-teal);
+        margin-bottom: 8px;
+        border-bottom: 1px solid rgba(20, 184, 166, 0.1);
+        padding-bottom: 4px;
+      }
+
+      .breakdown-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        font-size: 11px;
+        border-bottom: 1px solid rgba(20, 184, 166, 0.05);
+      }
+
+      .breakdown-item:last-child {
+        border-bottom: none;
+      }
+
+      .breakdown-left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .breakdown-name {
+        font-weight: 600;
+        color: var(--text-light);
+      }
+
+      .breakdown-acc {
+        color: var(--text-muted);
+      }
+
+      .breakdown-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .breakdown-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .breakdown-status-dot.success {
+        background-color: var(--accent-green);
+        box-shadow: 0 0 6px var(--accent-green);
+      }
+
+      .breakdown-status-dot.failed {
+        background-color: var(--accent-red);
+        box-shadow: 0 0 6px var(--accent-red);
+      }
+
+      .modal-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .modal-btn {
+        padding: 12px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition-normal);
+        text-align: center;
+        border: none;
+      }
+
+      .modal-btn.primary {
+        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-hover) 100%);
+        color: var(--text-dark);
+      }
+
+      .modal-btn.primary:hover {
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+      }
+
+      .modal-btn.secondary {
+        background-color: rgba(22, 44, 40, 0.6);
+        color: var(--text-light);
+        border: 1px solid var(--border-color);
+      }
+
+      .modal-btn.secondary:hover {
+        background-color: rgba(30, 60, 55, 0.8);
+      }
+
+      /* ------------------------------------------------------------- */
+      /* SIMULATOR DRAWER                                              */
+      /* ------------------------------------------------------------- */
+      .drawer-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 101;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-normal);
+      }
+
+      .drawer-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .drawer-container {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 480px;
+        height: 100%;
+        background-color: #060f0d;
+        border-left: 1.5px solid var(--border-color);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        z-index: 102;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        transition: right var(--transition-slow);
+      }
+
+      .drawer-overlay.show + .drawer-container,
+      .drawer-container.open {
+        right: 0;
+      }
+
+      .drawer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        border-bottom: 1px solid rgba(20, 184, 166, 0.15);
+        padding-bottom: 12px;
+      }
+
+      .drawer-title {
+        color: var(--primary-teal);
+        font-size: 18px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .close-drawer-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-fast);
+      }
+
+      .close-drawer-btn:hover {
+        background-color: rgba(239, 68, 68, 0.15);
+        color: var(--accent-red);
+      }
+
+      .close-drawer-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      .drawer-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        overflow-y: auto;
+        flex: 1;
+        padding-right: 4px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .form-input {
+        width: 100%;
+        background-color: var(--bg-input);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 12px 16px;
+        color: var(--text-light);
+        font-size: 14px;
+        outline: none;
+        transition: var(--transition-fast);
+      }
+
+      .form-input:focus {
+        background-color: var(--bg-input-focus);
+        border-color: var(--primary-teal);
+        box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
+      }
+
+      /* Switch Simulator Tabs inside form */
+      .form-type-select {
+        display: flex;
+        background-color: rgba(4, 9, 8, 0.4);
+        border-radius: 12px;
+        padding: 4px;
+        border: 1px solid rgba(20, 184, 166, 0.1);
+      }
+
+      .form-type-btn {
+        flex: 1;
+        border: none;
+        background: none;
+        color: var(--text-muted);
+        padding: 8px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-normal);
+      }
+
+      .form-type-btn.active {
+        background-color: var(--primary-teal);
+        color: var(--text-dark);
+      }
+
+      /* Bulk input rows container */
+      .bulk-entries-container {
+        border: 1px solid rgba(20, 184, 166, 0.1);
+        border-radius: 12px;
+        padding: 12px;
+        background-color: rgba(4, 9, 8, 0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .bulk-entry-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 8px;
+        align-items: center;
+        border-bottom: 1px dashed rgba(20, 184, 166, 0.1);
+        padding-bottom: 12px;
+      }
+
+      .bulk-entry-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .remove-entry-btn {
+        background: none;
+        border: none;
+        color: var(--accent-red);
+        cursor: pointer;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .add-entry-btn {
+        background-color: rgba(20, 184, 166, 0.1);
+        color: var(--primary-teal);
+        border: 1.5px dashed var(--border-color);
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: var(--transition-fast);
+      }
+
+      .add-entry-btn:hover {
+        background-color: rgba(20, 184, 166, 0.15);
+        border-color: var(--primary-teal);
+      }
+
+      .submit-form-btn {
+        background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-hover) 100%);
+        color: var(--text-dark);
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 16px;
+        transition: var(--transition-normal);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .submit-form-btn:hover {
+        box-shadow: 0 6px 18px rgba(20, 184, 166, 0.4);
+        transform: translateY(-1px);
+      }
+
+      /* Loading Overlay for simulator */
+      .form-loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(6, 15, 13, 0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-fast);
+        border-radius: 20px;
+        z-index: 5;
+      }
+
+      .form-loading-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(20, 184, 166, 0.1);
+        border-top: 4px solid var(--primary-teal);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        box-shadow: 0 0 10px rgba(20, 184, 166, 0.1);
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     </style>
   </head>
@@ -742,7 +1473,7 @@
         <div class="nav-divider"></div>
 
         <a class="nav-item active">
-          <!-- History Icon (Active in topbar context of history pages) -->
+          <!-- History Icon -->
           <svg viewBox="0 0 24 24">
             <path
               d="M13 3a9 9 0 0 0-9 9H1L4.89 16 9 12H6a7 7 0 1 1 7 7 7 7 0 0 1-7-7H4a9 9 0 1 0 9-9zm-1 4v5.4l4.5 2.7.8-1.3-3.8-2.3V7h-1.5z"
@@ -764,7 +1495,7 @@
         <div class="nav-divider"></div>
 
         <a class="nav-item pay-bill-active">
-          <!-- Pay Bill Icon (Golden highlight from mockup) -->
+          <!-- Pay Bill Icon (Golden highlight) -->
           <svg viewBox="0 0 24 24">
             <path
               d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-1 15H6v-2h12v2m0-3H6v-2h12v2m0-3H6V7h12v2M8.5 11h1v1.5h-1V11m2-1.5h1v1.5h-1V9.5z"
@@ -788,18 +1519,68 @@
 
     <!-- Main Container -->
     <main class="main-content">
-      <!-- Page Title -->
-      <h1 class="page-title">
-        <svg
-          style="width: 24px; height: 24px; fill: currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M13 3a9 9 0 0 0-9 9H1L4.89 16 9 12H6a7 7 0 1 1 7 7 7 7 0 0 1-7-7H4a9 9 0 1 0 9-9z"
-          />
-        </svg>
-        ປະຫວັດການໂອນ
-      </h1>
+      <!-- Header with title & action simulator button -->
+      <div class="header-bar">
+        <h1 class="page-title">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3a9 9 0 0 0-9 9H1L4.89 16 9 12H6a7 7 0 1 1 7 7 7 7 0 0 1-7-7H4a9 9 0 1 0 9-9z"
+            />
+          </svg>
+          ປະຫວັດການໂອນເງິນ
+        </h1>
+        <button class="action-btn" onclick="openSimulator()">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          <span>ຈຳລອງການໂອນເງິນ</span>
+        </button>
+      </div>
+
+      <!-- Dashboard Stats Widgets -->
+      <section class="stats-container">
+        <!-- Total Transferred -->
+        <div class="stat-card">
+          <div class="stat-icon-wrapper total">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">ຍອດເງິນໂອນທັງໝົດ</span>
+            <span class="stat-val number-font" id="statTotalVal">0 ກີບ</span>
+            <span class="stat-count" id="statTotalCount">0 ລາຍການ</span>
+          </div>
+        </div>
+
+        <!-- Success Transfers -->
+        <div class="stat-card">
+          <div class="stat-icon-wrapper success">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">ທຸລະກຳສຳເລັດ</span>
+            <span class="stat-val number-font" id="statSuccessVal" style="color: var(--accent-green);">0 ກີບ</span>
+            <span class="stat-count" id="statSuccessCount">0 ລາຍການ</span>
+          </div>
+        </div>
+
+        <!-- Failed Transfers -->
+        <div class="stat-card">
+          <div class="stat-icon-wrapper failed">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">ທຸລະກຳລົ້ມເຫຼວ</span>
+            <span class="stat-val number-font" id="statFailedVal" style="color: var(--accent-red);">0 ກີບ</span>
+            <span class="stat-count" id="statFailedCount">0 ລາຍການ</span>
+          </div>
+        </div>
+      </section>
 
       <!-- Card Wrapper -->
       <section class="card-container">
@@ -811,7 +1592,7 @@
                 d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
               />
             </svg>
-            <span>ປະຫວັດ</span>
+            <span>ປະຫວັດທຸລະກຳ</span>
           </button>
           <button class="tab-item active" id="tab-1" onclick="switchTab(1)">
             <svg viewBox="0 0 24 24">
@@ -819,7 +1600,7 @@
                 d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
               />
             </svg>
-            <span>ປະຫວັດຈ່າຍເງິນຫຼາຍ</span>
+            <span>ປະຫວັດຈ່າຍເງິນຫຼາຍລາຍການ</span>
           </button>
           <button class="tab-item" id="tab-2" onclick="switchTab(2)">
             <svg viewBox="0 0 24 24">
@@ -842,12 +1623,11 @@
                 id="accountSelect"
                 onchange="applyFilters()"
               >
-                <option value="all">ເລືອກ</option>
-                <option value="bcel">BCEL Savings (101-***-299)</option>
-                <option value="ldb">LDB Savings (202-***-455)</option>
-                <option value="apb">APB Payroll (303-***-881)</option>
+                <option value="all">ທັງໝົດ</option>
+                <option value="bcel">ບັນຊີເງິນຝາກ BCEL (101-***-299)</option>
+                <option value="ldb">ບັນຊີເງິນຝາກ LDB (202-***-455)</option>
+                <option value="apb">ບັນຊີເງິນເດືອນ APB (303-***-881)</option>
               </select>
-              <!-- Custom Arrow SVG -->
               <svg class="custom-select-arrow" viewBox="0 0 24 24">
                 <path d="M7 10l5 5 5-5z" />
               </svg>
@@ -863,10 +1643,10 @@
                 id="typeSelect"
                 onchange="applyFilters()"
               >
-                <option value="all">ເລືອກ</option>
-                <option value="internal">ໂອນພາຍໃນ (Internal)</option>
-                <option value="external">ໂອນຕ່າງທະນາຄານ (Interbank)</option>
-                <option value="other">ອື່ນໆ (Other)</option>
+                <option value="all">ທັງໝົດ</option>
+                <option value="internal">ໂອນພາຍໃນທະນາຄານ</option>
+                <option value="external">ໂອນຕ່າງທະນາຄານ</option>
+                <option value="other">ອື່ນໆ</option>
               </select>
               <svg class="custom-select-arrow" viewBox="0 0 24 24">
                 <path d="M7 10l5 5 5-5z" />
@@ -885,7 +1665,6 @@
                 value="11/11/2025"
                 placeholder="DD/MM/YYYY"
               />
-              <!-- Clock/Calendar icon inside input -->
               <svg class="date-icon" viewBox="0 0 24 24">
                 <path
                   d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"
@@ -922,7 +1701,7 @@
                   d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1.5 14H10v-3h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm0-4H10V9.5h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"
                 />
               </svg>
-              <span>ດາວໂຫລດປະຫວັດ</span>
+              <span>ດາວໂຫລດ PDF</span>
             </button>
           </div>
         </div>
@@ -932,7 +1711,7 @@
           <!-- Section Header -->
           <div class="transactions-header">
             <h2 class="transactions-title" id="sectionTitle">ຫົວຂໍ້ທຸລະກຳ</h2>
-            <!-- Custom search filter box for premium interactivity -->
+            <!-- Custom search filter box -->
             <div class="search-box">
               <svg class="search-icon" viewBox="0 0 24 24">
                 <path
@@ -944,7 +1723,7 @@
                 class="search-input"
                 id="searchInput"
                 oninput="applyFilters()"
-                placeholder="ຄົ້ນຫາທຸລະກໍາ..."
+                placeholder="ຄົ້ນຫາທຸລະກຳ..."
               />
             </div>
           </div>
@@ -968,164 +1747,457 @@
       </section>
     </main>
 
+    <!-- DETAILED RECEIPT MODAL -->
+    <div class="modal-overlay" id="receiptModalOverlay" onclick="closeReceiptModal(event)">
+      <div class="receipt-modal">
+        <div class="receipt-header">
+          <div class="receipt-icon-badge" id="modalIconBadge">
+            <!-- Rendered by JS -->
+          </div>
+          <h3 class="receipt-title" id="modalReceiptTitle">ໃບບິນການໂອນເງິນ</h3>
+          <span class="receipt-status-text" id="modalReceiptStatus">ສຳເລັດ</span>
+        </div>
+
+        <div class="receipt-amount-display" id="modalAmountDisplay">
+          0 ກີບ
+        </div>
+
+        <div class="receipt-divider"></div>
+
+        <!-- Meta fields -->
+        <div class="receipt-row">
+          <span class="receipt-row-label">ລະຫັດທຸລະກຳ</span>
+          <span class="receipt-row-val number-font" id="modalTxId">TXN-0000</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ວັນທີ-ເວລາ</span>
+          <span class="receipt-row-val number-font" id="modalDateTime">01/01/2026 00:00</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ບັນຊີຕົ້ນທາງ</span>
+          <span class="receipt-row-val number-font" id="modalSrcAccount">000-***-000</span>
+        </div>
+        <div class="receipt-row" id="modalDestAccountRow">
+          <span class="receipt-row-label">ບັນຊີປາຍທາງ</span>
+          <span class="receipt-row-val number-font" id="modalDestAccount">000-***-000</span>
+        </div>
+        <div class="receipt-row" id="modalDestNameRow">
+          <span class="receipt-row-label">ຜູ້ຮັບເງິນ</span>
+          <span class="receipt-row-val" id="modalDestName">ນາງ ມະລີ</span>
+        </div>
+        <div class="receipt-row" id="modalDestBankRow">
+          <span class="receipt-row-label">ທະນາຄານ</span>
+          <span class="receipt-row-val" id="modalDestBank">BCEL</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ຄ່າທຳນຽມ</span>
+          <span class="receipt-row-val number-font" id="modalFee">0 ກີບ</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-row-label">ຄຳອະທິບາຍ</span>
+          <span class="receipt-row-val" id="modalDescription">ທົດສອບ</span>
+        </div>
+
+        <!-- Breakdown section for batch items -->
+        <div id="modalBreakdownSection" style="display: none;">
+          <div class="receipt-divider"></div>
+          <div class="breakdown-title">ລາຍລະອຽດບັນຊີປາຍທາງ</div>
+          <div class="receipt-breakdown-box" id="modalBreakdownList">
+            <!-- Dynamic elements -->
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn secondary" onclick="closeReceiptModalDirect()">ປິດ</button>
+          <button class="modal-btn primary" onclick="shareReceipt()">ແບ່ງປັນໃບບິນ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIMULATOR SIDE DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeSimulator()"></div>
+    <div class="drawer-container" id="drawerContainer">
+      <div class="form-loading-overlay" id="formLoadingOverlay">
+        <div class="spinner"></div>
+        <span style="font-weight: 700; font-size: 14px; color: var(--primary-teal);">ກຳລັງປະມວນຜົນທຸລະກຳ...</span>
+      </div>
+
+      <div class="drawer-header">
+        <h3 class="drawer-title">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          ຈຳລອງການໂອນເງິນ
+        </h3>
+        <button class="close-drawer-btn" onclick="closeSimulator()">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="drawer-form">
+        <!-- Selector for general vs bulk vs scheduled -->
+        <div class="form-group">
+          <label class="form-label">ປະເພດທຸລະກຳ</label>
+          <div class="form-type-select">
+            <button class="form-type-btn active" id="simTypeBtn0" onclick="setSimType(0)">ທົ່ວໄປ</button>
+            <button class="form-type-btn" id="simTypeBtn1" onclick="setSimType(1)">ຈ່າຍເງິນຫຼາຍລາຍການ</button>
+            <button class="form-type-btn" id="simTypeBtn2" onclick="setSimType(2)">ຕັ້ງເວລາໂອນ</button>
+          </div>
+        </div>
+
+        <!-- Common fields -->
+        <div class="form-group">
+          <label class="form-label">ບັນຊີຕົ້ນທາງ</label>
+          <div class="custom-select-wrapper">
+            <select class="custom-select" id="simSrcAccount">
+              <option value="bcel">ບັນຊີເງິນຝາກ BCEL (101-***-299)</option>
+              <option value="ldb">ບັນຊີເງິນຝາກ LDB (202-***-455)</option>
+              <option value="apb">ບັນຊີເງິນເດືອນ APB (303-***-881)</option>
+            </select>
+            <svg class="custom-select-arrow" viewBox="0 0 24 24">
+              <path d="M7 10l5 5 5-5z" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ຄຳອະທິບາຍ</label>
+          <input type="text" class="form-input" id="simDescription" placeholder="ຄຳອະທິບາຍການໂອນ" value="ໂອນເງິນທົດສອບ" />
+        </div>
+
+        <div class="form-group" id="simDateRow" style="display: none;">
+          <label class="form-label">ຕັ້ງເວລາໂອນ (ຕົວຢ່າງ: ທຸກໆວັນທີ 10 ຂອງເດືອນ)</label>
+          <input type="text" class="form-input" id="simScheduledDate" placeholder="ວັນທີໂອນ" value="ທຸກໆວັນທີ 15 ຂອງເດືອນ" />
+        </div>
+
+        <!-- Single Payment form fields -->
+        <div id="simSingleFields">
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">ທະນາຄານປາຍທາງ</label>
+            <div class="custom-select-wrapper">
+              <select class="custom-select" id="simDestBank">
+                <option value="BCEL">BCEL (ທະນາຄານການຄ້າຕ່າງປະເທດລາວ)</option>
+                <option value="LDB">LDB (ທະນາຄານພັດທະນາລາວ)</option>
+                <option value="APB">APB (ທະນາຄານສົ່ງເສີມກະສິກຳ)</option>
+                <option value="JDB">JDB (ທະນາຄານຮ່ວມພັດທະນາ)</option>
+              </select>
+              <svg class="custom-select-arrow" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">ເລກບັນຊີປາຍທາງ</label>
+            <input type="text" class="form-input number-font" id="simDestAccount" placeholder="ເລກບັນຊີ 15 ຫຼັກ" value="101-1200-998822" />
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">ຊື່ຜູ້ຮັບ</label>
+            <input type="text" class="form-input" id="simDestName" placeholder="ຊື່ ແລະ ນາມສະກຸນ" value="ທ້າວ ຄຳສະຫວັນ" />
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">ຈຳນວນເງິນ (ກີບ)</label>
+            <input type="number" class="form-input number-font" id="simAmount" placeholder="ຈຳນວນເງິນ" value="150000" />
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label class="form-label">ສະຖານະການໂອນ</label>
+            <div class="custom-select-wrapper">
+              <select class="custom-select" id="simStatus">
+                <option value="complete">ສຳເລັດ (Success)</option>
+                <option value="failed">ລົ້ມເຫຼວ (Failed)</option>
+              </select>
+              <svg class="custom-select-arrow" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bulk/Multiple Payment fields -->
+        <div id="simBulkFields" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">ລາຍການບັນຊີປາຍທາງ</label>
+            <div class="bulk-entries-container" id="simBulkEntries">
+              <!-- Render dynamic rows here -->
+            </div>
+            <button class="add-entry-btn" onclick="addBulkEntryRow()">
+              <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+              </svg>
+              ເພີ່ມບັນຊີປາຍທາງ
+            </button>
+          </div>
+        </div>
+
+        <button class="submit-form-btn" onclick="submitSimulation()">
+          <span>ຢືນຢັນການໂອນເງິນ</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Popup Toast Notification -->
     <div class="toast" id="downloadToast">
       <svg viewBox="0 0 24 24">
         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
       </svg>
-      <span>ກຳລັງດາວໂຫລດໄຟລ໌ PDF ປະຫວັດທຸລະກຳ...</span>
+      <span id="toastMessage">ກຳລັງດາວໂຫລດໄຟລ໌ PDF ປະຫວັດທຸລະກຳ...</span>
     </div>
 
     <!-- Scripting for Dynamic Behaviors -->
     <script>
-      // Mock database of transactions for different tabs
+      // Updated detailed Mock database of transactions with Lao values & failed cases.
       const mockDatabase = [
-        // TAB 0: ປະຫວັດ (General History)
+        // TAB 0: ປະຫວັດທຸລະກຳທົ່ວໄປ (General History)
         [
           {
-            type: "ໂອນພາຍໃນ",
+            type: "ໂອນພາຍໃນທະນາຄານ",
             description: "ໂອນຈ່າຍຄ່າໄຟຟ້າ ປະຈຳເດືອນ 5",
-            id: "20250128628901",
+            id: "TXN-2026052701",
             date: "25/05/2026",
             time: "09:12:45",
             amount: "- 350,000",
             account: "bcel",
             typeCategory: "internal",
             status: "complete",
+            senderAccount: "101-***-299",
+            destAccount: "101-2244-123",
+            destName: "ລັດວິສາຫະກິດໄຟຟ້າລາວ (EDL)",
+            destBank: "BCEL",
+            fee: "0",
           },
           {
             type: "ໂອນຕ່າງທະນາຄານ",
             description: "ໂອນຄ່າອາຫານ ສັ່ງເດລິເວີຣີ",
-            id: "20250128628902",
+            id: "TXN-2026052702",
             date: "24/05/2026",
             time: "12:30:11",
             amount: "- 85,000",
             account: "bcel",
             typeCategory: "external",
             status: "complete",
+            senderAccount: "101-***-299",
+            destAccount: "202-5566-990",
+            destName: "ຮ້ານອາຫານ ຕຳສະບາຍດີ",
+            destBank: "LDB",
+            fee: "5,000",
           },
           {
-            type: "ໂອນພາຍໃນ",
+            type: "ໂອນພາຍໃນທະນາຄານ",
             description: "ໂອນຈ່າຍຄ່າອິນເຕີເນັດ LTE",
-            id: "20250128628903",
+            id: "TXN-2026052703",
             date: "22/05/2026",
             time: "18:45:00",
             amount: "- 250,000",
             account: "ldb",
             typeCategory: "internal",
             status: "complete",
+            senderAccount: "202-***-455",
+            destAccount: "202-1100-388",
+            destName: "ບໍລິສັດ ໂທລະຄົມມະນາຄົມ ລາວ",
+            destBank: "LDB",
+            fee: "0",
           },
           {
-            type: "ໂອນພາຍໃນ",
+            type: "ໂອນພາຍໃນທະນາຄານ",
             description: "ໂອນເງິນໃຫ້ ນາງ ສຸກສະຫວັນ",
-            id: "20250128628904",
+            id: "TXN-2026052704",
             date: "20/05/2026",
             time: "14:15:22",
             amount: "- 1,500,000",
             account: "apb",
             typeCategory: "internal",
             status: "failed",
+            senderAccount: "303-***-881",
+            destAccount: "303-9988-111",
+            destName: "ນາງ ສຸກສະຫວັນ ຄຳມີ",
+            destBank: "APB",
+            fee: "0",
           },
+          {
+            type: "ໂອນຕ່າງທະນາຄານ",
+            description: "ໂອນຊື້ເຄື່ອງນຸ່ງອອນໄລນ໌",
+            id: "TXN-2026052705",
+            date: "19/05/2026",
+            time: "10:05:30",
+            amount: "- 180,000",
+            account: "bcel",
+            typeCategory: "external",
+            status: "complete",
+            senderAccount: "101-***-299",
+            destAccount: "909-1234-888",
+            destName: "ຮ້ານເສື້ອຜ້າ ຄົນງາມ",
+            destBank: "JDB",
+            fee: "5,000",
+          },
+          {
+            type: "ໂອນພາຍໃນທະນາຄານ",
+            description: "ໂອນເງິນໃຫ້ ທ້າວ ອາລີ",
+            id: "TXN-2026052706",
+            date: "15/05/2026",
+            time: "16:20:00",
+            amount: "- 500,000",
+            account: "ldb",
+            typeCategory: "internal",
+            status: "failed",
+            senderAccount: "202-***-455",
+            destAccount: "202-8811-222",
+            destName: "ທ້າວ ອາລີ ຈັນທະລາ",
+            destBank: "LDB",
+            fee: "0",
+          }
         ],
-        // TAB 1: ປະຫວັດຈ່າຍເງິນຫຼາຍ (Bulk/Multiple History) - Active initially
+        // TAB 1: ປະຫວັດຈ່າຍເງິນຫຼາຍລາຍການ (Bulk/Multiple History)
         [
           {
             isBatch: true,
-            batchName: "batch75644223",
-            sourceAccount: "0000200100108241",
-            description: "test for individual multi payment",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 75644223",
+            sourceAccount: "101-***-299",
+            description: "ໂອນຄ່າຕອບແທນພະນັກງານພິເສດ",
             date: "26/05/2026",
             time: "14:41",
             total: 2,
             success: 2,
             failed: 0,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "bcel",
             typeCategory: "internal",
+            successAmount: "1,200,000",
+            failedAmount: "0",
+            totalAmount: "1,200,000",
+            recipients: [
+              { name: "ທ້າວ ສຸລິຍາ ແກ້ວພັນ", account: "101-1122-837", amount: "600,000", status: "complete" },
+              { name: "ນາງ ຈັນທະນາ ວົງສາ", account: "101-9988-382", amount: "600,000", status: "complete" }
+            ]
           },
           {
             isBatch: true,
-            batchName: "batch47262408",
-            sourceAccount: "0000200100108241",
-            description: "test for individual multi payment",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 47262408",
+            sourceAccount: "101-***-299",
+            description: "ທົດສອບລະບົບການໂອນພາຍໃນກຸ່ມ",
             date: "26/05/2026",
             time: "14:41",
             total: 2,
             success: 2,
             failed: 0,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "bcel",
             typeCategory: "internal",
+            successAmount: "2,000,000",
+            failedAmount: "0",
+            totalAmount: "2,000,000",
+            recipients: [
+              { name: "ທ້າວ ອານຸສອນ ໄຊເສນາ", account: "101-7788-990", amount: "1,000,000", status: "complete" },
+              { name: "ນາງ ກັນຍາ ສີສົມພູ", account: "101-6677-223", amount: "1,000,000", status: "complete" }
+            ]
           },
           {
             isBatch: true,
-            batchName: "batch18821069",
-            sourceAccount: "0000200100108241",
-            description: "test multi payment from individual",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 18821069",
+            sourceAccount: "101-***-299",
+            description: "ໂອນຄ່າເງິນລາງວັນປະຈຳປີ",
             date: "26/05/2026",
             time: "14:33",
             total: 2,
             success: 1,
             failed: 1,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "bcel",
             typeCategory: "internal",
+            successAmount: "1,000,000",
+            failedAmount: "750,000",
+            totalAmount: "1,750,000",
+            recipients: [
+              { name: "ທ້າວ ສົມໃຈ ໄຊຍະວົງ", account: "101-4433-281", amount: "1,000,000", status: "complete" },
+              { name: "ທ້າວ ຄຳມີ ວົງດາລາ", account: "101-5544-902", amount: "750,000", status: "failed" }
+            ]
           },
           {
             isBatch: true,
-            batchName: "batch29663328",
-            sourceAccount: "0000200100108241",
-            description: "test multi payment from individual",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 29663328",
+            sourceAccount: "101-***-299",
+            description: "ທົດສອບການໂອນເງິນຫຼາຍລາຍການຈາກບຸກຄົນ",
             date: "26/05/2026",
             time: "14:33",
             total: 2,
             success: 1,
             failed: 1,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "bcel",
             typeCategory: "internal",
+            successAmount: "500,000",
+            failedAmount: "500,000",
+            totalAmount: "1,000,000",
+            recipients: [
+              { name: "ທ້າວ ບຸນມາ ແສງແກ້ວ", account: "101-9988-123", amount: "500,000", status: "complete" },
+              { name: "ນາງ ນ້ອຍ ແກ້ວມະນີ", account: "101-9988-124", amount: "500,000", status: "failed" }
+            ]
           },
           {
             isBatch: true,
-            batchName: "batch32365751",
-            sourceAccount: "0000200200208455",
-            description: "test",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 32365751",
+            sourceAccount: "202-***-455",
+            description: "ໂອນຄ່າເຊົ່າອຸປະກອນເຮັດວຽກ",
             date: "18/05/2026",
             time: "14:52",
             total: 1,
             success: 0,
             failed: 1,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "ldb",
             typeCategory: "internal",
+            successAmount: "0",
+            failedAmount: "2,500,000",
+            totalAmount: "2,500,000",
+            recipients: [
+              { name: "ນາງ ສິຣິພອນ ສີວິໄລ", account: "202-8877-182", amount: "2,500,000", status: "failed" }
+            ]
           },
           {
             isBatch: true,
-            batchName: "batch29911801",
-            sourceAccount: "0000200200208455",
-            description: "test",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 29911801",
+            sourceAccount: "202-***-455",
+            description: "ທົດສອບລະບົບບັນຊີລາຍຈ່າຍຮ້ານຄ້າ",
             date: "18/05/2026",
             time: "14:52",
             total: 1,
             success: 0,
             failed: 1,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "ldb",
             typeCategory: "internal",
+            successAmount: "0",
+            failedAmount: "450,000",
+            totalAmount: "450,000",
+            recipients: [
+              { name: "ຮ້ານ ສະດວກຊື້ ວຽງຈັນ", account: "202-3322-811", amount: "450,000", status: "failed" }
+            ]
           },
           {
             isBatch: true,
-            batchName: "batch14401495",
-            sourceAccount: "0000200300308881",
-            description: "Test (Salary)",
+            batchName: "ລາຍການຈ່າຍເງິນຫຼາຍ 14401495",
+            sourceAccount: "303-***-881",
+            description: "ຈ່າຍເງິນເດືອນພະນັກງານ ບໍລິສັດ ໄອທີ",
             date: "18/05/2026",
             time: "13:35",
             total: 3,
             success: 3,
             failed: 0,
-            status: "COMPLETED",
+            status: "ສຳເລັດ",
             account: "apb",
             typeCategory: "internal",
+            successAmount: "13,500,000",
+            failedAmount: "0",
+            totalAmount: "13,500,000",
+            recipients: [
+              { name: "ທ້າວ ສົມພອນ ສົມບູນ", account: "303-0011-223", amount: "4,500,000", status: "complete" },
+              { name: "ນາງ ບົວວັນ ແກ້ວອຸດົມ", account: "303-0011-224", amount: "4,500,000", status: "complete" },
+              { name: "ທ້າວ ວິໄຊ ພົມມະຈັນ", account: "303-0011-225", amount: "4,500,000", status: "complete" }
+            ]
           },
         ],
         // TAB 2: ປະຫວັດຕັ້ງເວລາໂອນ (Scheduled History)
@@ -1133,29 +2205,57 @@
           {
             type: "ໂອນຕັ້ງເວລາ",
             description: "ໂອນຈ່າຍຄ່າເຊົ່າຫ້ອງການ ປະຈຳເດືອນ",
-            id: "20250128628955",
+            id: "TXN-SCHED-01",
             date: "ທຸກໆວັນທີ 01 ຂອງເດືອນ",
             time: "08:00:00",
             amount: "- 4,500,000",
             account: "bcel",
             typeCategory: "internal",
             status: "complete",
+            senderAccount: "101-***-299",
+            destAccount: "101-0988-372",
+            destName: "ບໍລິສັດ ວຽງຈັນ ອາຄານ ເຊົ່າ",
+            destBank: "BCEL",
+            fee: "0",
           },
           {
             type: "ໂອນຕັ້ງເວລາ",
             description: "ໂອນເງິນຝາກປະຢັດປະຈຳເດືອນ",
-            id: "20250128628956",
+            id: "TXN-SCHED-02",
             date: "ທຸກໆວັນທີ 05 ຂອງເດືອນ",
             time: "10:30:00",
             amount: "- 2,000,000",
             account: "ldb",
             typeCategory: "internal",
             status: "complete",
+            senderAccount: "202-***-455",
+            destAccount: "202-7711-203",
+            destName: "ບັນຊີຝາກປະຢັດ ທະນາຄານພັດທະນາລາວ",
+            destBank: "LDB",
+            fee: "0",
           },
+          {
+            type: "ໂອນຕັ້ງເວລາ",
+            description: "ໂອນຄ່າປະກັນໄພລາຍເດືອນ",
+            id: "TXN-SCHED-03",
+            date: "ທຸກໆວັນທີ 12 ຂອງເດືອນ",
+            time: "15:00:00",
+            amount: "- 1,200,000",
+            account: "apb",
+            typeCategory: "internal",
+            status: "failed",
+            senderAccount: "303-***-881",
+            destAccount: "303-4455-829",
+            destName: "ບໍລິສັດ ປະກັນໄພ ແຫ່ງຊາດ",
+            destBank: "APB",
+            fee: "0",
+          }
         ],
       ];
 
       let currentActiveTab = 1; // Default is Bulk/Multiple History
+      let simulatorType = 0; // 0 = General, 1 = Bulk, 2 = Scheduled
+      let bulkRowCount = 0;
 
       // Switch Active Sub-Tab
       function switchTab(tabIndex) {
@@ -1174,7 +2274,7 @@
         // Update title based on tab
         const titles = [
           "ປະຫວັດທຸລະກຳທົ່ວໄປ",
-          "ປະຫວັດຈ່າຍເງິນຫຼາຍ",
+          "ປະຫວັດຈ່າຍເງິນຫຼາຍລາຍການ",
           "ປະຫວັດຕັ້ງເວລາໂອນ",
         ];
         document.getElementById("sectionTitle").textContent = titles[tabIndex];
@@ -1196,6 +2296,69 @@
           }
         }
         return null;
+      }
+
+      // Format number to currency string with commas
+      function formatMoney(value) {
+        return parseFloat(value.toString().replace(/,/g, '')).toLocaleString();
+      }
+
+      // Calculate statistics dynamically
+      function calculateStats(transactions) {
+        let totalAmt = 0;
+        let successAmt = 0;
+        let failedAmt = 0;
+
+        let totalCount = transactions.length;
+        let successCount = 0;
+        let failedCount = 0;
+
+        transactions.forEach(item => {
+          if (item.isBatch) {
+            const tAmt = parseFloat(item.totalAmount.replace(/,/g, ''));
+            const sAmt = parseFloat(item.successAmount.replace(/,/g, ''));
+            const fAmt = parseFloat(item.failedAmount.replace(/,/g, ''));
+
+            totalAmt += tAmt;
+            successAmt += sAmt;
+            failedAmt += fAmt;
+
+            // Counts of target accounts inside batch
+            successCount += item.success;
+            failedCount += item.failed;
+          } else {
+            const amtStr = item.amount.replace(/[-\s,]/g, '');
+            const amt = parseFloat(amtStr);
+
+            if (!isNaN(amt)) {
+              totalAmt += amt;
+              if (item.status === "complete") {
+                successAmt += amt;
+                successCount++;
+              } else {
+                failedAmt += amt;
+                failedCount++;
+              }
+            }
+          }
+        });
+
+        // Set counts
+        if (currentActiveTab === 1) {
+          // Bulk Tab counts batches + total sub-transactions
+          document.getElementById("statTotalCount").textContent = `${transactions.length} ບັນຊີລາຍການ`;
+          document.getElementById("statSuccessCount").textContent = `${successCount} ບັນຊີສຳເລັດ`;
+          document.getElementById("statFailedCount").textContent = `${failedCount} ບັນຊີລົ້ມເຫຼວ`;
+        } else {
+          document.getElementById("statTotalCount").textContent = `${totalCount} ລາຍການ`;
+          document.getElementById("statSuccessCount").textContent = `${successCount} ລາຍການ`;
+          document.getElementById("statFailedCount").textContent = `${failedCount} ລາຍການ`;
+        }
+
+        // Set values
+        document.getElementById("statTotalVal").textContent = `${formatMoney(totalAmt)} ກີບ`;
+        document.getElementById("statSuccessVal").textContent = `${formatMoney(successAmt)} ກີບ`;
+        document.getElementById("statFailedVal").textContent = `${formatMoney(failedAmt)} ກີບ`;
       }
 
       // Apply drop down selects, date range inputs, and search text query filters
@@ -1264,6 +2427,8 @@
           return true;
         });
 
+        // Recalculate stats dynamically based on filtered items
+        calculateStats(filteredTransactions);
         renderTransactions(filteredTransactions);
       }
 
@@ -1284,18 +2449,19 @@
         list.forEach((item, index) => {
           const itemDiv = document.createElement("div");
           itemDiv.className = "transaction-item fade-in";
-          itemDiv.style.animationDelay = `${index * 0.05}s`;
+          itemDiv.style.animationDelay = `${index * 0.04}s`;
+          itemDiv.onclick = () => showReceiptModal(item);
 
           if (item.isBatch) {
             itemDiv.innerHTML = `
                         <div class="transaction-left">
-                            <div class="batch-circle-icon">LAK</div>
+                            <div class="batch-circle-icon">ກີບ</div>
                             <div class="transaction-details">
                                 <span class="transaction-type">${item.batchName}</span>
-                                <span class="transaction-description">ບັນຊີຕົ້ນສະບັບ: ${item.sourceAccount}</span>
+                                <span class="transaction-description">ບັນຊີຕົ້ນທາງ: ${item.sourceAccount}</span>
                                 <span class="transaction-description">ຄຳອະທິບາຍ: ${item.description}</span>
                                 <div class="batch-badges-row">
-                                    <span class="batch-total-text">ລວມ: ${item.total}</span>
+                                    <span class="batch-total-text">ລວມ: ${item.total} ບັນຊີ</span>
                                     <span class="batch-badge-pill success">ສຳເລັດ: ${item.success}</span>
                                     <span class="batch-badge-pill failed">ລົ້ມເຫຼວ: ${item.failed}</span>
                                 </div>
@@ -1307,6 +2473,9 @@
                         </div>
                     `;
           } else {
+            const isNegative = item.amount.includes("-");
+            const amtClass = isNegative ? "minus" : "plus";
+
             itemDiv.innerHTML = `
                         <div class="transaction-left">
                             <div class="transaction-icon-container">
@@ -1326,7 +2495,7 @@
                                 <span class="transaction-type">${item.type}</span>
                                 <span class="transaction-description">${item.description}</span>
                                 <div class="transaction-meta">
-                                    <span class="number-font">ID: ${item.id}</span>
+                                    <span class="number-font">ລະຫັດ: ${item.id}</span>
                                     <span class="transaction-meta-dot"></span>
                                     <span class="number-font">${item.date} • ${item.time}</span>
                                 </div>
@@ -1336,8 +2505,8 @@
                             </div>
                         </div>
                         <div class="transaction-right">
-                            <span class="transaction-amount number-font">${item.amount}</span>
-                            <span class="transaction-currency">LAK</span>
+                            <span class="transaction-amount ${amtClass} number-font">${item.amount}</span>
+                            <span class="transaction-currency">ກີບ (LAK)</span>
                         </div>
                     `;
           }
@@ -1346,15 +2515,359 @@
         });
       }
 
+      // Show Receipt Detailed Modal
+      function showReceiptModal(item) {
+        const overlay = document.getElementById("receiptModalOverlay");
+        const iconBadge = document.getElementById("modalIconBadge");
+        const statusText = document.getElementById("modalReceiptStatus");
+        const amountDisplay = document.getElementById("modalAmountDisplay");
+        const txId = document.getElementById("modalTxId");
+        const dateTime = document.getElementById("modalDateTime");
+        const srcAcc = document.getElementById("modalSrcAccount");
+        const destAcc = document.getElementById("modalDestAccount");
+        const destName = document.getElementById("modalDestName");
+        const destBank = document.getElementById("modalDestBank");
+        const fee = document.getElementById("modalFee");
+        const desc = document.getElementById("modalDescription");
+        const breakdownSection = document.getElementById("modalBreakdownSection");
+        const breakdownList = document.getElementById("modalBreakdownList");
+
+        // Common layout bindings
+        dateTime.textContent = `${item.date} ${item.time}`;
+        srcAcc.textContent = item.senderAccount || item.sourceAccount || "ບໍ່ລະບຸ";
+        desc.textContent = item.description || "ບໍ່ມີຄຳອະທິບາຍ";
+
+        // Successful / Failed indicators
+        const isSuccess = item.status === "complete" || item.status === "ສຳເລັດ" || item.status === "COMPLETED";
+
+        if (isSuccess) {
+          iconBadge.className = "receipt-icon-badge success";
+          iconBadge.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+          statusText.className = "receipt-status-text success";
+          statusText.textContent = "ເຮັດທຸລະກຳສຳເລັດ";
+        } else {
+          iconBadge.className = "receipt-icon-badge failed";
+          iconBadge.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
+          statusText.className = "receipt-status-text failed";
+          statusText.textContent = "ເຮັດທຸລະກຳລົ້ມເຫຼວ";
+        }
+
+        if (item.isBatch) {
+          // Batch payment modal view
+          amountDisplay.textContent = `${formatMoney(item.totalAmount)} ກີບ`;
+          txId.textContent = item.batchName || "ບໍ່ມີລະຫັດ";
+          fee.textContent = "0 ກີບ";
+
+          // Hide single destination rows
+          document.getElementById("modalDestAccountRow").style.display = "none";
+          document.getElementById("modalDestNameRow").style.display = "none";
+          document.getElementById("modalDestBankRow").style.display = "none";
+
+          // Show targets breakdown
+          breakdownSection.style.display = "block";
+          breakdownList.innerHTML = "";
+
+          item.recipients.forEach(r => {
+            const row = document.createElement("div");
+            row.className = "breakdown-item";
+            row.innerHTML = `
+              <div class="breakdown-left">
+                <span class="breakdown-name">${r.name}</span>
+                <span class="breakdown-acc number-font">${r.account}</span>
+              </div>
+              <div class="breakdown-right">
+                <span class="number-font" style="font-weight: 700;">${formatMoney(r.amount)} ກີບ</span>
+                <div class="breakdown-status-dot ${r.status === 'complete' ? 'success' : 'failed'}"></div>
+              </div>
+            `;
+            breakdownList.appendChild(row);
+          });
+
+        } else {
+          // Single payment modal view
+          amountDisplay.textContent = `${item.amount.replace(/[-\s]/g, '')} ກີບ`;
+          txId.textContent = item.id;
+          fee.textContent = `${item.fee || "0"} ກີບ`;
+
+          // Show destination fields
+          document.getElementById("modalDestAccountRow").style.display = "flex";
+          document.getElementById("modalDestNameRow").style.display = "flex";
+          document.getElementById("modalDestBankRow").style.display = "flex";
+          destAcc.textContent = item.destAccount || "ບໍ່ລະບຸ";
+          destName.textContent = item.destName || "ບໍ່ມີຊື່";
+          destBank.textContent = item.destBank || "ບໍ່ລະບຸ";
+
+          // Hide batch breakdown
+          breakdownSection.style.display = "none";
+        }
+
+        // Show overlay
+        overlay.classList.add("show");
+      }
+
+      // Close Receipt Modal actions
+      function closeReceiptModal(event) {
+        if (event.target === document.getElementById("receiptModalOverlay")) {
+          closeReceiptModalDirect();
+        }
+      }
+
+      function closeReceiptModalDirect() {
+        document.getElementById("receiptModalOverlay").classList.remove("show");
+      }
+
+      function shareReceipt() {
+        showToast("ແບ່ງປັນໃບບິນທຸລະກຳສຳເລັດແລ້ວ!");
+      }
+
       // Trigger Mock PDF generation download action with Toast
       function triggerDownload() {
+        showToast("ກຳລັງດາວໂຫລດໄຟລ໌ PDF ປະຫວັດທຸລະກຳ...");
+      }
+
+      // Display custom styled notification Toast
+      function showToast(message) {
         const toast = document.getElementById("downloadToast");
+        const msgNode = document.getElementById("toastMessage");
+        msgNode.textContent = message;
         toast.classList.add("show");
 
-        // Hide Toast after 3 seconds
         setTimeout(() => {
           toast.classList.remove("show");
         }, 3000);
+      }
+
+      // -------------------------------------------------------------
+      // TRANSFER SIMULATOR CONTROLS
+      // -------------------------------------------------------------
+      function openSimulator() {
+        document.getElementById("drawerOverlay").classList.add("show");
+        document.getElementById("drawerContainer").classList.add("open");
+        
+        // Reset rows for bulk transfer simulation
+        if (bulkRowCount === 0) {
+          addBulkEntryRow();
+          addBulkEntryRow();
+        }
+      }
+
+      function closeSimulator() {
+        document.getElementById("drawerOverlay").classList.remove("show");
+        document.getElementById("drawerContainer").classList.remove("open");
+      }
+
+      function setSimType(typeIdx) {
+        simulatorType = typeIdx;
+        
+        // Toggle active states on type select buttons
+        for (let i = 0; i < 3; i++) {
+          const btn = document.getElementById(`simTypeBtn${i}`);
+          if (i === typeIdx) {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        }
+
+        const singleFields = document.getElementById("simSingleFields");
+        const bulkFields = document.getElementById("simBulkFields");
+        const dateRow = document.getElementById("simDateRow");
+
+        if (typeIdx === 1) {
+          // Bulk fields active
+          singleFields.style.display = "none";
+          bulkFields.style.display = "block";
+          dateRow.style.display = "none";
+        } else if (typeIdx === 2) {
+          // Scheduled fields active
+          singleFields.style.display = "block";
+          bulkFields.style.display = "none";
+          dateRow.style.display = "flex";
+        } else {
+          // General fields active
+          singleFields.style.display = "block";
+          bulkFields.style.display = "none";
+          dateRow.style.display = "none";
+        }
+      }
+
+      // Bulk Add Recipient inputs
+      function addBulkEntryRow() {
+        bulkRowCount++;
+        const container = document.getElementById("simBulkEntries");
+        const row = document.createElement("div");
+        row.className = "bulk-entry-row";
+        row.id = `bulkRow_${bulkRowCount}`;
+        row.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <input type="text" class="form-input" placeholder="ຊື່ຜູ້ຮັບ" id="bulkName_${bulkRowCount}" value="ຜູ້ຮັບທີ ${bulkRowCount}" />
+            <input type="text" class="form-input number-font" placeholder="ເລກບັນຊີ" id="bulkAcc_${bulkRowCount}" value="101-2000-88${bulkRowCount}22" />
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <input type="number" class="form-input number-font" placeholder="ຈຳນວນເງິນ" id="bulkAmt_${bulkRowCount}" value="${500000 * bulkRowCount}" />
+            <select class="custom-select" id="bulkStatus_${bulkRowCount}" style="padding:10px; font-size:12px;">
+              <option value="complete">ສຳເລັດ</option>
+              <option value="failed" ${bulkRowCount % 2 === 0 ? "selected" : ""}>ລົ້ມເຫຼວ</option>
+            </select>
+          </div>
+          <button class="remove-entry-btn" onclick="removeBulkEntryRow(${bulkRowCount})">
+            <svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:currentColor;">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
+          </button>
+        `;
+        container.appendChild(row);
+      }
+
+      function removeBulkEntryRow(rowId) {
+        const row = document.getElementById(`bulkRow_${rowId}`);
+        if (row) {
+          row.remove();
+        }
+      }
+
+      // Handle simulation submit logic
+      function submitSimulation() {
+        const loading = document.getElementById("formLoadingOverlay");
+        loading.classList.add("show");
+
+        // Simulate network latency (1.2 seconds)
+        setTimeout(() => {
+          loading.classList.remove("show");
+          
+          const now = new Date();
+          const dStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+          const tStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+          const srcVal = document.getElementById("simSrcAccount").value;
+          const descVal = document.getElementById("simDescription").value;
+
+          if (simulatorType === 1) {
+            // Simulate Bulk payment addition
+            const rows = document.querySelectorAll(".bulk-entry-row");
+            if (rows.length === 0) {
+              alert("ກະລຸນາເພີ່ມລາຍການບັນຊີປາຍທາງຢ່າງໜ້ອຍ 1 ລາຍການ");
+              return;
+            }
+
+            let total = 0;
+            let success = 0;
+            let failed = 0;
+            let totalAmountVal = 0;
+            let successAmountVal = 0;
+            let failedAmountVal = 0;
+            const recipients = [];
+
+            rows.forEach(row => {
+              const id = row.id.split("_")[1];
+              const name = document.getElementById(`bulkName_${id}`).value;
+              const acc = document.getElementById(`bulkAcc_${id}`).value;
+              const amt = parseFloat(document.getElementById(`bulkAmt_${id}`).value) || 0;
+              const status = document.getElementById(`bulkStatus_${id}`).value;
+
+              total++;
+              totalAmountVal += amt;
+
+              if (status === "complete") {
+                success++;
+                successAmountVal += amt;
+              } else {
+                failed++;
+                failedAmountVal += amt;
+              }
+
+              recipients.push({
+                name: name,
+                account: acc,
+                amount: amt.toString(),
+                status: status
+              });
+            });
+
+            const newBatch = {
+              isBatch: true,
+              batchName: `ລາຍການຈ່າຍເງິນຫຼາຍ ${Math.floor(10000000 + Math.random() * 90000000)}`,
+              sourceAccount: srcVal === "bcel" ? "101-***-299" : srcVal === "ldb" ? "202-***-455" : "303-***-881",
+              description: descVal,
+              date: dStr,
+              time: tStr,
+              total: total,
+              success: success,
+              failed: failed,
+              status: "ສຳເລັດ",
+              account: srcVal,
+              typeCategory: "internal",
+              successAmount: successAmountVal.toString(),
+              failedAmount: failedAmountVal.toString(),
+              totalAmount: totalAmountVal.toString(),
+              recipients: recipients
+            };
+
+            mockDatabase[1].unshift(newBatch);
+            switchTab(1); // switch to bulk payments tab
+
+          } else if (simulatorType === 2) {
+            // Simulate Scheduled payment addition
+            const schedDateVal = document.getElementById("simScheduledDate").value;
+            const destAccVal = document.getElementById("simDestAccount").value;
+            const destNameVal = document.getElementById("simDestName").value;
+            const destBankVal = document.getElementById("simDestBank").value;
+            const amtVal = parseFloat(document.getElementById("simAmount").value) || 0;
+            const statusVal = document.getElementById("simStatus").value;
+
+            const newItem = {
+              type: "ໂອນຕັ້ງເວລາ",
+              description: descVal,
+              id: `TXN-SCHED-${Math.floor(1000 + Math.random() * 9000)}`,
+              date: schedDateVal,
+              time: tStr,
+              amount: `- ${formatMoney(amtVal)}`,
+              account: srcVal,
+              typeCategory: "internal",
+              status: statusVal,
+              senderAccount: srcVal === "bcel" ? "101-***-299" : srcVal === "ldb" ? "202-***-455" : "303-***-881",
+              destAccount: destAccVal,
+              destName: destNameVal,
+              destBank: destBankVal,
+              fee: "0",
+            };
+
+            mockDatabase[2].unshift(newItem);
+            switchTab(2); // switch to scheduled tab
+
+          } else {
+            // Simulate General payment addition
+            const destAccVal = document.getElementById("simDestAccount").value;
+            const destNameVal = document.getElementById("simDestName").value;
+            const destBankVal = document.getElementById("simDestBank").value;
+            const amtVal = parseFloat(document.getElementById("simAmount").value) || 0;
+            const statusVal = document.getElementById("simStatus").value;
+
+            const newItem = {
+              type: "ໂອນພາຍໃນທະນາຄານ",
+              description: descVal,
+              id: `TXN-${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+              date: dStr,
+              time: tStr,
+              amount: `- ${formatMoney(amtVal)}`,
+              account: srcVal,
+              typeCategory: "internal",
+              status: statusVal,
+              senderAccount: srcVal === "bcel" ? "101-***-299" : srcVal === "ldb" ? "202-***-455" : "303-***-881",
+              destAccount: destAccVal,
+              destName: destNameVal,
+              destBank: destBankVal,
+              fee: "0",
+            };
+
+            mockDatabase[0].unshift(newItem);
+            switchTab(0); // switch to general history tab
+          }
+
+          closeSimulator();
+          showToast("ສ້າງທຸລະກຳຈຳລອງສຳເລັດແລ້ວ!");
+
+        }, 1200);
       }
 
       // Initial Load render and binding
