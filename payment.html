@@ -2534,30 +2534,6 @@
           }
         });
 
-        // Set counts
-        if (currentActiveTab === 1) {
-          document.getElementById("statTotalCount").textContent =
-            `${transactions.length} ບັນຊີລາຍການ`;
-          document.getElementById("statSuccessCount").textContent =
-            `${successCount} ບັນຊີສຳເລັດ`;
-          document.getElementById("statFailedCount").textContent =
-            `${failedCount} ບັນຊີລົ້ມເຫຼວ`;
-        } else {
-          document.getElementById("statTotalCount").textContent =
-            `${totalCount} ລາຍການ`;
-          document.getElementById("statSuccessCount").textContent =
-            `${successCount} ລາຍການ`;
-          document.getElementById("statFailedCount").textContent =
-            `${failedCount} ລາຍການ`;
-        }
-
-        // Set values
-        document.getElementById("statTotalVal").textContent =
-          `${formatMoney(totalAmt)} ກີບ`;
-        document.getElementById("statSuccessVal").textContent =
-          `${formatMoney(successAmt)} ກີບ`;
-        document.getElementById("statFailedVal").textContent =
-          `${formatMoney(failedAmt)} ກີບ`;
       }
 
       // Apply drop down selects, date range inputs, and search text query filters
