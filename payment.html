@@ -1465,8 +1465,12 @@
       }
 
       @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
     </style>
   </head>
@@ -1561,7 +1565,6 @@
 
       <!-- Main card container enclosing both list view and detail view -->
       <section class="card-container">
-        
         <!-- LIST AND FILTERS VIEW -->
         <div id="listSection">
           <!-- Dashboard Stats Widgets (Shifted inside card to look aligned) -->
@@ -1570,12 +1573,16 @@
             <div class="stat-card">
               <div class="stat-icon-wrapper total">
                 <svg viewBox="0 0 24 24">
-                  <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                  <path
+                    d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+                  />
                 </svg>
               </div>
               <div class="stat-info">
                 <span class="stat-label">ຍອດເງິນໂອນທັງໝົດ</span>
-                <span class="stat-val number-font" id="statTotalVal">0 ກີບ</span>
+                <span class="stat-val number-font" id="statTotalVal"
+                  >0 ກີບ</span
+                >
                 <span class="stat-count" id="statTotalCount">0 ລາຍການ</span>
               </div>
             </div>
@@ -1589,7 +1596,12 @@
               </div>
               <div class="stat-info">
                 <span class="stat-label">ທຸລະກຳສຳເລັດ</span>
-                <span class="stat-val number-font" id="statSuccessVal" style="color: var(--accent-green);">0 ກີບ</span>
+                <span
+                  class="stat-val number-font"
+                  id="statSuccessVal"
+                  style="color: var(--accent-green)"
+                  >0 ກີບ</span
+                >
                 <span class="stat-count" id="statSuccessCount">0 ລາຍການ</span>
               </div>
             </div>
@@ -1598,12 +1610,19 @@
             <div class="stat-card">
               <div class="stat-icon-wrapper failed">
                 <svg viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.5 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+                  />
                 </svg>
               </div>
               <div class="stat-info">
                 <span class="stat-label">ທຸລະກຳລົ້ມເຫຼວ</span>
-                <span class="stat-val number-font" id="statFailedVal" style="color: var(--accent-red);">0 ກີບ</span>
+                <span
+                  class="stat-val number-font"
+                  id="statFailedVal"
+                  style="color: var(--accent-red)"
+                  >0 ກີບ</span
+                >
                 <span class="stat-count" id="statFailedCount">0 ລາຍການ</span>
               </div>
             </div>
@@ -1770,17 +1789,27 @@
         </div>
 
         <!-- INLINE TRANSACTION DETAIL VIEW (Replaces List when clicking a row) -->
-        <div id="detailView" class="detail-card-wrapper" style="display: none;">
+        <div id="detailView" class="detail-card-wrapper" style="display: none">
           <!-- Top row (Back button and Download Cert) -->
           <div class="detail-header-row">
-            <button type="button" class="back-arrow-btn" onclick="hideDetailView()">
+            <button
+              type="button"
+              class="back-arrow-btn"
+              onclick="hideDetailView()"
+            >
               <svg viewBox="0 0 24 24">
                 <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
               </svg>
             </button>
-            <button type="button" class="cert-download-btn" onclick="triggerDownloadCert()">
+            <button
+              type="button"
+              class="cert-download-btn"
+              onclick="triggerDownloadCert()"
+            >
               <svg viewBox="0 0 24 24">
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+                <path
+                  d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"
+                />
               </svg>
               <span>ດາວໂຫລດໃບຢັ້ງຢືນ</span>
             </button>
@@ -1789,28 +1818,45 @@
           <!-- Fields display -->
           <div class="detail-fields-grid">
             <div class="detail-field-box">
-              <span class="detail-field-label" id="detailFieldTitleLabel">ຈຳນວນຊຸດ:</span>
-              <span class="detail-field-value number-font" id="detailBatchName">batch47262408</span>
+              <span class="detail-field-label" id="detailFieldTitleLabel"
+                >ຈຳນວນຊຸດ:</span
+              >
+              <span class="detail-field-value number-font" id="detailBatchName"
+                >batch47262408</span
+              >
             </div>
-            
+
             <div class="detail-field-box">
               <span class="detail-field-label">ຈາກລາຍເລກບັນຊີ:</span>
-              <span class="detail-field-value number-font" id="detailSrcAccount">0000200100108241 LAK</span>
+              <span class="detail-field-value number-font" id="detailSrcAccount"
+                >0000200100108241 LAK</span
+              >
             </div>
 
             <div class="detail-field-box">
               <span class="detail-field-label">ຄຳອະທິບາຍ:</span>
-              <span class="detail-field-value" id="detailDescription">test for individual multi payment</span>
+              <span class="detail-field-value" id="detailDescription"
+                >test for individual multi payment</span
+              >
             </div>
 
             <div class="detail-status-row">
-              <div class="detail-status-block success-bg" id="detailStatusBlock">
+              <div
+                class="detail-status-block success-bg"
+                id="detailStatusBlock"
+              >
                 <span class="detail-status-badge-label">Batch status:</span>
-                <span class="detail-status-badge-val" id="detailStatusText">COMPLETED</span>
+                <span class="detail-status-badge-val" id="detailStatusText"
+                  >COMPLETED</span
+                >
               </div>
               <div class="detail-field-box">
                 <span class="detail-field-label">ສ້າງວັນທີ:</span>
-                <span class="detail-field-value number-font" id="detailCreatedDate">26/05/2026 14:41</span>
+                <span
+                  class="detail-field-value number-font"
+                  id="detailCreatedDate"
+                  >26/05/2026 14:41</span
+                >
               </div>
             </div>
           </div>
@@ -1819,48 +1865,77 @@
           <div class="detail-stats-row" id="detailStatsRow">
             <div class="detail-stat-pill total">
               <span class="detail-stat-pill-lbl">ລວມ:</span>
-              <span class="detail-stat-pill-val number-font" id="detailStatTotal">2</span>
+              <span
+                class="detail-stat-pill-val number-font"
+                id="detailStatTotal"
+                >2</span
+              >
             </div>
             <div class="detail-stat-pill success">
               <span class="detail-stat-pill-lbl">ສຳເລັດ:</span>
-              <span class="detail-stat-pill-val number-font" id="detailStatSuccess">2</span>
+              <span
+                class="detail-stat-pill-val number-font"
+                id="detailStatSuccess"
+                >2</span
+              >
             </div>
             <div class="detail-stat-pill failed">
               <span class="detail-stat-pill-lbl">ລົ້ມເຫຼວ:</span>
-              <span class="detail-stat-pill-val number-font" id="detailStatFailed">0</span>
+              <span
+                class="detail-stat-pill-val number-font"
+                id="detailStatFailed"
+                >0</span
+              >
             </div>
           </div>
 
           <!-- Recipient header & list -->
           <div class="destinations-container">
-            <h3 class="destinations-title" id="detailDestHeader">2 ລາຍລະອຽດທະນາຄານປາຍທາງ</h3>
+            <h3 class="destinations-title" id="detailDestHeader">
+              2 ລາຍລະອຽດທະນາຄານປາຍທາງ
+            </h3>
             <div class="destinations-list" id="detailDestList">
               <!-- Rendered dynamically -->
             </div>
           </div>
         </div>
-
       </section>
     </main>
 
     <!-- SIMULATOR SIDE DRAWER -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="closeSimulator()"></div>
+    <div
+      class="drawer-overlay"
+      id="drawerOverlay"
+      onclick="closeSimulator()"
+    ></div>
     <div class="drawer-container" id="drawerContainer">
       <div class="form-loading-overlay" id="formLoadingOverlay">
         <div class="spinner"></div>
-        <span style="font-weight: 700; font-size: 14px; color: var(--primary-teal);">ກຳລັງປະມວນຜົນທຸລະກຳ...</span>
+        <span
+          style="font-weight: 700; font-size: 14px; color: var(--primary-teal)"
+          >ກຳລັງປະມວນຜົນທຸລະກຳ...</span
+        >
       </div>
 
       <div class="drawer-header">
         <h3 class="drawer-title">
-          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+          <svg
+            viewBox="0 0 24 24"
+            style="width: 20px; height: 20px; fill: currentColor"
+          >
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
           </svg>
           ຈຳລອງການໂອນເງິນ
         </h3>
-        <button type="button" class="close-drawer-btn" onclick="closeSimulator()">
+        <button
+          type="button"
+          class="close-drawer-btn"
+          onclick="closeSimulator()"
+        >
           <svg viewBox="0 0 24 24">
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            <path
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
           </svg>
         </button>
       </div>
@@ -1869,9 +1944,30 @@
         <div class="form-group">
           <label class="form-label">ປະເພດທຸລະກຳ</label>
           <div class="form-type-select">
-            <button type="button" class="form-type-btn active" id="simTypeBtn0" onclick="setSimType(0)">ທົ່ວໄປ</button>
-            <button type="button" class="form-type-btn" id="simTypeBtn1" onclick="setSimType(1)">ຈ່າຍເງິນຫຼາຍລາຍການ</button>
-            <button type="button" class="form-type-btn" id="simTypeBtn2" onclick="setSimType(2)">ຕັ້ງເວລາໂອນ</button>
+            <button
+              type="button"
+              class="form-type-btn active"
+              id="simTypeBtn0"
+              onclick="setSimType(0)"
+            >
+              ທົ່ວໄປ
+            </button>
+            <button
+              type="button"
+              class="form-type-btn"
+              id="simTypeBtn1"
+              onclick="setSimType(1)"
+            >
+              ຈ່າຍເງິນຫຼາຍລາຍການ
+            </button>
+            <button
+              type="button"
+              class="form-type-btn"
+              id="simTypeBtn2"
+              onclick="setSimType(2)"
+            >
+              ຕັ້ງເວລາໂອນ
+            </button>
           </div>
         </div>
 
@@ -1891,17 +1987,31 @@
 
         <div class="form-group">
           <label class="form-label">ຄຳອະທິບາຍ</label>
-          <input type="text" class="form-input" id="simDescription" placeholder="ຄຳອະທິບາຍການໂອນ" value="ໂອນເງິນທົດສອບ" />
+          <input
+            type="text"
+            class="form-input"
+            id="simDescription"
+            placeholder="ຄຳອະທິບາຍການໂອນ"
+            value="ໂອນເງິນທົດສອບ"
+          />
         </div>
 
-        <div class="form-group" id="simDateRow" style="display: none;">
-          <label class="form-label">ຕັ້ງເວລາໂອນ (ຕົວຢ່າງ: ທຸກໆວັນທີ 10 ຂອງເດືອນ)</label>
-          <input type="text" class="form-input" id="simScheduledDate" placeholder="ວັນທີໂອນ" value="ທຸກໆວັນທີ 15 ຂອງເດືອນ" />
+        <div class="form-group" id="simDateRow" style="display: none">
+          <label class="form-label"
+            >ຕັ້ງເວລາໂອນ (ຕົວຢ່າງ: ທຸກໆວັນທີ 10 ຂອງເດືອນ)</label
+          >
+          <input
+            type="text"
+            class="form-input"
+            id="simScheduledDate"
+            placeholder="ວັນທີໂອນ"
+            value="ທຸກໆວັນທີ 15 ຂອງເດືອນ"
+          />
         </div>
 
         <!-- Single Payment form fields -->
         <div id="simSingleFields">
-          <div class="form-group" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 12px">
             <label class="form-label">ທະນາຄານປາຍທາງ</label>
             <div class="custom-select-wrapper">
               <select class="custom-select" id="simDestBank">
@@ -1916,22 +2026,40 @@
             </div>
           </div>
 
-          <div class="form-group" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 12px">
             <label class="form-label">ເລກບັນຊີປາຍທາງ</label>
-            <input type="text" class="form-input number-font" id="simDestAccount" placeholder="ເລກບັນຊີ 15 ຫຼັກ" value="101-1200-998822" />
+            <input
+              type="text"
+              class="form-input number-font"
+              id="simDestAccount"
+              placeholder="ເລກບັນຊີ 15 ຫຼັກ"
+              value="101-1200-998822"
+            />
           </div>
 
-          <div class="form-group" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 12px">
             <label class="form-label">ຊື່ຜູ້ຮັບ</label>
-            <input type="text" class="form-input" id="simDestName" placeholder="ຊື່ ແລະ ນາມສະກຸນ" value="ທ້າວ ຄຳສະຫວັນ" />
+            <input
+              type="text"
+              class="form-input"
+              id="simDestName"
+              placeholder="ຊື່ ແລະ ນາມສະກຸນ"
+              value="ທ້າວ ຄຳສະຫວັນ"
+            />
           </div>
 
-          <div class="form-group" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 12px">
             <label class="form-label">ຈຳນວນເງິນ (ກີບ)</label>
-            <input type="number" class="form-input number-font" id="simAmount" placeholder="ຈຳນວນເງິນ" value="150000" />
+            <input
+              type="number"
+              class="form-input number-font"
+              id="simAmount"
+              placeholder="ຈຳນວນເງິນ"
+              value="150000"
+            />
           </div>
 
-          <div class="form-group" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 12px">
             <label class="form-label">ສະຖານະການໂອນ</label>
             <div class="custom-select-wrapper">
               <select class="custom-select" id="simStatus">
@@ -1946,14 +2074,21 @@
         </div>
 
         <!-- Bulk/Multiple Payment fields -->
-        <div id="simBulkFields" style="display: none;">
+        <div id="simBulkFields" style="display: none">
           <div class="form-group">
             <label class="form-label">ລາຍການບັນຊີປາຍທາງ</label>
             <div class="bulk-entries-container" id="simBulkEntries">
               <!-- Dynamic rows -->
             </div>
-            <button type="button" class="add-entry-btn" onclick="addBulkEntryRow()">
-              <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;">
+            <button
+              type="button"
+              class="add-entry-btn"
+              onclick="addBulkEntryRow()"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                style="width: 14px; height: 14px; fill: currentColor"
+              >
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
               </svg>
               ເພີ່ມບັນຊີປາຍທາງ
@@ -1961,7 +2096,11 @@
           </div>
         </div>
 
-        <button type="button" class="submit-form-btn" onclick="submitSimulation()">
+        <button
+          type="button"
+          class="submit-form-btn"
+          onclick="submitSimulation()"
+        >
           <span>ຢືນຢັນການໂອນເງິນ</span>
         </button>
       </div>
@@ -1996,7 +2135,7 @@
             destName: "ລັດວິສາຫະກິດໄຟຟ້າລາວ (EDL)",
             destBank: "BCEL",
             fee: "0",
-            cbsRef: "2025121883901"
+            cbsRef: "2025121883901",
           },
           {
             type: "ໂອນຕ່າງທະນາຄານ",
@@ -2013,7 +2152,7 @@
             destName: "ຮ້ານອາຫານ ຕຳສະບາຍດີ",
             destBank: "LDB",
             fee: "5,000",
-            cbsRef: "2025121883902"
+            cbsRef: "2025121883902",
           },
           {
             type: "ໂອນພາຍໃນທະນາຄານ",
@@ -2030,7 +2169,7 @@
             destName: "ບໍລິສັດ ໂທລະຄົມມະນາຄົມ ລາວ",
             destBank: "LDB",
             fee: "0",
-            cbsRef: "2025121883903"
+            cbsRef: "2025121883903",
           },
           {
             type: "ໂອນພາຍໃນທະນາຄານ",
@@ -2047,7 +2186,7 @@
             destName: "ນາງ ສຸກສະຫວັນ ຄຳມີ",
             destBank: "APB",
             fee: "0",
-            cbsRef: "2025121883904"
+            cbsRef: "2025121883904",
           },
           {
             type: "ໂອນຕ່າງທະນາຄານ",
@@ -2064,7 +2203,7 @@
             destName: "ຮ້ານເສື້ອຜ້າ ຄົນງາມ",
             destBank: "JDB",
             fee: "5,000",
-            cbsRef: "2025121883905"
+            cbsRef: "2025121883905",
           },
           {
             type: "ໂອນພາຍໃນທະນາຄານ",
@@ -2081,8 +2220,8 @@
             destName: "ທ້າວ ອາລີ ຈັນທະລາ",
             destBank: "LDB",
             fee: "0",
-            cbsRef: "2025121883906"
-          }
+            cbsRef: "2025121883906",
+          },
         ],
         // TAB 1: ປະຫວັດຈ່າຍເງິນຫຼາຍລາຍການ (Bulk/Multiple History)
         [
@@ -2103,9 +2242,23 @@
             failedAmount: "0",
             totalAmount: "20,000",
             recipients: [
-              { name: "test 2", account: "0000100110010826 LAK", amount: "10,000", status: "complete", cbsRef: "2025121883916", time: "07:41" },
-              { name: "test 1", account: "06090000000005 LAK", amount: "10,000", status: "complete", cbsRef: "2025121883917", time: "07:41" }
-            ]
+              {
+                name: "test 2",
+                account: "0000100110010826 LAK",
+                amount: "10,000",
+                status: "complete",
+                cbsRef: "2025121883916",
+                time: "07:41",
+              },
+              {
+                name: "test 1",
+                account: "06090000000005 LAK",
+                amount: "10,000",
+                status: "complete",
+                cbsRef: "2025121883917",
+                time: "07:41",
+              },
+            ],
           },
           {
             isBatch: true,
@@ -2124,9 +2277,23 @@
             failedAmount: "0",
             totalAmount: "20,000",
             recipients: [
-              { name: "test 2", account: "0000100110010826 LAK", amount: "10,000", status: "complete", cbsRef: "2025121883916", time: "07:41" },
-              { name: "test 1", account: "06090000000005 LAK", amount: "10,000", status: "complete", cbsRef: "2025121883917", time: "07:41" }
-            ]
+              {
+                name: "test 2",
+                account: "0000100110010826 LAK",
+                amount: "10,000",
+                status: "complete",
+                cbsRef: "2025121883916",
+                time: "07:41",
+              },
+              {
+                name: "test 1",
+                account: "06090000000005 LAK",
+                amount: "10,000",
+                status: "complete",
+                cbsRef: "2025121883917",
+                time: "07:41",
+              },
+            ],
           },
           {
             isBatch: true,
@@ -2145,9 +2312,23 @@
             failedAmount: "10,000",
             totalAmount: "20,000",
             recipients: [
-              { name: "test 2", account: "0000100110010826 LAK", amount: "10,000", status: "complete", cbsRef: "2025121883916", time: "07:41" },
-              { name: "test 1", account: "06090000000005 LAK", amount: "10,000", status: "failed", cbsRef: "2025121883917", time: "07:41" }
-            ]
+              {
+                name: "test 2",
+                account: "0000100110010826 LAK",
+                amount: "10,000",
+                status: "complete",
+                cbsRef: "2025121883916",
+                time: "07:41",
+              },
+              {
+                name: "test 1",
+                account: "06090000000005 LAK",
+                amount: "10,000",
+                status: "failed",
+                cbsRef: "2025121883917",
+                time: "07:41",
+              },
+            ],
           },
           {
             isBatch: true,
@@ -2166,9 +2347,23 @@
             failedAmount: "10,000",
             totalAmount: "20,000",
             recipients: [
-              { name: "test 2", account: "0000100110010826 LAK", amount: "10,000", status: "complete", cbsRef: "2025121883916", time: "07:41" },
-              { name: "test 1", account: "06090000000005 LAK", amount: "10,000", status: "failed", cbsRef: "2025121883917", time: "07:41" }
-            ]
+              {
+                name: "test 2",
+                account: "0000100110010826 LAK",
+                amount: "10,000",
+                status: "complete",
+                cbsRef: "2025121883916",
+                time: "07:41",
+              },
+              {
+                name: "test 1",
+                account: "06090000000005 LAK",
+                amount: "10,000",
+                status: "failed",
+                cbsRef: "2025121883917",
+                time: "07:41",
+              },
+            ],
           },
           {
             isBatch: true,
@@ -2187,8 +2382,15 @@
             failedAmount: "2,500,000",
             totalAmount: "2,500,000",
             recipients: [
-              { name: "ນາງ ສິຣິພອນ ສີວິໄລ", account: "202-8877-182 LAK", amount: "2,500,000", status: "failed", cbsRef: "2025121883921", time: "14:52" }
-            ]
+              {
+                name: "ນາງ ສິຣິພອນ ສີວິໄລ",
+                account: "202-8877-182 LAK",
+                amount: "2,500,000",
+                status: "failed",
+                cbsRef: "2025121883921",
+                time: "14:52",
+              },
+            ],
           },
           {
             isBatch: true,
@@ -2207,8 +2409,15 @@
             failedAmount: "450,000",
             totalAmount: "450,000",
             recipients: [
-              { name: "ຮ້ານ ສະດວກຊື້ ວຽງຈັນ", account: "202-3322-811 LAK", amount: "450,000", status: "failed", cbsRef: "2025121883922", time: "14:52" }
-            ]
+              {
+                name: "ຮ້ານ ສະດວກຊື້ ວຽງຈັນ",
+                account: "202-3322-811 LAK",
+                amount: "450,000",
+                status: "failed",
+                cbsRef: "2025121883922",
+                time: "14:52",
+              },
+            ],
           },
           {
             isBatch: true,
@@ -2227,10 +2436,31 @@
             failedAmount: "0",
             totalAmount: "13,500,000",
             recipients: [
-              { name: "ທ້າວ ສົມພອນ ສົມບູນ", account: "303-0011-223 LAK", amount: "4,500,000", status: "complete", cbsRef: "2025121883931", time: "13:35" },
-              { name: "ນາງ ບົວວັນ ແກ້ວອຸດົມ", account: "303-0011-224 LAK", amount: "4,500,000", status: "complete", cbsRef: "2025121883932", time: "13:35" },
-              { name: "ທ້າວ ວິໄຊ ພົມມະຈັນ", account: "303-0011-225 LAK", amount: "4,500,000", status: "complete", cbsRef: "2025121883933", time: "13:35" }
-            ]
+              {
+                name: "ທ້າວ ສົມພອນ ສົມບູນ",
+                account: "303-0011-223 LAK",
+                amount: "4,500,000",
+                status: "complete",
+                cbsRef: "2025121883931",
+                time: "13:35",
+              },
+              {
+                name: "ນາງ ບົວວັນ ແກ້ວອຸດົມ",
+                account: "303-0011-224 LAK",
+                amount: "4,500,000",
+                status: "complete",
+                cbsRef: "2025121883932",
+                time: "13:35",
+              },
+              {
+                name: "ທ້າວ ວິໄຊ ພົມມະຈັນ",
+                account: "303-0011-225 LAK",
+                amount: "4,500,000",
+                status: "complete",
+                cbsRef: "2025121883933",
+                time: "13:35",
+              },
+            ],
           },
         ],
         // TAB 2: ປະຫວັດຕັ້ງເວລາໂອນ (Scheduled History)
@@ -2250,7 +2480,7 @@
             destName: "ບໍລິສັດ ວຽງຈັນ ອາຄານ ເຊົ່າ",
             destBank: "BCEL",
             fee: "0",
-            cbsRef: "2025121883941"
+            cbsRef: "2025121883941",
           },
           {
             type: "ໂອນຕັ້ງເວລາ",
@@ -2267,7 +2497,7 @@
             destName: "ບັນຊີຝາກປະຢັດ ທະນາຄານພັດທະນາລາວ",
             destBank: "LDB",
             fee: "0",
-            cbsRef: "2025121883942"
+            cbsRef: "2025121883942",
           },
           {
             type: "ໂອນຕັ້ງເວລາ",
@@ -2284,8 +2514,8 @@
             destName: "ບໍລິສັດ ປະກັນໄພ ແຫ່ງຊາດ",
             destBank: "APB",
             fee: "0",
-            cbsRef: "2025121883943"
-          }
+            cbsRef: "2025121883943",
+          },
         ],
       ];
 
@@ -2339,7 +2569,7 @@
 
       // Format number to currency string with commas
       function formatMoney(value) {
-        return parseFloat(value.toString().replace(/,/g, '')).toLocaleString();
+        return parseFloat(value.toString().replace(/,/g, "")).toLocaleString();
       }
 
       // Calculate statistics dynamically
@@ -2352,11 +2582,11 @@
         let successCount = 0;
         let failedCount = 0;
 
-        transactions.forEach(item => {
+        transactions.forEach((item) => {
           if (item.isBatch) {
-            const tAmt = parseFloat(item.totalAmount.replace(/,/g, ''));
-            const sAmt = parseFloat(item.successAmount.replace(/,/g, ''));
-            const fAmt = parseFloat(item.failedAmount.replace(/,/g, ''));
+            const tAmt = parseFloat(item.totalAmount.replace(/,/g, ""));
+            const sAmt = parseFloat(item.successAmount.replace(/,/g, ""));
+            const fAmt = parseFloat(item.failedAmount.replace(/,/g, ""));
 
             totalAmt += tAmt;
             successAmt += sAmt;
@@ -2365,7 +2595,7 @@
             successCount += item.success;
             failedCount += item.failed;
           } else {
-            const amtStr = item.amount.replace(/[-\s,]/g, '');
+            const amtStr = item.amount.replace(/[-\s,]/g, "");
             const amt = parseFloat(amtStr);
 
             if (!isNaN(amt)) {
@@ -2383,19 +2613,28 @@
 
         // Set counts
         if (currentActiveTab === 1) {
-          document.getElementById("statTotalCount").textContent = `${transactions.length} ບັນຊີລາຍການ`;
-          document.getElementById("statSuccessCount").textContent = `${successCount} ບັນຊີສຳເລັດ`;
-          document.getElementById("statFailedCount").textContent = `${failedCount} ບັນຊີລົ້ມເຫຼວ`;
+          document.getElementById("statTotalCount").textContent =
+            `${transactions.length} ບັນຊີລາຍການ`;
+          document.getElementById("statSuccessCount").textContent =
+            `${successCount} ບັນຊີສຳເລັດ`;
+          document.getElementById("statFailedCount").textContent =
+            `${failedCount} ບັນຊີລົ້ມເຫຼວ`;
         } else {
-          document.getElementById("statTotalCount").textContent = `${totalCount} ລາຍການ`;
-          document.getElementById("statSuccessCount").textContent = `${successCount} ລາຍການ`;
-          document.getElementById("statFailedCount").textContent = `${failedCount} ລາຍການ`;
+          document.getElementById("statTotalCount").textContent =
+            `${totalCount} ລາຍການ`;
+          document.getElementById("statSuccessCount").textContent =
+            `${successCount} ລາຍການ`;
+          document.getElementById("statFailedCount").textContent =
+            `${failedCount} ລາຍການ`;
         }
 
         // Set values
-        document.getElementById("statTotalVal").textContent = `${formatMoney(totalAmt)} ກີບ`;
-        document.getElementById("statSuccessVal").textContent = `${formatMoney(successAmt)} ກີບ`;
-        document.getElementById("statFailedVal").textContent = `${formatMoney(failedAmt)} ກີບ`;
+        document.getElementById("statTotalVal").textContent =
+          `${formatMoney(totalAmt)} ກີບ`;
+        document.getElementById("statSuccessVal").textContent =
+          `${formatMoney(successAmt)} ກີບ`;
+        document.getElementById("statFailedVal").textContent =
+          `${formatMoney(failedAmt)} ກີບ`;
       }
 
       // Apply drop down selects, date range inputs, and search text query filters
@@ -2554,7 +2793,7 @@
       // NAVIGATION - SHOW DETAILED VIEW INLINE (Replicating screenshot layout)
       function showDetailView(item) {
         document.getElementById("listSection").style.display = "none";
-        
+
         const detailView = document.getElementById("detailView");
         const titleLabel = document.getElementById("detailFieldTitleLabel");
         const batchName = document.getElementById("detailBatchName");
@@ -2569,10 +2808,14 @@
 
         // Set date
         createdDate.textContent = `${item.date} ${item.time}`;
-        srcAcc.textContent = item.senderAccount || item.sourceAccount || "ບໍ່ລະບຸ LAK";
+        srcAcc.textContent =
+          item.senderAccount || item.sourceAccount || "ບໍ່ລະບຸ LAK";
         desc.textContent = item.description || "ບໍ່ມີຄຳອະທິບາຍ";
 
-        const isSuccess = item.status === "complete" || item.status === "ສຳເລັດ" || item.status === "COMPLETED";
+        const isSuccess =
+          item.status === "complete" ||
+          item.status === "ສຳເລັດ" ||
+          item.status === "COMPLETED";
 
         if (isSuccess) {
           statusBlock.className = "detail-status-block success-bg";
@@ -2586,23 +2829,27 @@
           // Batch payment details
           titleLabel.textContent = "ຈຳນວນຊຸດ:";
           batchName.textContent = item.batchName;
-          
+
           // Stats Row
           statsRow.style.display = "grid";
           document.getElementById("detailStatTotal").textContent = item.total;
-          document.getElementById("detailStatSuccess").textContent = item.success;
+          document.getElementById("detailStatSuccess").textContent =
+            item.success;
           document.getElementById("detailStatFailed").textContent = item.failed;
 
           // Recipients List
           destHeader.style.display = "block";
           destHeader.textContent = `${item.total} ລາຍລະອຽດທະນາຄານປາຍທາງ`;
-          
+
           destList.innerHTML = "";
           item.recipients.forEach((r, idx) => {
             const row = document.createElement("div");
             row.className = "destination-item-row";
-            
-            const rSuccess = r.status === "complete" || r.status === "ສຳເລັດ" || r.status === "SUCCESS";
+
+            const rSuccess =
+              r.status === "complete" ||
+              r.status === "ສຳເລັດ" ||
+              r.status === "SUCCESS";
 
             row.innerHTML = `
               <div class="destination-num-circle">${idx + 1}</div>
@@ -2611,51 +2858,53 @@
                 <div class="destination-meta-row">
                   <span class="destination-amt-badge number-font">${formatMoney(r.amount)}.00</span>
                   <span class="destination-desc-txt">ເບື້ອງໃນການໂອນ: ${item.description}</span>
-                  <span class="destination-ref-txt">ການອ້າງອີງ CBS: ${r.cbsRef || '2025' + Math.floor(100000000 + Math.random()*900000000)}</span>
+                  <span class="destination-ref-txt">ການອ້າງອີງ CBS: ${r.cbsRef || "2025" + Math.floor(100000000 + Math.random() * 900000000)}</span>
                 </div>
               </div>
               <div class="destination-status-col">
                 <span class="destination-date number-font">${item.date} ${r.time || item.time}</span>
-                <span class="destination-badge ${rSuccess ? 'success' : 'failed'}">
-                  ${rSuccess ? 'SUCCESS' : 'FAILED'}
+                <span class="destination-badge ${rSuccess ? "success" : "failed"}">
+                  ${rSuccess ? "SUCCESS" : "FAILED"}
                 </span>
               </div>
             `;
             destList.appendChild(row);
           });
-
         } else {
           // Single payment details
           titleLabel.textContent = "ປະເພດທຸລະກຳ:";
           batchName.textContent = item.type;
-          
+
           // Hide stats row
           statsRow.style.display = "none";
 
           // Recipient list shows just 1 recipient
           destHeader.style.display = "block";
           destHeader.textContent = "ລາຍລະອຽດທະນາຄານປາຍທາງ";
-          
+
           destList.innerHTML = "";
           const row = document.createElement("div");
           row.className = "destination-item-row";
 
-          const rSuccess = item.status === "complete" || item.status === "ສຳເລັດ" || item.status === "SUCCESS";
+          const rSuccess =
+            item.status === "complete" ||
+            item.status === "ສຳເລັດ" ||
+            item.status === "SUCCESS";
 
           row.innerHTML = `
             <div class="destination-num-circle">1</div>
             <div class="destination-info-col">
-              <span class="destination-acc-title number-font">${item.destAccount || '00000000000000 LAK'}</span>
+              <span class="destination-acc-title number-font">${item.destAccount || "00000000000000 LAK"}</span>
               <div class="destination-meta-row">
-                <span class="destination-amt-badge number-font">${item.amount.replace(/[-\s]/g, '')}.00</span>
-                <span class="destination-desc-txt">ຊື່ຜູ້ຮັບ: ${item.destName || 'ບໍ່ລະບຸ'} (${item.destBank || 'ທະນາຄານ'})</span>
-                <span class="destination-ref-txt">ການອ້າງອີງ CBS: ${item.cbsRef || '2025121883901'}</span>
+                <span class="destination-amt-badge number-font">${item.amount.replace(/[-\s]/g, "")}.00</span>
+                <span class="destination-desc-txt">ຊື່ຜູ້ຮັບ: ${item.destName || "ບໍ່ລະບຸ"} (${item.destBank || "ທະນາຄານ"})</span>
+                <span class="destination-ref-txt">ການອ້າງອີງ CBS: ${item.cbsRef || "2025121883901"}</span>
               </div>
             </div>
             <div class="destination-status-col">
               <span class="destination-date number-font">${item.date} ${item.time}</span>
-              <span class="destination-badge ${rSuccess ? 'success' : 'failed'}">
-                ${rSuccess ? 'SUCCESS' : 'FAILED'}
+              <span class="destination-badge ${rSuccess ? "success" : "failed"}">
+                ${rSuccess ? "SUCCESS" : "FAILED"}
               </span>
             </div>
           `;
@@ -2697,7 +2946,7 @@
       function openSimulator() {
         document.getElementById("drawerOverlay").classList.add("show");
         document.getElementById("drawerContainer").classList.add("open");
-        
+
         // Reset rows for bulk transfer simulation
         if (bulkRowCount === 0) {
           addBulkEntryRow();
@@ -2712,7 +2961,7 @@
 
       function setSimType(typeIdx) {
         simulatorType = typeIdx;
-        
+
         for (let i = 0; i < 3; i++) {
           const btn = document.getElementById(`simTypeBtn${i}`);
           if (i === typeIdx) {
@@ -2783,10 +3032,10 @@
 
         setTimeout(() => {
           loading.classList.remove("show");
-          
+
           const now = new Date();
-          const dStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
-          const tStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+          const dStr = `${String(now.getDate()).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(2, "0")}/${now.getFullYear()}`;
+          const tStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
           const srcVal = document.getElementById("simSrcAccount").value;
           const descVal = document.getElementById("simDescription").value;
@@ -2806,11 +3055,12 @@
             let failedAmountVal = 0;
             const recipients = [];
 
-            rows.forEach(row => {
+            rows.forEach((row) => {
               const id = row.id.split("_")[1];
               const name = document.getElementById(`bulkName_${id}`).value;
               const acc = document.getElementById(`bulkAcc_${id}`).value;
-              const amt = parseFloat(document.getElementById(`bulkAmt_${id}`).value) || 0;
+              const amt =
+                parseFloat(document.getElementById(`bulkAmt_${id}`).value) || 0;
               const status = document.getElementById(`bulkStatus_${id}`).value;
 
               total++;
@@ -2829,39 +3079,51 @@
                 account: acc + " LAK",
                 amount: amt.toString(),
                 status: status,
-                cbsRef: '2025' + Math.floor(100000000 + Math.random()*900000000),
-                time: tStr
+                cbsRef:
+                  "2025" + Math.floor(100000000 + Math.random() * 900000000),
+                time: tStr,
               });
             });
 
             const newBatch = {
               isBatch: true,
               batchName: `batch${Math.floor(10000000 + Math.random() * 90000000)}`,
-              sourceAccount: srcVal === "bcel" ? "0000200100108241 LAK" : srcVal === "ldb" ? "0000200200208455 LAK" : "0000200300308881 LAK",
+              sourceAccount:
+                srcVal === "bcel"
+                  ? "0000200100108241 LAK"
+                  : srcVal === "ldb"
+                    ? "0000200200208455 LAK"
+                    : "0000200300308881 LAK",
               description: descVal,
               date: dStr,
               time: tStr,
               total: total,
               success: success,
               failed: failed,
-              status: failed === 0 ? "COMPLETED" : success === 0 ? "FAILED" : "COMPLETED",
+              status:
+                failed === 0
+                  ? "COMPLETED"
+                  : success === 0
+                    ? "FAILED"
+                    : "COMPLETED",
               account: srcVal,
               typeCategory: "internal",
               successAmount: successAmountVal.toString(),
               failedAmount: failedAmountVal.toString(),
               totalAmount: totalAmountVal.toString(),
-              recipients: recipients
+              recipients: recipients,
             };
 
             mockDatabase[1].unshift(newBatch);
             switchTab(1); // switch to bulk payments tab
-
           } else if (simulatorType === 2) {
-            const schedDateVal = document.getElementById("simScheduledDate").value;
+            const schedDateVal =
+              document.getElementById("simScheduledDate").value;
             const destAccVal = document.getElementById("simDestAccount").value;
             const destNameVal = document.getElementById("simDestName").value;
             const destBankVal = document.getElementById("simDestBank").value;
-            const amtVal = parseFloat(document.getElementById("simAmount").value) || 0;
+            const amtVal =
+              parseFloat(document.getElementById("simAmount").value) || 0;
             const statusVal = document.getElementById("simStatus").value;
 
             const newItem = {
@@ -2874,22 +3136,28 @@
               account: srcVal,
               typeCategory: "internal",
               status: statusVal,
-              senderAccount: srcVal === "bcel" ? "0000200100108241" : srcVal === "ldb" ? "0000200200208455" : "0000200300308881",
+              senderAccount:
+                srcVal === "bcel"
+                  ? "0000200100108241"
+                  : srcVal === "ldb"
+                    ? "0000200200208455"
+                    : "0000200300308881",
               destAccount: destAccVal,
               destName: destNameVal,
               destBank: destBankVal,
               fee: "0",
-              cbsRef: '2025' + Math.floor(100000000 + Math.random()*900000000)
+              cbsRef:
+                "2025" + Math.floor(100000000 + Math.random() * 900000000),
             };
 
             mockDatabase[2].unshift(newItem);
             switchTab(2); // switch to scheduled tab
-
           } else {
             const destAccVal = document.getElementById("simDestAccount").value;
             const destNameVal = document.getElementById("simDestName").value;
             const destBankVal = document.getElementById("simDestBank").value;
-            const amtVal = parseFloat(document.getElementById("simAmount").value) || 0;
+            const amtVal =
+              parseFloat(document.getElementById("simAmount").value) || 0;
             const statusVal = document.getElementById("simStatus").value;
 
             const newItem = {
@@ -2902,12 +3170,18 @@
               account: srcVal,
               typeCategory: "internal",
               status: statusVal,
-              senderAccount: srcVal === "bcel" ? "0000200100108241" : srcVal === "ldb" ? "0000200200208455" : "0000200300308881",
+              senderAccount:
+                srcVal === "bcel"
+                  ? "0000200100108241"
+                  : srcVal === "ldb"
+                    ? "0000200200208455"
+                    : "0000200300308881",
               destAccount: destAccVal,
               destName: destNameVal,
               destBank: destBankVal,
               fee: "0",
-              cbsRef: '2025' + Math.floor(100000000 + Math.random()*900000000)
+              cbsRef:
+                "2025" + Math.floor(100000000 + Math.random() * 900000000),
             };
 
             mockDatabase[0].unshift(newItem);
@@ -2916,7 +3190,6 @@
 
           closeSimulator();
           showToast("ສ້າງທຸລະກຳຈຳລອງສຳເລັດແລ້ວ!");
-
         }, 1200);
       }
 
