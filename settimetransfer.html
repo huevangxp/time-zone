@@ -26,19 +26,20 @@
         --accent-red-border: #fca5a5;
         --accent-green: #10b981;
         --accent-green-light: #ecfdf5;
-        --bg-page: #f2f1f7;
+        --bg-page: #f4f6fa;
         --bg-card: #ffffff;
-        --bg-input: #f1f3f7;
-        --bg-input-hover: #e2e8f0;
-        --text-dark: #1a202c;
-        --text-muted: #718096;
+        --bg-input: #f8fafc;
+        --bg-input-hover: #f1f5f9;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
         --text-light: #ffffff;
         --border-color: #e2e8f0;
         --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.05);
-        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.05);
+        --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
         --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       /* Reset and Base Styles */
@@ -55,11 +56,21 @@
         background-color: var(--bg-page);
         color: var(--text-dark);
         min-height: 100vh;
-        padding-bottom: 60px;
+        padding-bottom: 80px;
       }
 
       .number-font {
         font-family: "Inter", sans-serif;
+      }
+
+      /* Animations */
+      @keyframes scaleIn {
+        from { transform: scale(0.96); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      @keyframes fadeInUp {
+        from { transform: translateY(12px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
       }
 
       /* Top Navigation Bar */
@@ -74,26 +85,26 @@
       }
 
       .nav-container {
-        max-width: 1200px;
+        max-width: 1280px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 24px;
         min-width: 900px;
       }
 
       .nav-item {
         flex: 1;
         text-align: center;
-        padding: 16px 10px;
+        padding: 16px 12px;
         color: rgba(255, 255, 255, 0.75);
         text-decoration: none;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 6px;
-        font-size: 13px;
+        font-size: 13.5px;
         font-weight: 500;
         border-bottom: 3.5px solid transparent;
         transition: var(--transition-fast);
@@ -129,6 +140,9 @@
       .nav-item.pay-bill-active svg {
         fill: var(--accent-yellow);
       }
+      .nav-item.pay-bill-active:hover {
+        color: var(--accent-yellow-hover);
+      }
 
       /* Navigation Divider */
       .nav-divider {
@@ -140,31 +154,32 @@
 
       /* Main Layout */
       .main-content {
-        max-width: 1100px;
-        margin: 24px auto;
-        padding: 0 20px;
+        max-width: 1280px;
+        margin: 32px auto;
+        padding: 0 24px;
+        animation: fadeInUp 0.4s ease-out;
       }
 
       /* Section Header Title */
       .section-header {
-        margin-bottom: 20px;
+        margin-bottom: 24px;
       }
 
       .section-title {
         color: var(--primary-teal);
-        font-size: 16px;
+        font-size: 22px;
         font-weight: 700;
       }
 
       /* Two Column Dashboard Grid */
       .dashboard-grid {
         display: grid;
-        grid-template-columns: 420px 1fr;
-        gap: 30px;
+        grid-template-columns: 440px 1fr;
+        gap: 32px;
         align-items: flex-start;
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 992px) {
         .dashboard-grid {
           grid-template-columns: 1fr;
         }
@@ -175,113 +190,127 @@
         background-color: var(--bg-card);
         border-radius: 28px;
         box-shadow: var(--shadow-md);
-        padding: 24px;
+        padding: 32px;
         border: 1px solid var(--border-color);
       }
 
       /* LEFT COLUMN: CALENDAR BLOCK */
       .calendar-card {
         background-color: #ffffff;
-        border: 1.5px solid var(--primary-teal);
+        border: 1px solid var(--border-color);
         border-radius: 24px;
         overflow: hidden;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-normal);
       }
 
       .calendar-header {
-        background-color: var(--primary-teal);
+        background: linear-gradient(135deg, var(--primary-teal), #00bfa5);
         color: white;
-        padding: 18px;
+        padding: 20px 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 4px 12px rgba(11, 132, 124, 0.12);
       }
 
       .calendar-title {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 700;
         letter-spacing: 0.5px;
       }
 
       .calendar-arrow-btn {
-        background: none;
+        background: rgba(255, 255, 255, 0.15);
         border: none;
         color: white;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         cursor: pointer;
-        padding: 4px 8px;
-        border-radius: 6px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: var(--transition-fast);
       }
       .calendar-arrow-btn:hover {
-        background-color: rgba(255,255,255,0.15);
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
       }
 
       .calendar-body {
-        padding: 16px;
+        padding: 24px;
       }
 
       .calendar-weekdays {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         text-align: center;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 700;
         color: var(--primary-teal);
-        margin-bottom: 12px;
+        margin-bottom: 16px;
         border-bottom: 1.5px solid var(--primary-teal-light);
-        padding-bottom: 8px;
+        padding-bottom: 10px;
       }
 
       .calendar-days-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        row-gap: 8px;
+        row-gap: 10px;
+        column-gap: 6px;
         text-align: center;
       }
 
       .calendar-day-cell {
-        font-size: 13.5px;
+        font-size: 14.5px;
         font-weight: 600;
         color: var(--text-dark);
-        height: 38px;
+        aspect-ratio: 1;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        border-radius: 50%;
+        border-radius: 14px;
         transition: var(--transition-fast);
+        border: 1px solid transparent;
       }
 
       .calendar-day-cell:hover:not(.empty-cell):not(.active-day) {
-        background-color: #f1f3f7;
+        background-color: var(--primary-teal-light);
+        color: var(--primary-teal);
+        border-color: rgba(11, 132, 124, 0.15);
       }
 
       .calendar-day-cell.empty-cell {
         color: #cbd5e1;
         cursor: default;
+        opacity: 0.6;
       }
 
       .calendar-day-cell.active-day {
         background-color: var(--primary-teal);
         color: white !important;
         font-weight: 700;
-        box-shadow: 0 4px 10px rgba(11, 132, 124, 0.25);
+        box-shadow: 0 8px 16px rgba(11, 132, 124, 0.25);
+        border-color: var(--primary-teal);
       }
 
       /* Calendar actions buttons row */
       .calendar-actions-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 16px;
       }
 
       .cal-btn {
         border: none;
-        border-radius: 10px;
-        padding: 12px;
-        font-size: 13.5px;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 14px;
         font-weight: 700;
         cursor: pointer;
         display: flex;
@@ -290,6 +319,7 @@
         gap: 8px;
         color: white;
         transition: var(--transition-normal);
+        box-shadow: var(--shadow-sm);
       }
 
       .cal-btn.add-new {
@@ -297,41 +327,49 @@
       }
       .cal-btn.add-new:hover {
         background-color: var(--primary-teal-hover);
-        box-shadow: 0 4px 12px rgba(11, 132, 124, 0.25);
+        box-shadow: 0 6px 16px rgba(11, 132, 124, 0.25);
+        transform: translateY(-1px);
+      }
+      .cal-btn.add-new:active {
+        transform: translateY(1px);
       }
 
       .cal-btn.reset {
-        background-color: #9ca3af;
+        background-color: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
       }
       .cal-btn.reset:hover {
-        background-color: #7b838f;
+        background-color: #e2e8f0;
+        color: #334155;
       }
 
       /* RIGHT COLUMN: STATUS TABS & LIST */
       .list-container {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
       }
 
       /* Tabs selection block */
       .tabs-bar {
-        background-color: var(--primary-teal);
-        border-radius: 12px;
-        padding: 4px;
+        background-color: #f1f5f9;
+        border-radius: 16px;
+        padding: 6px;
         display: flex;
-        gap: 4px;
+        gap: 6px;
+        border: 1px solid #e2e8f0;
       }
 
       .tab-btn {
         flex: 1;
         background: none;
         border: none;
-        color: white;
-        font-size: 13.5px;
+        color: #64748b;
+        font-size: 14px;
         font-weight: 700;
-        padding: 10px;
-        border-radius: 8px;
+        padding: 12px;
+        border-radius: 12px;
         cursor: pointer;
         transition: var(--transition-normal);
         text-align: center;
@@ -341,64 +379,72 @@
         background-color: #ffffff;
         color: var(--primary-teal);
         box-shadow: var(--shadow-sm);
+        border: 1px solid #e2e8f0;
       }
 
       /* Schedule Item List Cards */
       .schedule-cards-list {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        min-height: 240px;
+        gap: 16px;
+        min-height: 320px;
       }
 
       .schedule-item-card {
         background-color: #ffffff;
         border: 1px solid var(--border-color);
-        border-radius: 16px;
-        padding: 14px 16px;
+        border-radius: 20px;
+        padding: 18px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 20px;
         box-shadow: var(--shadow-sm);
         transition: var(--transition-normal);
+        animation: scaleIn 0.3s ease-out;
       }
 
       .schedule-item-card:hover {
         box-shadow: var(--shadow-md);
-        transform: translateY(-1px);
+        border-color: rgba(11, 132, 124, 0.2);
+        transform: translateY(-2px);
       }
 
       /* Scheduled Left Date Badge */
       .schedule-date-badge {
-        background-color: var(--primary-teal);
+        background: linear-gradient(135deg, var(--primary-teal), #00bfa5);
         color: white;
-        border-radius: 12px;
-        padding: 8px 12px;
+        border-radius: 16px;
+        padding: 10px 14px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-width: 96px;
+        min-width: 80px;
+        height: 80px;
         text-align: center;
+        box-shadow: 0 4px 10px rgba(11, 132, 124, 0.15);
       }
 
       .badge-date-text {
-        font-size: 12.5px;
+        font-size: 22px;
         font-weight: 700;
-        margin-bottom: 4px;
+        line-height: 1;
       }
 
       .badge-status-tag {
-        font-size: 9.5px;
+        font-size: 10px;
         font-weight: 700;
         background-color: rgba(255, 255, 255, 0.2);
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 3px 8px;
+        border-radius: 6px;
+        margin-top: 6px;
+        letter-spacing: 0.3px;
       }
 
       .schedule-item-card.stopped .schedule-date-badge {
-        background-color: #94a3b8;
+        background: linear-gradient(135deg, #94a3b8, #cbd5e1);
+        box-shadow: none;
       }
 
       /* Scheduled Middle Details block */
@@ -406,67 +452,116 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 4px;
       }
 
       .info-name {
-        font-size: 13.5px;
+        font-size: 15px;
         font-weight: 700;
         color: var(--text-dark);
       }
 
       .info-account {
-        font-size: 11.5px;
+        font-size: 12.5px;
         font-weight: 600;
         color: var(--text-muted);
       }
 
       .info-desc-row {
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 500;
         color: var(--text-muted);
         display: flex;
+        align-items: center;
         gap: 8px;
       }
 
       .info-desc-status {
         color: var(--primary-teal);
-        font-weight: 600;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .info-desc-status::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--accent-green);
       }
       .schedule-item-card.stopped .info-desc-status {
         color: var(--accent-red);
       }
+      .schedule-item-card.stopped .info-desc-status::before {
+        background-color: var(--accent-red);
+      }
+
+      /* Amount display column */
+      .schedule-amount-block {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 120px;
+        margin-right: 8px;
+      }
+
+      .amount-val {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary-teal);
+      }
+
+      .currency-label {
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+      }
+
+      .schedule-item-card.stopped .amount-val {
+        color: #94a3b8;
+      }
 
       /* STOP button layout */
       .stop-action-btn {
-        background: none;
-        border: 1px solid var(--accent-red);
+        background-color: var(--accent-red-light);
+        border: 1px solid var(--accent-red-border);
         color: var(--accent-red);
-        border-radius: 50px;
-        padding: 5px 12px;
-        font-size: 11px;
+        border-radius: 14px;
+        padding: 8px 16px;
+        font-size: 12px;
         font-weight: 700;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         transition: var(--transition-fast);
+        box-shadow: 0 2px 5px rgba(239, 68, 68, 0.05);
       }
 
       .stop-action-btn:hover {
-        background-color: var(--accent-red-light);
+        background-color: #fee2e2;
+        border-color: #fca5a5;
+        transform: scale(1.02);
       }
 
       .stop-action-btn.stopped-btn {
-        border-color: var(--primary-teal);
+        background-color: var(--primary-teal-light);
+        border-color: rgba(11, 132, 124, 0.2);
         color: var(--primary-teal);
+        box-shadow: 0 2px 5px rgba(11, 132, 124, 0.05);
       }
       .stop-action-btn.stopped-btn:hover {
-        background-color: var(--primary-teal-light);
+        background-color: #dcfce7;
+        border-color: #bbf7d0;
+        transform: scale(1.02);
       }
 
       .chevron-arrow {
-        font-size: 16px;
+        font-size: 18px;
         color: #cbd5e1;
         font-weight: bold;
         padding-left: 4px;
@@ -478,16 +573,16 @@
         justify-content: center;
         align-items: center;
         gap: 12px;
-        margin-top: 14px;
+        margin-top: 20px;
       }
 
       .page-btn {
-        background-color: var(--primary-teal);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        width: 32px;
-        height: 32px;
+        background-color: #ffffff;
+        color: var(--text-dark);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -497,20 +592,22 @@
       }
 
       .page-btn:hover {
-        background-color: var(--primary-teal-hover);
+        background-color: #f1f5f9;
+        border-color: #cbd5e1;
       }
 
       .page-indicator-box {
-        background-color: #e2e8f0;
-        color: var(--text-dark);
-        border-radius: 6px;
-        font-size: 13.5px;
+        background-color: var(--primary-teal-light);
+        color: var(--primary-teal);
+        border-radius: 8px;
+        font-size: 14px;
         font-weight: 700;
-        width: 44px;
-        height: 32px;
+        width: 48px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border: 1px solid rgba(11, 132, 124, 0.15);
       }
 
       /* MODAL DIALOGS */
@@ -520,9 +617,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background-color: rgba(15, 23, 42, 0.5);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         z-index: 1000;
         display: flex;
         align-items: center;
@@ -539,32 +636,63 @@
 
       .dialog-box {
         background-color: white;
-        border-radius: 20px;
+        border-radius: 28px;
         width: 90%;
-        max-width: 420px;
-        padding: 24px;
+        max-width: 520px;
+        padding: 32px;
         box-shadow: var(--shadow-lg);
-        transform: scale(0.9);
-        transition: transform var(--transition-normal);
+        transform: scale(0.95);
+        opacity: 0;
+        transition: transform var(--transition-normal), opacity var(--transition-normal);
+        border: 1px solid rgba(255, 255, 255, 0.8);
       }
 
       .modal-overlay.show .dialog-box {
         transform: scale(1);
+        opacity: 1;
       }
 
-      .dialog-header {
-        font-size: 16px;
-        font-weight: 700;
+      /* Header Banner inside Modal */
+      .dialog-header-banner {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .header-icon-circle {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: var(--primary-teal-light);
         color: var(--primary-teal);
-        margin-bottom: 16px;
-        border-bottom: 1.5px solid var(--primary-teal-light);
-        padding-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px auto;
+        box-shadow: 0 4px 10px rgba(11, 132, 124, 0.1);
+      }
+
+      .header-icon-circle svg {
+        width: 26px;
+        height: 26px;
+        fill: currentColor;
+      }
+
+      .dialog-header-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text-dark);
+      }
+
+      .dialog-header-subtitle {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        margin-top: 4px;
       }
 
       .dialog-form {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
       }
 
       .dialog-group {
@@ -574,48 +702,111 @@
       }
 
       .dialog-lbl {
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 12.5px;
+        font-weight: 700;
+        color: #475569;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Input with icon styling */
+      .input-with-icon {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .input-with-icon .dialog-input,
+      .input-with-icon .dialog-select {
+        padding-left: 42px;
+      }
+
+      .input-icon-wrapper {
+        position: absolute;
+        left: 14px;
         color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+        transition: var(--transition-fast);
+      }
+
+      .input-icon-wrapper svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
       }
 
       .dialog-input, .dialog-select {
         background-color: var(--bg-input);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 10px;
-        font-size: 13.5px;
+        border-radius: 12px;
+        padding: 12px 14px;
+        font-size: 14px;
+        font-weight: 500;
         outline: none;
         width: 100%;
+        color: var(--text-dark);
+        transition: var(--transition-fast);
+      }
+
+      .dialog-input:hover, .dialog-select:hover {
+        background-color: var(--bg-input-hover);
+        border-color: #cbd5e1;
       }
 
       .dialog-input:focus, .dialog-select:focus {
         border-color: var(--primary-teal);
         background-color: white;
+        box-shadow: 0 0 0 3px rgba(11, 132, 124, 0.15);
+      }
+      
+      .dialog-input:focus ~ .input-icon-wrapper,
+      .dialog-select:focus ~ .input-icon-wrapper {
+        color: var(--primary-teal);
+      }
+
+      /* Form Row helper */
+      .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      @media (max-width: 480px) {
+        .form-row-2 {
+          grid-template-columns: 1fr;
+        }
       }
 
       .dialog-buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-top: 18px;
+        gap: 16px;
+        margin-top: 12px;
       }
 
       .dialog-btn {
         border: none;
-        border-radius: 8px;
-        padding: 10px;
-        font-size: 13.5px;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 14px;
         font-weight: 700;
         cursor: pointer;
+        transition: var(--transition-normal);
+        text-align: center;
       }
 
       .dialog-btn.cancel {
-        background-color: #cbd5e1;
-        color: var(--text-dark);
+        background-color: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
       }
       .dialog-btn.cancel:hover {
-        background-color: #b8c1cc;
+        background-color: #e2e8f0;
+        color: #334155;
       }
 
       .dialog-btn.confirm {
@@ -624,27 +815,33 @@
       }
       .dialog-btn.confirm:hover {
         background-color: var(--primary-teal-hover);
+        box-shadow: 0 6px 16px rgba(11, 132, 124, 0.2);
+        transform: translateY(-1px);
+      }
+      .dialog-btn.confirm:active {
+        transform: translateY(1px);
       }
 
       /* TOAST MESSAGE */
       .toast-msg {
         position: fixed;
-        bottom: 24px;
+        bottom: 32px;
         left: 50%;
         transform: translateX(-50%) translateY(100px);
-        background-color: var(--primary-teal);
+        background-color: #0f172a;
         color: white;
-        padding: 12px 24px;
+        padding: 14px 28px;
         border-radius: 50px;
         font-weight: 600;
-        font-size: 13.5px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        font-size: 14px;
+        box-shadow: var(--shadow-lg);
         display: flex;
         align-items: center;
         gap: 10px;
         z-index: 1001;
         opacity: 0;
         transition: transform var(--transition-normal), opacity var(--transition-normal);
+        border: 1px solid rgba(255,255,255,0.08);
       }
 
       .toast-msg.show {
@@ -655,7 +852,7 @@
       .toast-icon {
         width: 18px;
         height: 18px;
-        fill: currentColor;
+        fill: var(--accent-green);
       }
     </style>
   </head>
@@ -743,9 +940,9 @@
           <div>
             <div class="calendar-card">
               <div class="calendar-header">
-                <button class="calendar-arrow-btn">&lt;</button>
+                <button class="calendar-arrow-btn" title="ເດືອນກ່ອນໜ້າ">&lt;</button>
                 <span class="calendar-title">ພະຈິກ 2025</span>
-                <button class="calendar-arrow-btn">&gt;</button>
+                <button class="calendar-arrow-btn" title="ເດືອນຖັດໄປ">&gt;</button>
               </div>
               <div class="calendar-body">
                 <div class="calendar-weekdays">
@@ -754,8 +951,8 @@
                   <div>ພຸດ</div>
                   <div>ພະຫັດ</div>
                   <div>ສຸກ</div>
-                  <div>ເສົາ</div>
-                  <div>ອາທິດ</div>
+                  <div style="color: var(--accent-yellow)">ເສົາ</div>
+                  <div style="color: var(--accent-red)">ອາທິດ</div>
                 </div>
                 <div class="calendar-days-grid" id="calendarDays">
                   <!-- Generated by JS (mocking November 2025) -->
@@ -766,9 +963,18 @@
             <!-- Calendar action buttons -->
             <div class="calendar-actions-row">
               <button class="cal-btn add-new" onclick="openAddScheduleModal()">
+                <!-- Plus Icon SVG -->
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
                 <span>+ ເພີ່ມໃໝ່</span>
               </button>
               <button class="cal-btn reset" onclick="resetCalendarSelection()">
+                <!-- Reset Icon SVG -->
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                </svg>
                 <span>↻ ເລີ່ມການເລືອກໃໝ່</span>
               </button>
             </div>
@@ -790,9 +996,9 @@
 
             <!-- Bottom pagination -->
             <div class="pagination-row">
-              <button class="page-btn">&lt;</button>
+              <button class="page-btn" title="ກ່ອນໜ້າ">&lt;</button>
               <div class="page-indicator-box number-font">1</div>
-              <button class="page-btn">&gt;</button>
+              <button class="page-btn" title="ຖັດໄປ">&gt;</button>
             </div>
           </div>
 
@@ -800,44 +1006,108 @@
       </div>
     </main>
 
-    <!-- ADD SCHEDULE MODAL FORM -->
-    <div class="modal-overlay" id="addModalOverlay">
-      <div class="dialog-box">
-        <h3 class="dialog-header">ເພີ່ມລາຍການຕັ້ງເວລາການໂອນ</h3>
+    <!-- ADD SCHEDULE MODAL FORM (REDESIGNED PERFECT) -->
+    <div class="modal-overlay" id="addModalOverlay" onclick="closeAddScheduleModalViaOverlay(event)">
+      <div class="dialog-box" id="dialogBox">
+        <div class="dialog-header-banner">
+          <div class="header-icon-circle">
+            <!-- SVG clock icon -->
+            <svg viewBox="0 0 24 24">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+            </svg>
+          </div>
+          <h3 class="dialog-header-title">ຕັ້ງເວລາການໂອນໃໝ່</h3>
+          <p class="dialog-header-subtitle">ກະລຸນາປ້ອນຂໍ້ມູນການໂອນເງິນຕັ້ງເວລາໃຫ້ຄົບຖ້ວນ</p>
+        </div>
         <form class="dialog-form" onsubmit="submitAddScheduleForm(event)">
           
-          <div class="dialog-group">
-            <label class="dialog-lbl">ເລືອກບັນຊີຕົ້ນທາງ</label>
-            <select class="dialog-select" id="formSrcAcc" required>
-              <option value="bcel">ບັນຊີ ກີບ LAK (101-***-299)</option>
-              <option value="ldb">ບັນຊີ ບາດ THB (202-***-455)</option>
-              <option value="apb">ບັນຊີ ໂດລາ USD (303-***-881)</option>
-            </select>
+          <div class="form-row-2">
+            <div class="dialog-group">
+              <label class="dialog-lbl">ເລືອກບັນຊີຕົ້ນທາງ</label>
+              <div class="input-with-icon">
+                <select class="dialog-select" id="formSrcAcc" required>
+                  <option value="bcel">BCEL ກີບ LAK (101-***-299)</option>
+                  <option value="ldb">LDB ບາດ THB (202-***-455)</option>
+                  <option value="apb">APB ໂດລາ USD (303-***-881)</option>
+                </select>
+                <div class="input-icon-wrapper">
+                  <!-- Wallet Icon SVG -->
+                  <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="dialog-group">
+              <label class="dialog-lbl">ສະກຸນເງິນ</label>
+              <div class="input-with-icon">
+                <select class="dialog-select" id="formCurrency" required>
+                  <option value="LAK">LAK (ກີບ)</option>
+                  <option value="THB">THB (ບາດ)</option>
+                  <option value="USD">USD (ໂດລາ)</option>
+                </select>
+                <div class="input-icon-wrapper">
+                  <!-- Dollar Icon SVG -->
+                  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.68v-1.92c-2.31-.07-3.95-1.2-4.07-3.37h2.38c.12.97.77 1.54 1.69 1.54.95 0 1.61-.59 1.61-1.39 0-2.02-3.81-1.33-3.81-4.23 0-1.74 1.25-2.92 3.2-3.08V5.5h2.68v1.9c1.92.17 3.12 1.2 3.28 2.92h-2.33c-.15-.81-.66-1.34-1.5-1.34-.86 0-1.42.44-1.42 1.15 0 1.83 3.81 1.15 3.81 4.13.01 1.95-1.29 3.01-3.16 3.18z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="dialog-group">
             <label class="dialog-lbl">ຊື່ຜູ້ຮັບປາຍທາງ</label>
-            <input type="text" class="dialog-input" id="formDestName" placeholder="ຊື່ ແລະ ນາມສະກຸນ" value="ທ່ານ ຊີວ່າງ ຊູ້ມີ" required />
+            <div class="input-with-icon">
+              <input type="text" class="dialog-input" id="formDestName" placeholder="ຊື່ ແລະ ນາມສະກຸນ" value="ທ່ານ ຊີວ່າງ ຊູ້ມີ" required />
+              <div class="input-icon-wrapper">
+                <!-- User Icon SVG -->
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              </div>
+            </div>
           </div>
 
           <div class="dialog-group">
             <label class="dialog-lbl">ເລກບັນຊີປາຍທາງ</label>
-            <input type="text" class="dialog-input number-font" id="formDestAcc" placeholder="ເລກບັນຊີ 15 ຫຼັກ" value="010XXXXXXXX625" required />
+            <div class="input-with-icon">
+              <input type="text" class="dialog-input number-font" id="formDestAcc" placeholder="ເລກບັນຊີ 15 ຫຼັກ" value="010XXXXXXXX625" required />
+              <div class="input-icon-wrapper">
+                <!-- Card Icon SVG -->
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+              </div>
+            </div>
           </div>
 
-          <div class="dialog-group">
-            <label class="dialog-lbl">ວັນທີໂອນຕັ້ງເວລາ (ວັນທີ/ເດືອນ/ປີ)</label>
-            <input type="text" class="dialog-input number-font" id="formDate" value="05/11/2025" placeholder="DD/MM/YYYY" required />
-          </div>
+          <div class="form-row-2">
+            <div class="dialog-group">
+              <label class="dialog-lbl">ວັນທີໂອນຕັ້ງເວລາ</label>
+              <div class="input-with-icon">
+                <input type="text" class="dialog-input number-font" id="formDate" value="05/11/2025" placeholder="DD/MM/YYYY" required />
+                <div class="input-icon-wrapper">
+                  <!-- Calendar Date Icon SVG -->
+                  <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                </div>
+              </div>
+            </div>
 
-          <div class="dialog-group">
-            <label class="dialog-lbl">ຈຳນວນເງິນໂອນ</label>
-            <input type="number" class="dialog-input number-font" id="formAmount" placeholder="ຈຳນວນເງິນ" value="100000" required />
+            <div class="dialog-group">
+              <label class="dialog-lbl">ຈຳນວນເງິນໂອນ</label>
+              <div class="input-with-icon">
+                <input type="number" class="dialog-input number-font" id="formAmount" placeholder="ຈຳນວນເງິນ" value="150000" required />
+                <div class="input-icon-wrapper">
+                  <!-- Money Bill Icon SVG -->
+                  <svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM3 6h18v4H3V6zm0 12v-6h18v6H3zm4-3c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.33 16.5 8.5 16.5 7 15.83 7 15z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="dialog-group">
             <label class="dialog-lbl">ຄຳອະທິບາຍ</label>
-            <input type="text" class="dialog-input" id="formDesc" value="ໂອນເງິນຕັ້ງເວລາ" placeholder="ປ້ອນຄຳອະທິບາຍ" required />
+            <div class="input-with-icon">
+              <input type="text" class="dialog-input" id="formDesc" value="ໂອນເງິນຕັ້ງເວລາ" placeholder="ປ້ອນຄຳອະທິບາຍ" required />
+              <div class="input-icon-wrapper">
+                <!-- Info Icon SVG -->
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+            </div>
           </div>
 
           <div class="dialog-buttons">
@@ -866,24 +1136,33 @@
           date: "05/11/2025",
           name: "ທ່ານ ຊີວ່າງ ຊູ້ມີ",
           account: "010XXXXXXXX625",
+          amount: "150,000",
+          currency: "LAK",
+          srcAcc: "bcel",
           status: "active", // active or stopped
-          remark: "ກຳລັງດຳເນີນ  ລາຍລະອຽດການດຳເນີນງານ"
+          remark: "ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ"
         },
         {
           id: 2,
           date: "05/11/2025",
           name: "ທ່ານ ຊີວ່າງ ຊູ້ມີ",
           account: "010XXXXXXXX625",
+          amount: "300,000",
+          currency: "LAK",
+          srcAcc: "bcel",
           status: "active",
-          remark: "ກຳລັງດຳເນີນ  ລາຍລະອຽດການດຳເນີນງານ"
+          remark: "ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ"
         },
         {
           id: 3,
           date: "05/11/2025",
           name: "ທ່ານ ຊີວ່າງ ຊູ້ມີ",
           account: "010XXXXXXXX625",
+          amount: "10.00",
+          currency: "THB",
+          srcAcc: "ldb",
           status: "active",
-          remark: "ກຳລັງດຳເນີນ  ລາຍລະອຽດການດຳເນີນງານ"
+          remark: "ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ"
         }
       ];
 
@@ -958,7 +1237,7 @@
         }
 
         if (filtered.length === 0) {
-          listWrapper.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 13px; padding: 40px 0;">ບໍ່ມີລາຍການຕັ້ງເວລາການໂອນ</div>`;
+          listWrapper.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 14px; padding: 60px 0;">ບໍ່ມີລາຍການຕັ້ງເວລາການໂອນ</div>`;
           return;
         }
 
@@ -967,21 +1246,29 @@
           const cardDiv = document.createElement("div");
           cardDiv.className = `schedule-item-card ${isStopped ? 'stopped' : ''}`;
 
+          const day = item.date.split('/')[0];
+
           cardDiv.innerHTML = `
             <!-- Left badge -->
             <div class="schedule-date-badge">
-              <span class="badge-date-text number-font">${item.date}</span>
+              <span class="badge-date-text number-font">${day}</span>
               <span class="badge-status-tag">${isStopped ? 'ຢຸດດຳເນີນ' : 'ກຳລັງດຳເນີນ'}</span>
             </div>
 
             <!-- Middle details -->
             <div class="schedule-info-block">
               <span class="info-name">${item.name}</span>
-              <span class="info-account number-font">${item.account}</span>
+              <span class="info-account number-font">ຕົ້ນທາງ: ${item.srcAcc.toUpperCase()} ➡️ ປາຍທາງ: ${item.account}</span>
               <div class="info-desc-row">
                 <span class="info-desc-status">${isStopped ? 'ຢຸດດຳເນີນງານ' : 'ກຳລັງດຳເນີນ'}</span>
                 <span>ລາຍລະອຽດການດຳເນີນງານ</span>
               </div>
+            </div>
+
+            <!-- Right Amount display -->
+            <div class="schedule-amount-block">
+              <span class="amount-val number-font">${item.amount}</span>
+              <span class="currency-label">${item.currency}</span>
             </div>
 
             <!-- Action buttons -->
@@ -1001,11 +1288,11 @@
         if (item) {
           if (item.status === 'active') {
             item.status = 'stopped';
-            item.remark = 'ຢຸດດຳເນີນງານ  ລາຍລະອຽດການດຳເນີນງານ';
+            item.remark = 'ຢຸດດຳເນີນງານ ລາຍລະອຽດການດຳເນີນງານ';
             showToast("ຢຸດການໂອນເງິນຕັ້ງເວລາສຳເລັດ!");
           } else {
             item.status = 'active';
-            item.remark = 'ກຳລັງດຳເນີນ  ລາຍລະອຽດການດຳເນີນງານ';
+            item.remark = 'ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ';
             showToast("ເລີ່ມການໂອນເງິນຕັ້ງເວລາຄືນໃໝ່ສຳເລັດ!");
           }
           renderSchedulesList();
@@ -1048,12 +1335,28 @@
         document.getElementById("addModalOverlay").classList.remove("show");
       }
 
+      function closeAddScheduleModalViaOverlay(event) {
+        if (event.target === document.getElementById("addModalOverlay")) {
+          closeAddScheduleModal();
+        }
+      }
+
       function submitAddScheduleForm(event) {
         event.preventDefault();
         
+        const srcAccVal = document.getElementById("formSrcAcc").value;
         const destName = document.getElementById("formDestName").value;
         const destAcc = document.getElementById("formDestAcc").value;
         const dateVal = document.getElementById("formDate").value;
+        const formAmountVal = document.getElementById("formAmount").value;
+        const currencyVal = document.getElementById("formCurrency").value;
+        const descVal = document.getElementById("formDesc").value;
+
+        // Formatted amount (adds comma separators)
+        const formattedAmount = parseFloat(formAmountVal).toLocaleString('en-US', {
+          minimumFractionDigits: formAmountVal.includes('.') ? 2 : 0,
+          maximumFractionDigits: 2
+        });
 
         // Append new scheduled item to mock DB
         const newItem = {
@@ -1061,8 +1364,11 @@
           date: dateVal,
           name: destName,
           account: destAcc,
+          amount: formattedAmount,
+          currency: currencyVal,
+          srcAcc: srcAccVal,
           status: "active",
-          remark: "ກຳລັງດຳເນີນ  ລາຍລະອຽດການດຳເນີນງານ"
+          remark: descVal || "ໂອນເງິນຕັ້ງເວລາ"
         };
 
         schedulesDb.unshift(newItem); // add to top of list
