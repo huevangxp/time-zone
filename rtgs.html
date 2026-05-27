@@ -531,11 +531,11 @@
       }
 
       .transfer-submit-btn {
-        background-color: var(--primary-teal);
-        color: var(--text-light);
+        background-color: #ffffff;
+        color: var(--primary-teal);
+        border: 1.5px solid var(--primary-teal);
         font-weight: 700;
         font-size: 15px;
-        border: none;
         border-radius: 50px;
         padding: 14px 44px;
         display: flex;
@@ -543,13 +543,15 @@
         gap: 8px;
         cursor: pointer;
         transition: var(--transition-normal);
-        box-shadow: 0 4px 12px rgba(11, 132, 124, 0.25);
+        box-shadow: 0 4px 12px rgba(11, 132, 124, 0.12);
       }
 
       .transfer-submit-btn:hover {
-        background-color: var(--primary-teal-hover);
+        background-color: var(--primary-teal-light);
+        border-color: var(--primary-teal-hover);
+        color: var(--primary-teal-hover);
         transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(11, 132, 124, 0.45);
+        box-shadow: 0 6px 16px rgba(11, 132, 124, 0.25);
       }
 
       .transfer-submit-btn:active {
