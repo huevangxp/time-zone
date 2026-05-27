@@ -2745,11 +2745,11 @@
         const isSuccess =
           item.status === "complete" ||
           item.status === "ສຳເລັດ" ||
-          item.status === "COMPLETED";
+          item.status === "complate";
 
         if (isSuccess) {
           statusBlock.className = "detail-status-block success-bg";
-          statusText.textContent = "COMPLETED";
+          statusText.textContent = "complate";
         } else {
           statusBlock.className = "detail-status-block failed-bg";
           statusText.textContent = "FAILED";
