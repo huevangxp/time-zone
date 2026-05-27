@@ -271,12 +271,14 @@
         color: var(--text-dark);
         aspect-ratio: 1;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         border-radius: 14px;
         transition: var(--transition-fast);
         border: 1px solid transparent;
+        position: relative;
       }
 
       .calendar-day-cell:hover:not(.empty-cell):not(.active-day) {
@@ -297,6 +299,19 @@
         font-weight: 700;
         box-shadow: 0 8px 16px rgba(11, 132, 124, 0.25);
         border-color: var(--primary-teal);
+      }
+
+      /* Dot indicator for days with scheduled transfers */
+      .schedule-dot-marker {
+        position: absolute;
+        bottom: 5px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: var(--accent-yellow);
+      }
+      .calendar-day-cell.active-day .schedule-dot-marker {
+        background-color: white;
       }
 
       /* Calendar actions buttons row */
@@ -348,7 +363,7 @@
       .list-container {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 14px;
       }
 
       /* Tabs selection block */
@@ -380,6 +395,32 @@
         color: var(--primary-teal);
         box-shadow: var(--shadow-sm);
         border: 1px solid #e2e8f0;
+      }
+
+      /* Filter Status Header block */
+      .filter-status-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 6px;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--text-muted);
+        min-height: 24px;
+      }
+
+      .clear-filter-btn {
+        color: var(--primary-teal);
+        cursor: pointer;
+        font-size: 12.5px;
+        transition: var(--transition-fast);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .clear-filter-btn:hover {
+        color: var(--primary-teal-hover);
+        text-decoration: underline;
       }
 
       /* Schedule Item List Cards */
@@ -940,9 +981,9 @@
           <div>
             <div class="calendar-card">
               <div class="calendar-header">
-                <button class="calendar-arrow-btn" title="ເດືອນກ່ອນໜ້າ">&lt;</button>
+                <button class="calendar-arrow-btn" onclick="showToast('ເລືອກເດືອນກ່ອນໜ້າແລ້ວ (ຈຳລອງ)')" title="ເດືອນກ່ອນໜ້າ">&lt;</button>
                 <span class="calendar-title">ພະຈິກ 2025</span>
-                <button class="calendar-arrow-btn" title="ເດືອນຖັດໄປ">&gt;</button>
+                <button class="calendar-arrow-btn" onclick="showToast('ເລືອກເດືອນຖັດໄປແລ້ວ (ຈຳລອງ)')" title="ເດືອນຖັດໄປ">&gt;</button>
               </div>
               <div class="calendar-body">
                 <div class="calendar-weekdays">
@@ -989,6 +1030,11 @@
               <button class="tab-btn" id="tabAll" onclick="filterList('all')">ລາຍການທັງໝົດ</button>
             </div>
 
+            <!-- Filter Status Row -->
+            <div class="filter-status-row" id="filterStatusText">
+              <span>ສະແດງ: ກຳລັງດຳເນີນ (ທຸກວັນທີ)</span>
+            </div>
+
             <!-- Schedule Items -->
             <div class="schedule-cards-list" id="scheduleList">
               <!-- Rendered Dynamically by JS -->
@@ -996,9 +1042,9 @@
 
             <!-- Bottom pagination -->
             <div class="pagination-row">
-              <button class="page-btn" title="ກ່ອນໜ້າ">&lt;</button>
+              <button class="page-btn" onclick="showToast('ໜ້າກ່ອນໜ້ານີ້ (ຈຳລອງ)')" title="ກ່ອນໜ້າ">&lt;</button>
               <div class="page-indicator-box number-font">1</div>
-              <button class="page-btn" title="ຖັດໄປ">&gt;</button>
+              <button class="page-btn" onclick="showToast('ໜ້າຖັດໄປ (ຈຳລອງ)')" title="ຖັດໄປ">&gt;</button>
             </div>
           </div>
 
@@ -1129,44 +1175,78 @@
 
     <!-- JS Codes for Calendar, Lists and Toggle simulations -->
     <script>
-      // Mock Schedules database
+      // Mock Schedules database (more substantial and perfect list)
       let schedulesDb = [
         {
           id: 1,
           date: "05/11/2025",
           name: "ທ່ານ ຊີວ່າງ ຊູ້ມີ",
-          account: "010XXXXXXXX625",
+          account: "010299002991625",
           amount: "150,000",
           currency: "LAK",
           srcAcc: "bcel",
-          status: "active", // active or stopped
-          remark: "ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ"
+          status: "active",
+          remark: "ໂອນຄ່າຫ້ອງແຖວປະຈຳເດືອນ"
         },
         {
           id: 2,
           date: "05/11/2025",
-          name: "ທ່ານ ຊີວ່າງ ຊູ້ມີ",
-          account: "010XXXXXXXX625",
+          name: "ທ່ານ ສົມໃຈ ດີເລີດ",
+          account: "020455004550421",
           amount: "300,000",
           currency: "LAK",
           srcAcc: "bcel",
           status: "active",
-          remark: "ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ"
+          remark: "ໂອນຄ່າສິນຄ້າອຸປະໂພກ"
         },
         {
           id: 3,
-          date: "05/11/2025",
-          name: "ທ່ານ ຊີວ່າງ ຊູ້ມີ",
-          account: "010XXXXXXXX625",
-          amount: "10.00",
-          currency: "THB",
-          srcAcc: "ldb",
+          date: "12/11/2025",
+          name: "Mr. John Smith",
+          account: "030881008810988",
+          amount: "120.00",
+          currency: "USD",
+          srcAcc: "apb",
           status: "active",
-          remark: "ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ"
+          remark: "ໂອນຄ່າບໍລິການລາຍເດືອນ"
+        },
+        {
+          id: 4,
+          date: "18/11/2025",
+          name: "ທ່ານ ພອນສະຫວັນ ແສງຈັນ",
+          account: "010334882199041",
+          amount: "500,000",
+          currency: "LAK",
+          srcAcc: "bcel",
+          status: "stopped",
+          remark: "ໂອນເງິນເດືອນໃຫ້ພໍ່ແມ່"
+        },
+        {
+          id: 5,
+          date: "25/11/2025",
+          name: "ທ່ານ ນາງ ມາລີ ວົງດາລາ",
+          account: "010992388112093",
+          amount: "1,200,000",
+          currency: "LAK",
+          srcAcc: "bcel",
+          status: "stopped",
+          remark: "ໂອນຄ່າເຊົ່າຮ້ານຄ້າ"
+        },
+        {
+          id: 6,
+          date: "30/11/2025",
+          name: "ທ່ານ ສົມຈິດ ໄຊຍະວົງ",
+          account: "010443229987654",
+          amount: "85,000",
+          currency: "LAK",
+          srcAcc: "bcel",
+          status: "active",
+          remark: "ໂອນຄ່າອິນເຕີເນັດລາຍເດືອນ"
         }
       ];
 
-      let selectedDay = 5; // Default highlighted day (05)
+      let selectedDay = null; // No default highlighted day on load to show all list items
+      let selectedDate = null; // No date filter on load
       let activeFilter = 'active'; // default active tab filter
 
       // Load November 2025 Calendar
@@ -1191,7 +1271,20 @@
           if (i === selectedDay) {
             div.classList.add("active-day");
           }
-          div.textContent = String(i).padStart(2, '0');
+          
+          const textSpan = document.createElement("span");
+          textSpan.textContent = String(i).padStart(2, '0');
+          div.appendChild(textSpan);
+
+          // Check if there is any scheduled item on this date and draw a dot
+          const formattedDate = `${String(i).padStart(2, '0')}/11/2025`;
+          const hasSchedule = schedulesDb.some(item => item.date === formattedDate);
+          if (hasSchedule) {
+            const dot = document.createElement("span");
+            dot.className = "schedule-dot-marker";
+            div.appendChild(dot);
+          }
+
           div.onclick = () => selectDay(i);
           calContainer.appendChild(div);
         }
@@ -1208,23 +1301,42 @@
 
       function selectDay(dayNum) {
         selectedDay = dayNum;
+        selectedDate = `${String(dayNum).padStart(2, '0')}/11/2025`;
         renderCalendar();
-        showToast(`ເລືອກວັນທີ ${String(dayNum).padStart(2, '0')}/11/2025 ສຳເລັດ!`);
+        renderSchedulesList();
+        showToast(`ສະແດງລາຍການວັນທີ ${selectedDate}`);
         
         // Auto-update form input date for convenience
-        document.getElementById("formDate").value = `${String(dayNum).padStart(2, '0')}/11/2025`;
+        document.getElementById("formDate").value = selectedDate;
       }
 
       function resetCalendarSelection() {
-        selectedDay = 5;
+        selectedDay = null;
+        selectedDate = null;
         renderCalendar();
-        showToast("ຄືນຄ່າການເລືອກວັນທີແລ້ວ!");
+        renderSchedulesList();
+        showToast("ສະແດງລາຍການທັງໝົດທຸກວັນທີ!");
       }
 
       // Render Scheduled List Items
       function renderSchedulesList() {
         const listWrapper = document.getElementById("scheduleList");
         listWrapper.innerHTML = "";
+
+        const statusTextContainer = document.getElementById("filterStatusText");
+        let statusText = "";
+        if (activeFilter === 'active') statusText = "ກຳລັງດຳເນີນ";
+        else if (activeFilter === 'stopped') statusText = "ຢຸດດຳເນີນ";
+        else statusText = "ລາຍການທັງໝົດ";
+
+        if (selectedDate) {
+          statusTextContainer.innerHTML = `
+            <span>ສະແດງ: ${statusText} (ວັນທີ ${selectedDate})</span>
+            <span class="clear-filter-btn" onclick="resetCalendarSelection()">✖ ລຶບການກັ່ນຕອງວັນທີ</span>
+          `;
+        } else {
+          statusTextContainer.innerHTML = `<span>ສະແດງ: ${statusText} (ທຸກວັນທີ)</span>`;
+        }
 
         // Filter database
         let filtered = [];
@@ -1234,6 +1346,11 @@
           filtered = schedulesDb.filter(item => item.status === 'stopped');
         } else {
           filtered = schedulesDb; // all
+        }
+
+        // Apply date filter
+        if (selectedDate) {
+          filtered = filtered.filter(item => item.date === selectedDate);
         }
 
         if (filtered.length === 0) {
@@ -1261,7 +1378,7 @@
               <span class="info-account number-font">ຕົ້ນທາງ: ${item.srcAcc.toUpperCase()} ➡️ ປາຍທາງ: ${item.account}</span>
               <div class="info-desc-row">
                 <span class="info-desc-status">${isStopped ? 'ຢຸດດຳເນີນງານ' : 'ກຳລັງດຳເນີນ'}</span>
-                <span>ລາຍລະອຽດການດຳເນີນງານ</span>
+                <span>${item.remark}</span>
               </div>
             </div>
 
@@ -1288,13 +1405,12 @@
         if (item) {
           if (item.status === 'active') {
             item.status = 'stopped';
-            item.remark = 'ຢຸດດຳເນີນງານ ລາຍລະອຽດການດຳເນີນງານ';
             showToast("ຢຸດການໂອນເງິນຕັ້ງເວລາສຳເລັດ!");
           } else {
             item.status = 'active';
-            item.remark = 'ກຳລັງດຳເນີນ ລາຍລະອຽດການດຳເນີນງານ';
             showToast("ເລີ່ມການໂອນເງິນຕັ້ງເວລາຄືນໃໝ່ສຳເລັດ!");
           }
+          renderCalendar(); // re-render dot markers which might update
           renderSchedulesList();
         }
       }
@@ -1328,6 +1444,11 @@
 
       // Modal Add Schedule Controls
       function openAddScheduleModal() {
+        if (!selectedDate) {
+          document.getElementById("formDate").value = "05/11/2025";
+        } else {
+          document.getElementById("formDate").value = selectedDate;
+        }
         document.getElementById("addModalOverlay").classList.add("show");
       }
 
@@ -1373,7 +1494,13 @@
 
         schedulesDb.unshift(newItem); // add to top of list
         closeAddScheduleModal();
+        
+        // Reset date filter to show the new item at the top of the general active list
+        selectedDay = null;
+        selectedDate = null;
+        
         filterList('active'); // switch to active list to show added item
+        renderCalendar(); // redraw dot markers on calendar
         showToast("ເພີ່ມການໂອນເງິນຕັ້ງເວລາໃໝ່ສຳເລັດ!");
       }
 
