@@ -326,6 +326,14 @@
         gap: 16px;
       }
 
+      .panel-footer {
+        background-color: #f7fafc;
+        border-top: 1px solid var(--border-color);
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+
       /* Form Fields */
       .form-group {
         display: flex;
@@ -1028,16 +1036,16 @@
               
             </div>
           </div>
-        </div>
-
-        <!-- Center Bottom Submit button -->
-        <div class="submit-container">
-          <button type="button" class="transfer-submit-btn" onclick="executeTransfer()">
-            <svg viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-            </svg>
-            <span>ໂອນເງິນ</span>
-          </button>
+          
+          <!-- Card Footer Submit button -->
+          <div class="panel-footer">
+            <button type="button" class="transfer-submit-btn" onclick="executeTransfer()">
+              <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+              </svg>
+              <span>ໂອນເງິນ</span>
+            </button>
+          </div>
         </div>
       </form>
     </main>
