@@ -138,7 +138,6 @@
         flex-direction: column;
         align-items: center;
         position: relative;
-        padding-top: 4px;
       }
 
       .sender-avatar {
@@ -151,6 +150,7 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 10px rgba(0, 191, 165, 0.15);
+        flex-shrink: 0;
       }
 
       .sender-avatar svg {
@@ -165,7 +165,7 @@
         flex-direction: column;
         align-items: center;
         position: relative;
-        height: 52px;
+        min-height: 40px;
       }
 
       .timeline-line {
@@ -203,6 +203,9 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        flex-shrink: 0;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 4px 10px rgba(30, 58, 138, 0.15);
       }
 
       .bcel-logo-mini-svg {
@@ -214,12 +217,24 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        padding: 2px 0;
+        justify-content: flex-start;
+      }
+
+      .timeline-sender-details,
+      .timeline-receiver-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 44px;
       }
 
       .timeline-sender-details {
         margin-bottom: 16px;
+        padding-top: 2px;
+      }
+
+      .timeline-receiver-details {
+        padding-top: 2px;
       }
 
       .timeline-label {
