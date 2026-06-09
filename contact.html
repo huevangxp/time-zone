@@ -1,9 +1,631 @@
 <!doctype html>
-<html lang="en">
+<html lang="lo">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us - Lao Financial Group</title>
+    <title>ຕິດຕໍ່ພວກເຮົາ - APB Digital Banking</title>
+
+    <!-- Google Fonts for Lao (Noto Sans Lao) & English/Numbers (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config to match the project design tokens -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primaryTeal: {
+                light: "#eaf4f3",
+                DEFAULT: "#0b847c",
+                hover: "#086b64",
+              },
+              accentYellow: {
+                DEFAULT: "#f19e38",
+                hover: "#d98826",
+              },
+              accentRed: {
+                DEFAULT: "#e53e3e",
+                light: "#fef2f2",
+              },
+              accentGreen: {
+                DEFAULT: "#10b981",
+                light: "#ecfdf5",
+              },
+            },
+            fontFamily: {
+              sans: ['"Noto Sans Lao"', "Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Smooth transitions and custom page layout elements */
+      body {
+        background:
+          radial-gradient(
+            circle at 0% 0%,
+            rgba(11, 132, 124, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(241, 158, 56, 0.06) 0%,
+            transparent 50%
+          ),
+          #f8fafc;
+      }
+
+      /* Webkit scrollbars */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(11, 132, 124, 0.2);
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(11, 132, 124, 0.4);
+      }
+    </style>
   </head>
-  <body></body>
+  <body
+    class="font-sans min-h-screen text-slate-800 flex flex-col justify-center items-center py-12 px-4"
+  >
+    <!-- Main Card Container -->
+    <main class="w-full max-w-xl">
+      <div
+        class="relative bg-white/90 backdrop-blur-md rounded-[32px] shadow-[0_24px_60px_-15px_rgba(11,132,124,0.12)] border border-slate-200/40 p-8 md:p-10 flex flex-col mt-12"
+      >
+        <!-- Header Section (Logo + Title in a Row) -->
+        <div class="flex flex-row items-center gap-5 md:gap-6 mb-8">
+          <!-- Logo Holder -->
+          <div
+            class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl flex items-center justify-center p-2.5 md:p-3 shadow-[0_12px_36px_rgba(11,132,124,0.15)] border border-slate-100/60 transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+          >
+            <!-- APB SVG Logo -->
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <!-- Golden Crescent Border -->
+              <path
+                d="M 50 18 A 32 32 0 1 0 82 50 A 26 26 0 1 1 50 24 Z"
+                fill="#fcd34d"
+              />
+              <!-- Green Plant/Leaf Structure -->
+              <path
+                d="M 50 68 L 50 44"
+                stroke="#0b847c"
+                stroke-width="3.5"
+                stroke-linecap="round"
+              />
+              <path d="M 50 56 Q 38 48 38 38 Q 48 38 50 52 Z" fill="#0b847c" />
+              <path d="M 50 52 Q 62 44 62 34 Q 52 34 50 48 Z" fill="#0b847c" />
+              <path d="M 50 62 Q 36 56 32 46 Q 44 48 50 58 Z" fill="#0b847c" />
+              <path d="M 50 58 Q 64 52 68 42 Q 56 44 50 54 Z" fill="#0b847c" />
+              <!-- Water Waves -->
+              <path
+                d="M 32 72 Q 41 68 50 72 T 68 72"
+                fill="none"
+                stroke="#086b64"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M 36 78 Q 43 75 50 78 T 64 78"
+                fill="none"
+                stroke="#086b64"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <!-- Description Title Header -->
+          <div class="flex flex-col items-start text-left gap-2 md:gap-3">
+            <h2
+              id="form-title"
+              class="text-[#074742] text-[15.5px] md:text-[16.5px] font-semibold leading-relaxed"
+            >
+              ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ.<br />ກະລຸນາຕື່ມຂໍ້ມູນໃສ່ຟອມລຸ່ມນີ້
+              ແລ້ວຄລິກປຸ່ມສົ່ງ.
+            </h2>
+            <!-- Modern decorative accent bar -->
+            <div
+              class="w-12 h-1.5 bg-primaryTeal rounded-full opacity-80"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Form fields layout -->
+        <form
+          id="contactForm"
+          onsubmit="handleFormSubmit(event)"
+          class="flex flex-col gap-6"
+        >
+          <!-- Name Input -->
+          <div class="flex flex-col gap-2">
+            <label
+              id="lbl-name"
+              class="text-slate-700 text-[14px] font-bold flex items-center"
+            >
+              ຊື່<span class="text-accentRed ml-0.5">*</span>
+            </label>
+            <div class="relative">
+              <!-- Left User Icon -->
+              <div
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              >
+                <svg
+                  class="w-5 h-5 stroke-current fill-none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="input-name"
+                required
+                class="w-full bg-slate-50/70 border border-slate-200/80 focus:border-primaryTeal focus:ring-4 focus:ring-primaryTeal/10 focus:bg-white transition duration-300 outline-none rounded-2xl pl-12 pr-4 py-3.5 text-[14.5px] font-medium placeholder-slate-400"
+                placeholder="ປ້ອນຊື່ຂອງທ່ານ"
+              />
+            </div>
+          </div>
+
+          <!-- Phone Input -->
+          <div class="flex flex-col gap-2">
+            <label
+              id="lbl-phone"
+              class="text-slate-700 text-[14px] font-bold flex items-center"
+            >
+              ເບີໂທລະສັບ<span class="text-accentRed ml-0.5">*</span>
+            </label>
+            <div class="relative">
+              <!-- Left Phone Icon -->
+              <div
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              >
+                <svg
+                  class="w-5 h-5 stroke-current fill-none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="tel"
+                id="input-phone"
+                required
+                class="w-full bg-slate-50/70 border border-slate-200/80 focus:border-primaryTeal focus:ring-4 focus:ring-primaryTeal/10 focus:bg-white transition duration-300 outline-none rounded-2xl pl-12 pr-4 py-3.5 text-[14.5px] font-medium placeholder-slate-400"
+                placeholder="ປ້ອນເບີໂທລະສັບຂອງທ່ານ"
+              />
+            </div>
+          </div>
+
+          <!-- Language Selection Segmented Control -->
+          <div class="flex flex-col gap-2">
+            <div
+              class="bg-slate-100/80 border border-slate-200/40 rounded-2xl p-1 flex w-full relative"
+            >
+              <!-- Sliding Indicator Background -->
+              <div
+                id="lang-indicator"
+                class="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-white rounded-xl shadow-md border border-slate-200/20 transition-transform duration-300 ease-out z-0"
+              ></div>
+
+              <!-- Lao Button Option -->
+              <button
+                type="button"
+                id="btn-lang-la"
+                onclick="setLanguage('la')"
+                class="flex-1 text-center py-2.5 rounded-xl text-[13px] font-bold transition-all duration-300 relative z-10 flex items-center justify-center gap-1.5 text-primaryTeal"
+              >
+                <span class="text-base select-none">🇱🇦</span> ລາວ (LA)
+              </button>
+
+              <!-- English Button Option -->
+              <button
+                type="button"
+                id="btn-lang-en"
+                onclick="setLanguage('en')"
+                class="flex-1 text-center py-2.5 rounded-xl text-[13px] font-bold transition-all duration-300 relative z-10 flex items-center justify-center gap-1.5 text-slate-500 hover:text-slate-800"
+              >
+                <span class="text-base select-none">🇺🇸</span> English (EN)
+              </button>
+            </div>
+          </div>
+
+          <!-- Question Type Dropdown -->
+          <div class="flex flex-col gap-2">
+            <label
+              id="lbl-type"
+              class="text-slate-700 text-[14px] font-bold flex items-center"
+            >
+              ຈຸດປະສົງໃນການພົວພັນ<span class="text-accentRed ml-0.5">*</span>
+            </label>
+            <div class="relative">
+              <!-- Left Category Icon -->
+              <div
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              >
+                <svg
+                  class="w-5 h-5 stroke-current fill-none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                  />
+                </svg>
+              </div>
+              <select
+                id="select-type"
+                class="w-full bg-slate-50/70 border border-slate-200/80 focus:border-primaryTeal focus:ring-4 focus:ring-primaryTeal/10 focus:bg-white transition duration-300 outline-none rounded-2xl pl-12 pr-10 py-3.5 text-[14.5px] font-medium appearance-none cursor-pointer text-slate-700"
+              >
+                <option value="promotion">ສອບຖາມ ໂປຣໂມຊັນ</option>
+                <option value="issues">ແຈ້ງບັນຫາການນຳໃຊ້</option>
+                <option value="services">ສອບຖາມຂໍ້ມູນບໍລິການ</option>
+                <option value="other">ອື່ນໆ</option>
+              </select>
+              <!-- Customized Select Arrow Icon -->
+              <div
+                class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400"
+              >
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question Details Textarea -->
+          <div class="flex flex-col gap-2">
+            <label
+              id="lbl-details"
+              class="text-slate-700 text-[14px] font-bold flex items-center"
+            >
+              ເນື້ອໃນລະອຽດການພົວພັນ<span class="text-accentRed ml-0.5">*</span>
+            </label>
+            <div class="relative">
+              <!-- Left Chat/Document Icon -->
+              <div class="absolute left-4 top-4 text-slate-400">
+                <svg
+                  class="w-5 h-5 stroke-current fill-none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                  />
+                </svg>
+              </div>
+              <textarea
+                id="input-details"
+                required
+                rows="4"
+                class="w-full bg-slate-50/70 border border-slate-200/80 focus:border-primaryTeal focus:ring-4 focus:ring-primaryTeal/10 focus:bg-white transition duration-300 outline-none rounded-2xl pl-12 pr-4 py-3.5 text-[14.5px] font-medium resize-none placeholder-slate-400"
+                placeholder="ປ້ອນເນື້ອໃນລະອຽດການພົວພັນ..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Send Button Full Width -->
+          <div class="mt-4">
+            <button
+              type="submit"
+              id="btn-send"
+              class="group w-full bg-gradient-to-r from-emerald-500 to-[#0b847c] hover:from-emerald-600 hover:to-[#086b64] text-white font-extrabold text-[15.5px] py-3.5 rounded-2xl transition-all duration-300 ease-out shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus:outline-none flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <span id="btn-send-text">ສົ່ງ</span>
+              <!-- Paper Plane/Send SVG Icon with group-hover micro-animation -->
+              <svg
+                id="btn-icon"
+                class="w-5 h-5 fill-current transform transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+                />
+              </svg>
+              <!-- Loading Spinner SVG -->
+              <svg
+                id="btn-spinner"
+                class="hidden animate-spin h-5 w-5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- LOADING SUBMIT COVER OVERLAY (Glassmorphic) -->
+    <div
+      id="loadingOverlay"
+      class="fixed inset-0 bg-white/40 backdrop-blur-md z-[100] flex flex-col items-center justify-center gap-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div class="relative w-16 h-16">
+        <div
+          class="absolute inset-0 border-4 border-slate-200/60 rounded-full"
+        ></div>
+        <div
+          class="absolute inset-0 border-4 border-t-primaryTeal rounded-full animate-spin"
+        ></div>
+      </div>
+      <p
+        id="loadingText"
+        class="font-bold text-primaryTeal text-base tracking-wide animate-pulse"
+      >
+        ກຳລັງປະມວນຜົນ...
+      </p>
+    </div>
+
+    <!-- SUCCESS MODAL POPUP (Elastic Scale Transition) -->
+    <div
+      id="successOverlay"
+      class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[101] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div
+        class="bg-white rounded-[32px] p-8 max-w-sm w-full shadow-2xl flex flex-col items-center text-center transform scale-95 transition-transform duration-300"
+        id="successModal"
+      >
+        <div
+          class="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mb-5 border border-emerald-100/50 shadow-inner"
+        >
+          <svg class="w-8 h-8 fill-current" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <h3
+          id="modal-success-title"
+          class="text-xl font-extrabold text-slate-900 mb-2"
+        >
+          ສົ່ງຂໍ້ມູນສຳເລັດ!
+        </h3>
+        <p
+          id="modal-success-desc"
+          class="text-[14px] text-slate-500 leading-relaxed mb-6 font-medium"
+        >
+          ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ. ພວກເຮົາຈະຕິດຕໍ່ຫາທ່ານໃນໄວໆນີ້.
+        </p>
+        <button
+          onclick="closeSuccessModal()"
+          class="w-full bg-primaryTeal hover:bg-primaryTeal-hover text-white py-3.5 px-6 rounded-2xl font-extrabold text-[14.5px] transition duration-200 shadow-md shadow-primaryTeal/10 hover:shadow-lg hover:shadow-primaryTeal/20 cursor-pointer active:scale-[0.98]"
+        >
+          <span id="modal-success-btn-text">ຕົກລົງ</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Language Translation Script & Form Submission Simulation -->
+    <script>
+      // Bilingual mappings object for form elements
+      const langData = {
+        la: {
+          title:
+            "ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ.<br />ກະລຸນາຕື່ມຂໍ້ມູນໃສ່ຟອມລຸ່ມນີ້ ແລ້ວຄລິກປຸ່ມສົ່ງ.",
+          labelName: "ຊື່",
+          placeholderName: "ປ້ອນຊື່ຂອງທ່ານ",
+          labelPhone: "ເບີໂທລະສັບ",
+          placeholderPhone: "ປ້ອນເບີໂທລະສັບຂອງທ່ານ",
+          labelType: "ຈຸດປະສົງໃນການພົວພັນ",
+          labelDetails: "ເນື້ອໃນລະອຽດການພົວພັນ",
+          placeholderDetails: "ປ້ອນເນື້ອໃນລະອຽດການພົວພັນ...",
+          btnSend: "ສົ່ງ",
+          optPromotion: "ສອບຖາມ ໂປຣໂມຊັນ",
+          optIssue: "ແຈ້ງບັນຫາການນຳໃຊ້",
+          optService: "ສອບຖາມຂໍ້ມູນບໍລິການ",
+          optOther: "ອື່ນໆ",
+          loadingText: "ກຳລັງປະມວນຜົນ...",
+          successTitle: "ສົ່ງຂໍ້ມູນສຳເລັດ!",
+          successDesc: "ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ. ພວກເຮົາຈະຕິດຕໍ່ຫາທ່ານໃນໄວໆນີ້.",
+          successBtn: "ຕົກລົງ",
+          labelLang: "ພາສາ",
+        },
+        en: {
+          title:
+            "Thank you for contacting us.<br />Please fill out the form below & click 'Send'.",
+          labelName: "Name",
+          placeholderName: "Enter your name",
+          labelPhone: "Phone Number",
+          placeholderPhone: "Enter your phone number",
+          labelType: "Purpose of Contact",
+          labelDetails: "Question Details",
+          placeholderDetails: "Enter question details here...",
+          btnSend: "Send",
+          optPromotion: "Inquire about promotion",
+          optIssue: "Report usage issues",
+          optService: "Inquire about services",
+          optOther: "Other",
+          loadingText: "Processing request...",
+          successTitle: "Sent Successfully!",
+          successDesc:
+            "Thank you for reaching out. We will get back to you shortly.",
+          successBtn: "Confirm",
+          labelLang: "Language",
+        },
+      };
+
+      // Toggles language state and animates segment control
+      function setLanguage(lang) {
+        const indicator = document.getElementById("lang-indicator");
+        const btnLa = document.getElementById("btn-lang-la");
+        const btnEn = document.getElementById("btn-lang-en");
+
+        if (lang === "la") {
+          indicator.style.transform = "translateX(0)";
+          btnLa.classList.add("text-primaryTeal");
+          btnLa.classList.remove("text-slate-500", "hover:text-slate-800");
+          btnEn.classList.remove("text-primaryTeal");
+          btnEn.classList.add("text-slate-500", "hover:text-slate-800");
+        } else {
+          indicator.style.transform = "translateX(calc(100% + 4px))";
+          btnEn.classList.add("text-primaryTeal");
+          btnEn.classList.remove("text-slate-500", "hover:text-slate-800");
+          btnLa.classList.remove("text-primaryTeal");
+          btnLa.classList.add("text-slate-500", "hover:text-slate-800");
+        }
+
+        const data = langData[lang];
+        document.getElementById("form-title").innerHTML = data.title;
+
+        // Update Name Form Text
+        document.getElementById("lbl-name").innerHTML =
+          `${data.labelName}<span class="text-accentRed ml-0.5">*</span>`;
+        document.getElementById("input-name").placeholder =
+          data.placeholderName;
+
+        // Update Phone Form Text
+        document.getElementById("lbl-phone").innerHTML =
+          `${data.labelPhone}<span class="text-accentRed ml-0.5">*</span>`;
+        document.getElementById("input-phone").placeholder =
+          data.placeholderPhone;
+
+        // Update Question Type Form Text
+        document.getElementById("lbl-type").innerHTML =
+          `${data.labelType}<span class="text-accentRed ml-0.5">*</span>`;
+
+        // Update Question Details Form Text
+        document.getElementById("lbl-details").innerHTML =
+          `${data.labelDetails}<span class="text-accentRed ml-0.5">*</span>`;
+        document.getElementById("input-details").placeholder =
+          data.placeholderDetails;
+
+        // Update Segment Label Title if it exists
+        const lblLang = document.getElementById("lbl-lang");
+        if (lblLang) lblLang.textContent = data.labelLang;
+
+        // Update Dropdown Choices text
+        const selectType = document.getElementById("select-type");
+        selectType.options[0].text = data.optPromotion;
+        selectType.options[1].text = data.optIssue;
+        selectType.options[2].text = data.optService;
+        selectType.options[3].text = data.optOther;
+
+        // Update Button send text
+        document.getElementById("btn-send-text").textContent = data.btnSend;
+
+        // Update Loader text
+        document.getElementById("loadingText").textContent = data.loadingText;
+
+        // Update Confirmation Modal Text
+        document.getElementById("modal-success-title").textContent =
+          data.successTitle;
+        document.getElementById("modal-success-desc").textContent =
+          data.successDesc;
+        document.getElementById("modal-success-btn-text").textContent =
+          data.successBtn;
+      }
+
+      // Simulated form submission action
+      function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const spinner = document.getElementById("btn-spinner");
+        const sendText = document.getElementById("btn-send-text");
+        const sendBtn = document.getElementById("btn-send");
+        const sendIcon = document.getElementById("btn-icon");
+
+        // Disable fields and button & show loading state
+        sendBtn.disabled = true;
+        spinner.classList.remove("hidden");
+        sendIcon.classList.add("hidden");
+        sendText.classList.add("opacity-50");
+
+        // Show global processing overlay
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.classList.remove("opacity-0", "pointer-events-none");
+        loadingOverlay.classList.add("opacity-100");
+
+        setTimeout(() => {
+          // Hide loading overlay
+          loadingOverlay.classList.remove("opacity-100");
+          loadingOverlay.classList.add("opacity-0", "pointer-events-none");
+
+          // Reset button states
+          sendBtn.disabled = false;
+          spinner.classList.add("hidden");
+          sendIcon.classList.remove("hidden");
+          sendText.classList.remove("opacity-50");
+
+          // Show success modal popup
+          const successOverlay = document.getElementById("successOverlay");
+          const successModal = document.getElementById("successModal");
+
+          successOverlay.classList.remove("opacity-0", "pointer-events-none");
+          successOverlay.classList.add("opacity-100");
+
+          // Slight animation zoom-in
+          successModal.classList.remove("scale-95");
+          successModal.classList.add("scale-100");
+
+          // Reset the form
+          document.getElementById("contactForm").reset();
+        }, 1200);
+      }
+
+      // Closes success modal popup
+      function closeSuccessModal() {
+        const successOverlay = document.getElementById("successOverlay");
+        const successModal = document.getElementById("successModal");
+
+        successOverlay.classList.remove("opacity-100");
+        successOverlay.classList.add("opacity-0", "pointer-events-none");
+
+        successModal.classList.remove("scale-100");
+        successModal.classList.add("scale-95");
+      }
+
+      // Default language on initial load is Lao
+      window.onload = () => {
+        setLanguage("la");
+      };
+    </script>
+  </body>
 </html>
