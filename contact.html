@@ -79,6 +79,25 @@
       ::-webkit-scrollbar-thumb:hover {
         background: rgba(11, 132, 124, 0.4);
       }
+
+      /* Header entrance animation */
+      @keyframes headerFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Rotating conic gradient border for logo */
+      @keyframes logoSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
     </style>
   </head>
   <body
@@ -89,62 +108,77 @@
       <div
         class="relative bg-white/90 backdrop-blur-md rounded-[32px] shadow-[0_24px_60px_-15px_rgba(11,132,124,0.12)] border border-slate-200/40 p-8 md:p-10 flex flex-col mt-12"
       >
-        <!-- Header Section (Logo + Title in a Row) -->
-        <div class="flex flex-row items-center gap-5 md:gap-6 mb-8">
-          <!-- Logo Holder -->
+        <!-- Header Section (Centered Premium Layout) -->
+        <div
+          class="flex flex-col items-center text-center gap-4 mb-10"
+          style="animation: headerFadeIn 0.6s ease-out both"
+        >
+          <!-- Logo -->
           <div
-            class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl flex items-center justify-center p-2.5 md:p-3 shadow-[0_12px_36px_rgba(11,132,124,0.15)] border border-slate-100/60 transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+            class="w-[88px] h-[88px] md:w-[104px] md:h-[104px] bg-white rounded-[22px] flex items-center justify-center p-3 md:p-3.5 shadow-[0_16px_48px_rgba(11,132,124,0.18)] border border-slate-100/60 transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+            style="animation: headerFadeIn 0.5s ease-out both"
           >
-            <!-- APB SVG Logo -->
-            <svg viewBox="0 0 100 100" class="w-full h-full">
-              <!-- Golden Crescent Border -->
-              <path
-                d="M 50 18 A 32 32 0 1 0 82 50 A 26 26 0 1 1 50 24 Z"
-                fill="#fcd34d"
-              />
-              <!-- Green Plant/Leaf Structure -->
-              <path
-                d="M 50 68 L 50 44"
-                stroke="#0b847c"
-                stroke-width="3.5"
-                stroke-linecap="round"
-              />
-              <path d="M 50 56 Q 38 48 38 38 Q 48 38 50 52 Z" fill="#0b847c" />
-              <path d="M 50 52 Q 62 44 62 34 Q 52 34 50 48 Z" fill="#0b847c" />
-              <path d="M 50 62 Q 36 56 32 46 Q 44 48 50 58 Z" fill="#0b847c" />
-              <path d="M 50 58 Q 64 52 68 42 Q 56 44 50 54 Z" fill="#0b847c" />
-              <!-- Water Waves -->
-              <path
-                d="M 32 72 Q 41 68 50 72 T 68 72"
-                fill="none"
-                stroke="#086b64"
-                stroke-width="2.5"
-                stroke-linecap="round"
-              />
-              <path
-                d="M 36 78 Q 43 75 50 78 T 64 78"
-                fill="none"
-                stroke="#086b64"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
+            <img
+              src="appIcon.png"
+              alt="APB Logo"
+              class="w-full h-full object-contain"
+            />
           </div>
 
-          <!-- Description Title Header -->
-          <div class="flex flex-col items-start text-left gap-2 md:gap-3">
-            <h2
-              id="form-title"
-              class="text-[#074742] text-[15.5px] md:text-[16.5px] font-semibold leading-relaxed"
+          <!-- Bank Name & Subtitle -->
+          <div
+            class="flex flex-col items-center gap-2 mt-1"
+            style="animation: headerFadeIn 0.7s ease-out 0.1s both"
+          >
+            <h1
+              class="text-[17px] md:text-[19px] font-extrabold tracking-tight leading-snug"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  #074742 0%,
+                  #0b847c 50%,
+                  #10b981 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+              "
             >
-              ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ.<br />ກະລຸນາຕື່ມຂໍ້ມູນໃສ່ຟອມລຸ່ມນີ້
-              ແລ້ວຄລິກປຸ່ມສົ່ງ.
-            </h2>
-            <!-- Modern decorative accent bar -->
+              ທະນາຄານສົ່ງເສິມກະສິກຳ ຈຳກັດ
+            </h1>
+            <p
+              class="text-[12.5px] md:text-[13.5px] font-semibold text-slate-400 tracking-[0.08em] uppercase"
+            >
+              Agriculture Promotion Bank
+            </p>
+          </div>
+
+          <!-- Decorative shimmer divider -->
+          <div
+            class="flex items-center gap-2 mt-1"
+            style="animation: headerFadeIn 0.8s ease-out 0.2s both"
+          >
             <div
-              class="w-12 h-1.5 bg-primaryTeal rounded-full opacity-80"
+              class="w-8 h-[2px] rounded-full bg-gradient-to-r from-transparent to-primaryTeal/50"
+            ></div>
+            <div
+              class="w-3 h-3 rounded-full border-2 border-primaryTeal/30 flex items-center justify-center"
+            >
+              <div class="w-1 h-1 rounded-full bg-primaryTeal/60"></div>
+            </div>
+            <div
+              class="w-8 h-[2px] rounded-full bg-gradient-to-l from-transparent to-primaryTeal/50"
             ></div>
           </div>
+
+          <!-- Form instruction text -->
+          <p
+            id="form-title"
+            class="text-[13.5px] md:text-[14.5px] text-slate-500 font-medium leading-relaxed max-w-xs"
+            style="animation: headerFadeIn 0.9s ease-out 0.3s both"
+          >
+            ກະລຸນາຕື່ມຂໍ້ມູນໃສ່ຟອມລຸ່ມນີ້ ແລ້ວຄລິກປຸ່ມສົ່ງ
+          </p>
         </div>
 
         <!-- Form fields layout -->
@@ -241,7 +275,7 @@
                 onclick="setLanguage('la')"
                 class="flex-1 text-center py-2.5 rounded-xl text-[13px] font-bold transition-all duration-300 relative z-10 flex items-center justify-center gap-1.5 text-primaryTeal"
               >
-                <span class="text-base select-none">🇱🇦</span> ລາວ (LA)
+                <span class="text-base select-none">🇱🇦</span> ລາວ
               </button>
 
               <!-- English Button Option -->
@@ -251,7 +285,7 @@
                 onclick="setLanguage('en')"
                 class="flex-1 text-center py-2.5 rounded-xl text-[13px] font-bold transition-all duration-300 relative z-10 flex items-center justify-center gap-1.5 text-slate-500 hover:text-slate-800"
               >
-                <span class="text-base select-none">🇺🇸</span> English (EN)
+                <span class="text-base select-none">🇺🇸</span> English
               </button>
             </div>
           </div>
@@ -448,8 +482,7 @@
       // Bilingual mappings object for form elements
       const langData = {
         la: {
-          title:
-            "ຂອບໃຈທີ່ຕິດຕໍ່ພວກເຮົາ.<br />ກະລຸນາຕື່ມຂໍ້ມູນໃສ່ຟອມລຸ່ມນີ້ ແລ້ວຄລິກປຸ່ມສົ່ງ.",
+          title: "ກະລຸນາຕື່ມຂໍ້ມູນໃສ່ຟອມລຸ່ມນີ້ ແລ້ວຄລິກປຸ່ມສົ່ງ",
           labelName: "ຊື່",
           placeholderName: "ປ້ອນຊື່ຂອງທ່ານ",
           labelPhone: "ເບີໂທລະສັບ",
@@ -469,8 +502,7 @@
           labelLang: "ພາສາ",
         },
         en: {
-          title:
-            "Thank you for contacting us.<br />Please fill out the form below & click 'Send'.",
+          title: "Please fill out the form below and click Send",
           labelName: "Name",
           placeholderName: "Enter your name",
           labelPhone: "Phone Number",
@@ -513,7 +545,7 @@
         }
 
         const data = langData[lang];
-        document.getElementById("form-title").innerHTML = data.title;
+        document.getElementById("form-title").textContent = data.title;
 
         // Update Name Form Text
         document.getElementById("lbl-name").innerHTML =
